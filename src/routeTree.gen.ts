@@ -16,6 +16,7 @@ import { Route as HelocRouteImport } from './routes/heloc'
 import { Route as FixedSecondMortgageRouteImport } from './routes/fixed-second-mortgage'
 import { Route as FhaLoansRouteImport } from './routes/fha-loans'
 import { Route as DscrLoansRouteImport } from './routes/dscr-loans'
+import { Route as ConventionalLoansRouteImport } from './routes/conventional-loans'
 import { Route as CommercialLoansRouteImport } from './routes/commercial-loans'
 import { Route as BankStatementLoansRouteImport } from './routes/bank-statement-loans'
 import { Route as IndexRouteImport } from './routes/index'
@@ -55,6 +56,11 @@ const DscrLoansRoute = DscrLoansRouteImport.update({
   path: '/dscr-loans',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ConventionalLoansRoute = ConventionalLoansRouteImport.update({
+  id: '/conventional-loans',
+  path: '/conventional-loans',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const CommercialLoansRoute = CommercialLoansRouteImport.update({
   id: '/commercial-loans',
   path: '/commercial-loans',
@@ -75,6 +81,7 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/bank-statement-loans': typeof BankStatementLoansRoute
   '/commercial-loans': typeof CommercialLoansRoute
+  '/conventional-loans': typeof ConventionalLoansRoute
   '/dscr-loans': typeof DscrLoansRoute
   '/fha-loans': typeof FhaLoansRoute
   '/fixed-second-mortgage': typeof FixedSecondMortgageRoute
@@ -87,6 +94,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/bank-statement-loans': typeof BankStatementLoansRoute
   '/commercial-loans': typeof CommercialLoansRoute
+  '/conventional-loans': typeof ConventionalLoansRoute
   '/dscr-loans': typeof DscrLoansRoute
   '/fha-loans': typeof FhaLoansRoute
   '/fixed-second-mortgage': typeof FixedSecondMortgageRoute
@@ -100,6 +108,7 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/bank-statement-loans': typeof BankStatementLoansRoute
   '/commercial-loans': typeof CommercialLoansRoute
+  '/conventional-loans': typeof ConventionalLoansRoute
   '/dscr-loans': typeof DscrLoansRoute
   '/fha-loans': typeof FhaLoansRoute
   '/fixed-second-mortgage': typeof FixedSecondMortgageRoute
@@ -114,6 +123,7 @@ export interface FileRouteTypes {
     | '/'
     | '/bank-statement-loans'
     | '/commercial-loans'
+    | '/conventional-loans'
     | '/dscr-loans'
     | '/fha-loans'
     | '/fixed-second-mortgage'
@@ -126,6 +136,7 @@ export interface FileRouteTypes {
     | '/'
     | '/bank-statement-loans'
     | '/commercial-loans'
+    | '/conventional-loans'
     | '/dscr-loans'
     | '/fha-loans'
     | '/fixed-second-mortgage'
@@ -138,6 +149,7 @@ export interface FileRouteTypes {
     | '/'
     | '/bank-statement-loans'
     | '/commercial-loans'
+    | '/conventional-loans'
     | '/dscr-loans'
     | '/fha-loans'
     | '/fixed-second-mortgage'
@@ -151,6 +163,7 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   BankStatementLoansRoute: typeof BankStatementLoansRoute
   CommercialLoansRoute: typeof CommercialLoansRoute
+  ConventionalLoansRoute: typeof ConventionalLoansRoute
   DscrLoansRoute: typeof DscrLoansRoute
   FhaLoansRoute: typeof FhaLoansRoute
   FixedSecondMortgageRoute: typeof FixedSecondMortgageRoute
@@ -211,6 +224,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DscrLoansRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/conventional-loans': {
+      id: '/conventional-loans'
+      path: '/conventional-loans'
+      fullPath: '/conventional-loans'
+      preLoaderRoute: typeof ConventionalLoansRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/commercial-loans': {
       id: '/commercial-loans'
       path: '/commercial-loans'
@@ -239,6 +259,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   BankStatementLoansRoute: BankStatementLoansRoute,
   CommercialLoansRoute: CommercialLoansRoute,
+  ConventionalLoansRoute: ConventionalLoansRoute,
   DscrLoansRoute: DscrLoansRoute,
   FhaLoansRoute: FhaLoansRoute,
   FixedSecondMortgageRoute: FixedSecondMortgageRoute,
