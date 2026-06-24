@@ -22,6 +22,7 @@ import { Route as CommercialLoansRouteImport } from './routes/commercial-loans'
 import { Route as BankStatementLoansRouteImport } from './routes/bank-statement-loans'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as BlogIndexRouteImport } from './routes/blog.index'
+import { Route as BlogSlugRouteImport } from './routes/blog.$slug'
 
 const VaLoansRoute = VaLoansRouteImport.update({
   id: '/va-loans',
@@ -88,6 +89,11 @@ const BlogIndexRoute = BlogIndexRouteImport.update({
   path: '/blog/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const BlogSlugRoute = BlogSlugRouteImport.update({
+  id: '/blog/$slug',
+  path: '/blog/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -102,6 +108,7 @@ export interface FileRoutesByFullPath {
   '/pnl-loans': typeof PnlLoansRoute
   '/reverse-mortgages': typeof ReverseMortgagesRoute
   '/va-loans': typeof VaLoansRoute
+  '/blog/$slug': typeof BlogSlugRoute
   '/blog/': typeof BlogIndexRoute
 }
 export interface FileRoutesByTo {
@@ -117,6 +124,7 @@ export interface FileRoutesByTo {
   '/pnl-loans': typeof PnlLoansRoute
   '/reverse-mortgages': typeof ReverseMortgagesRoute
   '/va-loans': typeof VaLoansRoute
+  '/blog/$slug': typeof BlogSlugRoute
   '/blog': typeof BlogIndexRoute
 }
 export interface FileRoutesById {
@@ -133,6 +141,7 @@ export interface FileRoutesById {
   '/pnl-loans': typeof PnlLoansRoute
   '/reverse-mortgages': typeof ReverseMortgagesRoute
   '/va-loans': typeof VaLoansRoute
+  '/blog/$slug': typeof BlogSlugRoute
   '/blog/': typeof BlogIndexRoute
 }
 export interface FileRouteTypes {
@@ -150,6 +159,7 @@ export interface FileRouteTypes {
     | '/pnl-loans'
     | '/reverse-mortgages'
     | '/va-loans'
+    | '/blog/$slug'
     | '/blog/'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -165,6 +175,7 @@ export interface FileRouteTypes {
     | '/pnl-loans'
     | '/reverse-mortgages'
     | '/va-loans'
+    | '/blog/$slug'
     | '/blog'
   id:
     | '__root__'
@@ -180,6 +191,7 @@ export interface FileRouteTypes {
     | '/pnl-loans'
     | '/reverse-mortgages'
     | '/va-loans'
+    | '/blog/$slug'
     | '/blog/'
   fileRoutesById: FileRoutesById
 }
@@ -196,6 +208,7 @@ export interface RootRouteChildren {
   PnlLoansRoute: typeof PnlLoansRoute
   ReverseMortgagesRoute: typeof ReverseMortgagesRoute
   VaLoansRoute: typeof VaLoansRoute
+  BlogSlugRoute: typeof BlogSlugRoute
   BlogIndexRoute: typeof BlogIndexRoute
 }
 
@@ -292,6 +305,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof BlogIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/blog/$slug': {
+      id: '/blog/$slug'
+      path: '/blog/$slug'
+      fullPath: '/blog/$slug'
+      preLoaderRoute: typeof BlogSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -308,6 +328,7 @@ const rootRouteChildren: RootRouteChildren = {
   PnlLoansRoute: PnlLoansRoute,
   ReverseMortgagesRoute: ReverseMortgagesRoute,
   VaLoansRoute: VaLoansRoute,
+  BlogSlugRoute: BlogSlugRoute,
   BlogIndexRoute: BlogIndexRoute,
 }
 export const routeTree = rootRouteImport
