@@ -84,7 +84,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
           "CTC Equity gives borrowers access to 160+ lenders for HELOCs, fixed second mortgages, DSCR investment loans, and bank statement loans for self-employed borrowers.",
       },
       { name: "author", content: "Ahoo Khalessi, CTC Equity" },
-      { property: "og:title", content: "CTC Equity | Coast to Coast. Clear to Close." },
+      { property: "og:title", content: "CTC Equity | HELOC, Fixed Second, DSCR & Self-Employed Mortgage Specialists" },
       {
         property: "og:description",
         content:
@@ -92,7 +92,12 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
-      { name: "twitter:title", content: "CTC Equity | Coast to Coast. Clear to Close." },
+      { name: "twitter:title", content: "CTC Equity | HELOC, Fixed Second, DSCR & Self-Employed Mortgage Specialists" },
+      { name: "description", content: "Your Website Kit provides a pre-built website template for rapid deployment." },
+      { property: "og:description", content: "Your Website Kit provides a pre-built website template for rapid deployment." },
+      { name: "twitter:description", content: "Your Website Kit provides a pre-built website template for rapid deployment." },
+      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/f62c9564-cdb5-4282-84c2-d783a98b6c2e/id-preview-583e7ef2--336999dc-5578-42bf-90ec-51cf0c3da9a3.lovable.app-1782333312111.png" },
+      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/f62c9564-cdb5-4282-84c2-d783a98b6c2e/id-preview-583e7ef2--336999dc-5578-42bf-90ec-51cf0c3da9a3.lovable.app-1782333312111.png" },
     ],
     links: [
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
