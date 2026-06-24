@@ -10,6 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as VaLoansRouteImport } from './routes/va-loans'
+import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as ReverseMortgagesRouteImport } from './routes/reverse-mortgages'
 import { Route as PnlLoansRouteImport } from './routes/pnl-loans'
 import { Route as MortgageAnalyzerRouteImport } from './routes/mortgage-analyzer'
@@ -31,6 +32,11 @@ import { Route as BlogSlugRouteImport } from './routes/blog.$slug'
 const VaLoansRoute = VaLoansRouteImport.update({
   id: '/va-loans',
   path: '/va-loans',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
+  id: '/sitemap.xml',
+  path: '/sitemap.xml',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ReverseMortgagesRoute = ReverseMortgagesRouteImport.update({
@@ -132,6 +138,7 @@ export interface FileRoutesByFullPath {
   '/mortgage-analyzer': typeof MortgageAnalyzerRoute
   '/pnl-loans': typeof PnlLoansRoute
   '/reverse-mortgages': typeof ReverseMortgagesRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/va-loans': typeof VaLoansRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/tools/ai-setup-checklist': typeof ToolsAiSetupChecklistRoute
@@ -152,6 +159,7 @@ export interface FileRoutesByTo {
   '/mortgage-analyzer': typeof MortgageAnalyzerRoute
   '/pnl-loans': typeof PnlLoansRoute
   '/reverse-mortgages': typeof ReverseMortgagesRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/va-loans': typeof VaLoansRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/tools/ai-setup-checklist': typeof ToolsAiSetupChecklistRoute
@@ -173,6 +181,7 @@ export interface FileRoutesById {
   '/mortgage-analyzer': typeof MortgageAnalyzerRoute
   '/pnl-loans': typeof PnlLoansRoute
   '/reverse-mortgages': typeof ReverseMortgagesRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/va-loans': typeof VaLoansRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/tools/ai-setup-checklist': typeof ToolsAiSetupChecklistRoute
@@ -195,6 +204,7 @@ export interface FileRouteTypes {
     | '/mortgage-analyzer'
     | '/pnl-loans'
     | '/reverse-mortgages'
+    | '/sitemap.xml'
     | '/va-loans'
     | '/blog/$slug'
     | '/tools/ai-setup-checklist'
@@ -215,6 +225,7 @@ export interface FileRouteTypes {
     | '/mortgage-analyzer'
     | '/pnl-loans'
     | '/reverse-mortgages'
+    | '/sitemap.xml'
     | '/va-loans'
     | '/blog/$slug'
     | '/tools/ai-setup-checklist'
@@ -235,6 +246,7 @@ export interface FileRouteTypes {
     | '/mortgage-analyzer'
     | '/pnl-loans'
     | '/reverse-mortgages'
+    | '/sitemap.xml'
     | '/va-loans'
     | '/blog/$slug'
     | '/tools/ai-setup-checklist'
@@ -256,6 +268,7 @@ export interface RootRouteChildren {
   MortgageAnalyzerRoute: typeof MortgageAnalyzerRoute
   PnlLoansRoute: typeof PnlLoansRoute
   ReverseMortgagesRoute: typeof ReverseMortgagesRoute
+  SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   VaLoansRoute: typeof VaLoansRoute
   BlogSlugRoute: typeof BlogSlugRoute
   ToolsAiSetupChecklistRoute: typeof ToolsAiSetupChecklistRoute
@@ -271,6 +284,13 @@ declare module '@tanstack/react-router' {
       path: '/va-loans'
       fullPath: '/va-loans'
       preLoaderRoute: typeof VaLoansRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/sitemap.xml': {
+      id: '/sitemap.xml'
+      path: '/sitemap.xml'
+      fullPath: '/sitemap.xml'
+      preLoaderRoute: typeof SitemapDotxmlRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/reverse-mortgages': {
@@ -408,6 +428,7 @@ const rootRouteChildren: RootRouteChildren = {
   MortgageAnalyzerRoute: MortgageAnalyzerRoute,
   PnlLoansRoute: PnlLoansRoute,
   ReverseMortgagesRoute: ReverseMortgagesRoute,
+  SitemapDotxmlRoute: SitemapDotxmlRoute,
   VaLoansRoute: VaLoansRoute,
   BlogSlugRoute: BlogSlugRoute,
   ToolsAiSetupChecklistRoute: ToolsAiSetupChecklistRoute,
