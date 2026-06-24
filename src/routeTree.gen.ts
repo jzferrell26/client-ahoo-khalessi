@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as HelocRouteImport } from './routes/heloc'
 import { Route as FixedSecondMortgageRouteImport } from './routes/fixed-second-mortgage'
+import { Route as DscrLoansRouteImport } from './routes/dscr-loans'
 import { Route as IndexRouteImport } from './routes/index'
 
 const HelocRoute = HelocRouteImport.update({
@@ -23,6 +24,11 @@ const FixedSecondMortgageRoute = FixedSecondMortgageRouteImport.update({
   path: '/fixed-second-mortgage',
   getParentRoute: () => rootRouteImport,
 } as any)
+const DscrLoansRoute = DscrLoansRouteImport.update({
+  id: '/dscr-loans',
+  path: '/dscr-loans',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
@@ -31,30 +37,34 @@ const IndexRoute = IndexRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/dscr-loans': typeof DscrLoansRoute
   '/fixed-second-mortgage': typeof FixedSecondMortgageRoute
   '/heloc': typeof HelocRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/dscr-loans': typeof DscrLoansRoute
   '/fixed-second-mortgage': typeof FixedSecondMortgageRoute
   '/heloc': typeof HelocRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/dscr-loans': typeof DscrLoansRoute
   '/fixed-second-mortgage': typeof FixedSecondMortgageRoute
   '/heloc': typeof HelocRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/fixed-second-mortgage' | '/heloc'
+  fullPaths: '/' | '/dscr-loans' | '/fixed-second-mortgage' | '/heloc'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/fixed-second-mortgage' | '/heloc'
-  id: '__root__' | '/' | '/fixed-second-mortgage' | '/heloc'
+  to: '/' | '/dscr-loans' | '/fixed-second-mortgage' | '/heloc'
+  id: '__root__' | '/' | '/dscr-loans' | '/fixed-second-mortgage' | '/heloc'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  DscrLoansRoute: typeof DscrLoansRoute
   FixedSecondMortgageRoute: typeof FixedSecondMortgageRoute
   HelocRoute: typeof HelocRoute
 }
@@ -75,6 +85,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof FixedSecondMortgageRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/dscr-loans': {
+      id: '/dscr-loans'
+      path: '/dscr-loans'
+      fullPath: '/dscr-loans'
+      preLoaderRoute: typeof DscrLoansRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -87,6 +104,7 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  DscrLoansRoute: DscrLoansRoute,
   FixedSecondMortgageRoute: FixedSecondMortgageRoute,
   HelocRoute: HelocRoute,
 }
