@@ -118,6 +118,14 @@ function RootShell({ children }: { children: ReactNode }) {
     <html lang="en">
       <head>
         <HeadContent />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(ROOT_ORG_SCHEMA) }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(ROOT_PEOPLE_SCHEMA) }}
+        />
       </head>
       <body>
         {children}
@@ -126,6 +134,84 @@ function RootShell({ children }: { children: ReactNode }) {
     </html>
   );
 }
+
+const ROOT_ORG_SCHEMA = {
+  "@context": "https://schema.org",
+  "@type": ["FinancialService", "LocalBusiness"],
+  "@id": "https://ctcequity.com/#org",
+  name: "CTC Equity",
+  alternateName: "Coast to Coast Equity",
+  description:
+    "Nationwide mortgage brokerage based in Orange County, CA with access to 160+ lenders, specializing in HELOCs, fixed second mortgages, DSCR investment loans, and bank statement / P&L loans for self-employed borrowers.",
+  url: "https://ctcequity.com",
+  telephone: "+1-949-877-7234",
+  email: "akhalessi@ctcequity.com",
+  address: {
+    "@type": "PostalAddress",
+    streetAddress: "3750 S Susan St",
+    addressLocality: "Santa Ana",
+    addressRegion: "CA",
+    postalCode: "92704",
+    addressCountry: "US",
+  },
+  geo: { "@type": "GeoCoordinates", latitude: "33.7100", longitude: "-117.9100" },
+  // TODO: paste Google Business Profile / Maps URL once claimed.
+  hasMap: "[INSERT GOOGLE BUSINESS PROFILE / MAPS URL]",
+  parentOrganization: { "@type": "Organization", name: "EMortgage Capital, Inc." },
+  areaServed: [
+    { "@type": "Country", name: "United States" },
+    { "@type": "AdministrativeArea", name: "Orange County, California" },
+  ],
+  knowsAbout: [
+    "HELOC",
+    "Fixed Second Mortgage",
+    "DSCR Loan",
+    "Bank Statement Loan",
+    "P&L Loan",
+    "Reverse Mortgage",
+    "Commercial Loan",
+    "Jumbo Loan",
+    "FHA Loan",
+    "VA Loan",
+    "Conventional Loan",
+    "No-appraisal HELOC or fixed second up to $400,000",
+    "HELOC and fixed second up to $4 million",
+  ],
+};
+
+const ROOT_PEOPLE_SCHEMA = [
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    name: "Ahoo Khalessi",
+    jobTitle: "Division Manager & Loan Officer",
+    worksFor: { "@id": "https://ctcequity.com/#org" },
+    identifier: "NMLS #2239510",
+    // TODO: fill the bracketed sameAs URLs with real profile links before launch.
+    sameAs: [
+      "[AHOO ZILLOW PROFILE URL]",
+      "[GOOGLE BUSINESS PROFILE URL]",
+      "[EXPERIENCE.COM PROFILE URL]",
+      "https://www.linkedin.com/in/ahookhalessi/",
+    ],
+    award: [
+      "Scotsman Guide Top Originator",
+      "Started the home equity department at Rocket Mortgage — top producer on team and in department",
+      "EMC Top 5% Loan Officer by Volume (2025)",
+      "EMC Top 5% Loan Officer by Units (2025)",
+      "EMC Top 10% Loan Officer by Units (Q1 2026)",
+      "Top 5% of originators nationally",
+    ],
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    name: "Ben Mokri",
+    jobTitle: "Partner & Executive Loan Officer",
+    worksFor: { "@id": "https://ctcequity.com/#org" },
+    identifier: "NMLS #2279528",
+  },
+];
 
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
