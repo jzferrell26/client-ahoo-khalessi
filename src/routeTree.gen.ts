@@ -10,11 +10,17 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as HelocRouteImport } from './routes/heloc'
+import { Route as FixedSecondMortgageRouteImport } from './routes/fixed-second-mortgage'
 import { Route as IndexRouteImport } from './routes/index'
 
 const HelocRoute = HelocRouteImport.update({
   id: '/heloc',
   path: '/heloc',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const FixedSecondMortgageRoute = FixedSecondMortgageRouteImport.update({
+  id: '/fixed-second-mortgage',
+  path: '/fixed-second-mortgage',
   getParentRoute: () => rootRouteImport,
 } as any)
 const IndexRoute = IndexRouteImport.update({
@@ -25,27 +31,31 @@ const IndexRoute = IndexRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/fixed-second-mortgage': typeof FixedSecondMortgageRoute
   '/heloc': typeof HelocRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/fixed-second-mortgage': typeof FixedSecondMortgageRoute
   '/heloc': typeof HelocRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/fixed-second-mortgage': typeof FixedSecondMortgageRoute
   '/heloc': typeof HelocRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/heloc'
+  fullPaths: '/' | '/fixed-second-mortgage' | '/heloc'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/heloc'
-  id: '__root__' | '/' | '/heloc'
+  to: '/' | '/fixed-second-mortgage' | '/heloc'
+  id: '__root__' | '/' | '/fixed-second-mortgage' | '/heloc'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  FixedSecondMortgageRoute: typeof FixedSecondMortgageRoute
   HelocRoute: typeof HelocRoute
 }
 
@@ -56,6 +66,13 @@ declare module '@tanstack/react-router' {
       path: '/heloc'
       fullPath: '/heloc'
       preLoaderRoute: typeof HelocRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/fixed-second-mortgage': {
+      id: '/fixed-second-mortgage'
+      path: '/fixed-second-mortgage'
+      fullPath: '/fixed-second-mortgage'
+      preLoaderRoute: typeof FixedSecondMortgageRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/': {
@@ -70,6 +87,7 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  FixedSecondMortgageRoute: FixedSecondMortgageRoute,
   HelocRoute: HelocRoute,
 }
 export const routeTree = rootRouteImport
