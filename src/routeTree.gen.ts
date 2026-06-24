@@ -23,6 +23,7 @@ import { Route as CommercialLoansRouteImport } from './routes/commercial-loans'
 import { Route as BankStatementLoansRouteImport } from './routes/bank-statement-loans'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as BlogIndexRouteImport } from './routes/blog.index'
+import { Route as ToolsAiSetupChecklistRouteImport } from './routes/tools.ai-setup-checklist'
 import { Route as BlogSlugRouteImport } from './routes/blog.$slug'
 
 const VaLoansRoute = VaLoansRouteImport.update({
@@ -95,6 +96,11 @@ const BlogIndexRoute = BlogIndexRouteImport.update({
   path: '/blog/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ToolsAiSetupChecklistRoute = ToolsAiSetupChecklistRouteImport.update({
+  id: '/tools/ai-setup-checklist',
+  path: '/tools/ai-setup-checklist',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const BlogSlugRoute = BlogSlugRouteImport.update({
   id: '/blog/$slug',
   path: '/blog/$slug',
@@ -116,6 +122,7 @@ export interface FileRoutesByFullPath {
   '/reverse-mortgages': typeof ReverseMortgagesRoute
   '/va-loans': typeof VaLoansRoute
   '/blog/$slug': typeof BlogSlugRoute
+  '/tools/ai-setup-checklist': typeof ToolsAiSetupChecklistRoute
   '/blog/': typeof BlogIndexRoute
 }
 export interface FileRoutesByTo {
@@ -133,6 +140,7 @@ export interface FileRoutesByTo {
   '/reverse-mortgages': typeof ReverseMortgagesRoute
   '/va-loans': typeof VaLoansRoute
   '/blog/$slug': typeof BlogSlugRoute
+  '/tools/ai-setup-checklist': typeof ToolsAiSetupChecklistRoute
   '/blog': typeof BlogIndexRoute
 }
 export interface FileRoutesById {
@@ -151,6 +159,7 @@ export interface FileRoutesById {
   '/reverse-mortgages': typeof ReverseMortgagesRoute
   '/va-loans': typeof VaLoansRoute
   '/blog/$slug': typeof BlogSlugRoute
+  '/tools/ai-setup-checklist': typeof ToolsAiSetupChecklistRoute
   '/blog/': typeof BlogIndexRoute
 }
 export interface FileRouteTypes {
@@ -170,6 +179,7 @@ export interface FileRouteTypes {
     | '/reverse-mortgages'
     | '/va-loans'
     | '/blog/$slug'
+    | '/tools/ai-setup-checklist'
     | '/blog/'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -187,6 +197,7 @@ export interface FileRouteTypes {
     | '/reverse-mortgages'
     | '/va-loans'
     | '/blog/$slug'
+    | '/tools/ai-setup-checklist'
     | '/blog'
   id:
     | '__root__'
@@ -204,6 +215,7 @@ export interface FileRouteTypes {
     | '/reverse-mortgages'
     | '/va-loans'
     | '/blog/$slug'
+    | '/tools/ai-setup-checklist'
     | '/blog/'
   fileRoutesById: FileRoutesById
 }
@@ -222,6 +234,7 @@ export interface RootRouteChildren {
   ReverseMortgagesRoute: typeof ReverseMortgagesRoute
   VaLoansRoute: typeof VaLoansRoute
   BlogSlugRoute: typeof BlogSlugRoute
+  ToolsAiSetupChecklistRoute: typeof ToolsAiSetupChecklistRoute
   BlogIndexRoute: typeof BlogIndexRoute
 }
 
@@ -325,6 +338,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof BlogIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/tools/ai-setup-checklist': {
+      id: '/tools/ai-setup-checklist'
+      path: '/tools/ai-setup-checklist'
+      fullPath: '/tools/ai-setup-checklist'
+      preLoaderRoute: typeof ToolsAiSetupChecklistRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/blog/$slug': {
       id: '/blog/$slug'
       path: '/blog/$slug'
@@ -350,6 +370,7 @@ const rootRouteChildren: RootRouteChildren = {
   ReverseMortgagesRoute: ReverseMortgagesRoute,
   VaLoansRoute: VaLoansRoute,
   BlogSlugRoute: BlogSlugRoute,
+  ToolsAiSetupChecklistRoute: ToolsAiSetupChecklistRoute,
   BlogIndexRoute: BlogIndexRoute,
 }
 export const routeTree = rootRouteImport
