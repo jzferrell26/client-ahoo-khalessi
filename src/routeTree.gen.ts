@@ -15,6 +15,7 @@ import { Route as PnlLoansRouteImport } from './routes/pnl-loans'
 import { Route as HelocRouteImport } from './routes/heloc'
 import { Route as FixedSecondMortgageRouteImport } from './routes/fixed-second-mortgage'
 import { Route as FhaLoansRouteImport } from './routes/fha-loans'
+import { Route as FaqRouteImport } from './routes/faq'
 import { Route as DscrLoansRouteImport } from './routes/dscr-loans'
 import { Route as ConventionalLoansRouteImport } from './routes/conventional-loans'
 import { Route as CommercialLoansRouteImport } from './routes/commercial-loans'
@@ -51,6 +52,11 @@ const FhaLoansRoute = FhaLoansRouteImport.update({
   path: '/fha-loans',
   getParentRoute: () => rootRouteImport,
 } as any)
+const FaqRoute = FaqRouteImport.update({
+  id: '/faq',
+  path: '/faq',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const DscrLoansRoute = DscrLoansRouteImport.update({
   id: '/dscr-loans',
   path: '/dscr-loans',
@@ -83,6 +89,7 @@ export interface FileRoutesByFullPath {
   '/commercial-loans': typeof CommercialLoansRoute
   '/conventional-loans': typeof ConventionalLoansRoute
   '/dscr-loans': typeof DscrLoansRoute
+  '/faq': typeof FaqRoute
   '/fha-loans': typeof FhaLoansRoute
   '/fixed-second-mortgage': typeof FixedSecondMortgageRoute
   '/heloc': typeof HelocRoute
@@ -96,6 +103,7 @@ export interface FileRoutesByTo {
   '/commercial-loans': typeof CommercialLoansRoute
   '/conventional-loans': typeof ConventionalLoansRoute
   '/dscr-loans': typeof DscrLoansRoute
+  '/faq': typeof FaqRoute
   '/fha-loans': typeof FhaLoansRoute
   '/fixed-second-mortgage': typeof FixedSecondMortgageRoute
   '/heloc': typeof HelocRoute
@@ -110,6 +118,7 @@ export interface FileRoutesById {
   '/commercial-loans': typeof CommercialLoansRoute
   '/conventional-loans': typeof ConventionalLoansRoute
   '/dscr-loans': typeof DscrLoansRoute
+  '/faq': typeof FaqRoute
   '/fha-loans': typeof FhaLoansRoute
   '/fixed-second-mortgage': typeof FixedSecondMortgageRoute
   '/heloc': typeof HelocRoute
@@ -125,6 +134,7 @@ export interface FileRouteTypes {
     | '/commercial-loans'
     | '/conventional-loans'
     | '/dscr-loans'
+    | '/faq'
     | '/fha-loans'
     | '/fixed-second-mortgage'
     | '/heloc'
@@ -138,6 +148,7 @@ export interface FileRouteTypes {
     | '/commercial-loans'
     | '/conventional-loans'
     | '/dscr-loans'
+    | '/faq'
     | '/fha-loans'
     | '/fixed-second-mortgage'
     | '/heloc'
@@ -151,6 +162,7 @@ export interface FileRouteTypes {
     | '/commercial-loans'
     | '/conventional-loans'
     | '/dscr-loans'
+    | '/faq'
     | '/fha-loans'
     | '/fixed-second-mortgage'
     | '/heloc'
@@ -165,6 +177,7 @@ export interface RootRouteChildren {
   CommercialLoansRoute: typeof CommercialLoansRoute
   ConventionalLoansRoute: typeof ConventionalLoansRoute
   DscrLoansRoute: typeof DscrLoansRoute
+  FaqRoute: typeof FaqRoute
   FhaLoansRoute: typeof FhaLoansRoute
   FixedSecondMortgageRoute: typeof FixedSecondMortgageRoute
   HelocRoute: typeof HelocRoute
@@ -217,6 +230,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof FhaLoansRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/faq': {
+      id: '/faq'
+      path: '/faq'
+      fullPath: '/faq'
+      preLoaderRoute: typeof FaqRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/dscr-loans': {
       id: '/dscr-loans'
       path: '/dscr-loans'
@@ -261,6 +281,7 @@ const rootRouteChildren: RootRouteChildren = {
   CommercialLoansRoute: CommercialLoansRoute,
   ConventionalLoansRoute: ConventionalLoansRoute,
   DscrLoansRoute: DscrLoansRoute,
+  FaqRoute: FaqRoute,
   FhaLoansRoute: FhaLoansRoute,
   FixedSecondMortgageRoute: FixedSecondMortgageRoute,
   HelocRoute: HelocRoute,
