@@ -24,6 +24,7 @@ import { Route as BankStatementLoansRouteImport } from './routes/bank-statement-
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as BlogIndexRouteImport } from './routes/blog.index'
 import { Route as ToolsFormToGhlRouteImport } from './routes/tools.form-to-ghl'
+import { Route as ToolsBlogPostGeneratorRouteImport } from './routes/tools.blog-post-generator'
 import { Route as ToolsAiSetupChecklistRouteImport } from './routes/tools.ai-setup-checklist'
 import { Route as BlogSlugRouteImport } from './routes/blog.$slug'
 
@@ -102,6 +103,11 @@ const ToolsFormToGhlRoute = ToolsFormToGhlRouteImport.update({
   path: '/tools/form-to-ghl',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ToolsBlogPostGeneratorRoute = ToolsBlogPostGeneratorRouteImport.update({
+  id: '/tools/blog-post-generator',
+  path: '/tools/blog-post-generator',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ToolsAiSetupChecklistRoute = ToolsAiSetupChecklistRouteImport.update({
   id: '/tools/ai-setup-checklist',
   path: '/tools/ai-setup-checklist',
@@ -129,6 +135,7 @@ export interface FileRoutesByFullPath {
   '/va-loans': typeof VaLoansRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/tools/ai-setup-checklist': typeof ToolsAiSetupChecklistRoute
+  '/tools/blog-post-generator': typeof ToolsBlogPostGeneratorRoute
   '/tools/form-to-ghl': typeof ToolsFormToGhlRoute
   '/blog/': typeof BlogIndexRoute
 }
@@ -148,6 +155,7 @@ export interface FileRoutesByTo {
   '/va-loans': typeof VaLoansRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/tools/ai-setup-checklist': typeof ToolsAiSetupChecklistRoute
+  '/tools/blog-post-generator': typeof ToolsBlogPostGeneratorRoute
   '/tools/form-to-ghl': typeof ToolsFormToGhlRoute
   '/blog': typeof BlogIndexRoute
 }
@@ -168,6 +176,7 @@ export interface FileRoutesById {
   '/va-loans': typeof VaLoansRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/tools/ai-setup-checklist': typeof ToolsAiSetupChecklistRoute
+  '/tools/blog-post-generator': typeof ToolsBlogPostGeneratorRoute
   '/tools/form-to-ghl': typeof ToolsFormToGhlRoute
   '/blog/': typeof BlogIndexRoute
 }
@@ -189,6 +198,7 @@ export interface FileRouteTypes {
     | '/va-loans'
     | '/blog/$slug'
     | '/tools/ai-setup-checklist'
+    | '/tools/blog-post-generator'
     | '/tools/form-to-ghl'
     | '/blog/'
   fileRoutesByTo: FileRoutesByTo
@@ -208,6 +218,7 @@ export interface FileRouteTypes {
     | '/va-loans'
     | '/blog/$slug'
     | '/tools/ai-setup-checklist'
+    | '/tools/blog-post-generator'
     | '/tools/form-to-ghl'
     | '/blog'
   id:
@@ -227,6 +238,7 @@ export interface FileRouteTypes {
     | '/va-loans'
     | '/blog/$slug'
     | '/tools/ai-setup-checklist'
+    | '/tools/blog-post-generator'
     | '/tools/form-to-ghl'
     | '/blog/'
   fileRoutesById: FileRoutesById
@@ -247,6 +259,7 @@ export interface RootRouteChildren {
   VaLoansRoute: typeof VaLoansRoute
   BlogSlugRoute: typeof BlogSlugRoute
   ToolsAiSetupChecklistRoute: typeof ToolsAiSetupChecklistRoute
+  ToolsBlogPostGeneratorRoute: typeof ToolsBlogPostGeneratorRoute
   ToolsFormToGhlRoute: typeof ToolsFormToGhlRoute
   BlogIndexRoute: typeof BlogIndexRoute
 }
@@ -358,6 +371,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ToolsFormToGhlRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/tools/blog-post-generator': {
+      id: '/tools/blog-post-generator'
+      path: '/tools/blog-post-generator'
+      fullPath: '/tools/blog-post-generator'
+      preLoaderRoute: typeof ToolsBlogPostGeneratorRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/tools/ai-setup-checklist': {
       id: '/tools/ai-setup-checklist'
       path: '/tools/ai-setup-checklist'
@@ -391,6 +411,7 @@ const rootRouteChildren: RootRouteChildren = {
   VaLoansRoute: VaLoansRoute,
   BlogSlugRoute: BlogSlugRoute,
   ToolsAiSetupChecklistRoute: ToolsAiSetupChecklistRoute,
+  ToolsBlogPostGeneratorRoute: ToolsBlogPostGeneratorRoute,
   ToolsFormToGhlRoute: ToolsFormToGhlRoute,
   BlogIndexRoute: BlogIndexRoute,
 }
