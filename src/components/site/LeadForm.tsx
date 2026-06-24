@@ -93,6 +93,7 @@ export function LeadForm({ source = "Website — Short Form" }: { source?: strin
         borderRadius: 18,
         padding: 28,
         boxShadow: "0 18px 40px rgba(14,42,61,.18)",
+        color: "var(--ink)",
       }}
     >
       <input type="hidden" name="source" value={source} />
