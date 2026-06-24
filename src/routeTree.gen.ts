@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as VaLoansRouteImport } from './routes/va-loans'
 import { Route as ReverseMortgagesRouteImport } from './routes/reverse-mortgages'
 import { Route as PnlLoansRouteImport } from './routes/pnl-loans'
+import { Route as MortgageAnalyzerRouteImport } from './routes/mortgage-analyzer'
 import { Route as HelocRouteImport } from './routes/heloc'
 import { Route as FixedSecondMortgageRouteImport } from './routes/fixed-second-mortgage'
 import { Route as FhaLoansRouteImport } from './routes/fha-loans'
@@ -37,6 +38,11 @@ const ReverseMortgagesRoute = ReverseMortgagesRouteImport.update({
 const PnlLoansRoute = PnlLoansRouteImport.update({
   id: '/pnl-loans',
   path: '/pnl-loans',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MortgageAnalyzerRoute = MortgageAnalyzerRouteImport.update({
+  id: '/mortgage-analyzer',
+  path: '/mortgage-analyzer',
   getParentRoute: () => rootRouteImport,
 } as any)
 const HelocRoute = HelocRouteImport.update({
@@ -105,6 +111,7 @@ export interface FileRoutesByFullPath {
   '/fha-loans': typeof FhaLoansRoute
   '/fixed-second-mortgage': typeof FixedSecondMortgageRoute
   '/heloc': typeof HelocRoute
+  '/mortgage-analyzer': typeof MortgageAnalyzerRoute
   '/pnl-loans': typeof PnlLoansRoute
   '/reverse-mortgages': typeof ReverseMortgagesRoute
   '/va-loans': typeof VaLoansRoute
@@ -121,6 +128,7 @@ export interface FileRoutesByTo {
   '/fha-loans': typeof FhaLoansRoute
   '/fixed-second-mortgage': typeof FixedSecondMortgageRoute
   '/heloc': typeof HelocRoute
+  '/mortgage-analyzer': typeof MortgageAnalyzerRoute
   '/pnl-loans': typeof PnlLoansRoute
   '/reverse-mortgages': typeof ReverseMortgagesRoute
   '/va-loans': typeof VaLoansRoute
@@ -138,6 +146,7 @@ export interface FileRoutesById {
   '/fha-loans': typeof FhaLoansRoute
   '/fixed-second-mortgage': typeof FixedSecondMortgageRoute
   '/heloc': typeof HelocRoute
+  '/mortgage-analyzer': typeof MortgageAnalyzerRoute
   '/pnl-loans': typeof PnlLoansRoute
   '/reverse-mortgages': typeof ReverseMortgagesRoute
   '/va-loans': typeof VaLoansRoute
@@ -156,6 +165,7 @@ export interface FileRouteTypes {
     | '/fha-loans'
     | '/fixed-second-mortgage'
     | '/heloc'
+    | '/mortgage-analyzer'
     | '/pnl-loans'
     | '/reverse-mortgages'
     | '/va-loans'
@@ -172,6 +182,7 @@ export interface FileRouteTypes {
     | '/fha-loans'
     | '/fixed-second-mortgage'
     | '/heloc'
+    | '/mortgage-analyzer'
     | '/pnl-loans'
     | '/reverse-mortgages'
     | '/va-loans'
@@ -188,6 +199,7 @@ export interface FileRouteTypes {
     | '/fha-loans'
     | '/fixed-second-mortgage'
     | '/heloc'
+    | '/mortgage-analyzer'
     | '/pnl-loans'
     | '/reverse-mortgages'
     | '/va-loans'
@@ -205,6 +217,7 @@ export interface RootRouteChildren {
   FhaLoansRoute: typeof FhaLoansRoute
   FixedSecondMortgageRoute: typeof FixedSecondMortgageRoute
   HelocRoute: typeof HelocRoute
+  MortgageAnalyzerRoute: typeof MortgageAnalyzerRoute
   PnlLoansRoute: typeof PnlLoansRoute
   ReverseMortgagesRoute: typeof ReverseMortgagesRoute
   VaLoansRoute: typeof VaLoansRoute
@@ -233,6 +246,13 @@ declare module '@tanstack/react-router' {
       path: '/pnl-loans'
       fullPath: '/pnl-loans'
       preLoaderRoute: typeof PnlLoansRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/mortgage-analyzer': {
+      id: '/mortgage-analyzer'
+      path: '/mortgage-analyzer'
+      fullPath: '/mortgage-analyzer'
+      preLoaderRoute: typeof MortgageAnalyzerRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/heloc': {
@@ -325,6 +345,7 @@ const rootRouteChildren: RootRouteChildren = {
   FhaLoansRoute: FhaLoansRoute,
   FixedSecondMortgageRoute: FixedSecondMortgageRoute,
   HelocRoute: HelocRoute,
+  MortgageAnalyzerRoute: MortgageAnalyzerRoute,
   PnlLoansRoute: PnlLoansRoute,
   ReverseMortgagesRoute: ReverseMortgagesRoute,
   VaLoansRoute: VaLoansRoute,
