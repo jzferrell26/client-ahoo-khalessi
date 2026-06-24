@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as HelocRouteImport } from './routes/heloc'
 import { Route as FixedSecondMortgageRouteImport } from './routes/fixed-second-mortgage'
 import { Route as DscrLoansRouteImport } from './routes/dscr-loans'
+import { Route as BankStatementLoansRouteImport } from './routes/bank-statement-loans'
 import { Route as IndexRouteImport } from './routes/index'
 
 const HelocRoute = HelocRouteImport.update({
@@ -29,6 +30,11 @@ const DscrLoansRoute = DscrLoansRouteImport.update({
   path: '/dscr-loans',
   getParentRoute: () => rootRouteImport,
 } as any)
+const BankStatementLoansRoute = BankStatementLoansRouteImport.update({
+  id: '/bank-statement-loans',
+  path: '/bank-statement-loans',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
@@ -37,12 +43,14 @@ const IndexRoute = IndexRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/bank-statement-loans': typeof BankStatementLoansRoute
   '/dscr-loans': typeof DscrLoansRoute
   '/fixed-second-mortgage': typeof FixedSecondMortgageRoute
   '/heloc': typeof HelocRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/bank-statement-loans': typeof BankStatementLoansRoute
   '/dscr-loans': typeof DscrLoansRoute
   '/fixed-second-mortgage': typeof FixedSecondMortgageRoute
   '/heloc': typeof HelocRoute
@@ -50,20 +58,38 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/bank-statement-loans': typeof BankStatementLoansRoute
   '/dscr-loans': typeof DscrLoansRoute
   '/fixed-second-mortgage': typeof FixedSecondMortgageRoute
   '/heloc': typeof HelocRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/dscr-loans' | '/fixed-second-mortgage' | '/heloc'
+  fullPaths:
+    | '/'
+    | '/bank-statement-loans'
+    | '/dscr-loans'
+    | '/fixed-second-mortgage'
+    | '/heloc'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/dscr-loans' | '/fixed-second-mortgage' | '/heloc'
-  id: '__root__' | '/' | '/dscr-loans' | '/fixed-second-mortgage' | '/heloc'
+  to:
+    | '/'
+    | '/bank-statement-loans'
+    | '/dscr-loans'
+    | '/fixed-second-mortgage'
+    | '/heloc'
+  id:
+    | '__root__'
+    | '/'
+    | '/bank-statement-loans'
+    | '/dscr-loans'
+    | '/fixed-second-mortgage'
+    | '/heloc'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  BankStatementLoansRoute: typeof BankStatementLoansRoute
   DscrLoansRoute: typeof DscrLoansRoute
   FixedSecondMortgageRoute: typeof FixedSecondMortgageRoute
   HelocRoute: typeof HelocRoute
@@ -92,6 +118,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DscrLoansRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/bank-statement-loans': {
+      id: '/bank-statement-loans'
+      path: '/bank-statement-loans'
+      fullPath: '/bank-statement-loans'
+      preLoaderRoute: typeof BankStatementLoansRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -104,6 +137,7 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  BankStatementLoansRoute: BankStatementLoansRoute,
   DscrLoansRoute: DscrLoansRoute,
   FixedSecondMortgageRoute: FixedSecondMortgageRoute,
   HelocRoute: HelocRoute,
