@@ -9,38 +9,367 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as VaLoansRouteImport } from './routes/va-loans'
+import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
+import { Route as ReverseMortgagesRouteImport } from './routes/reverse-mortgages'
+import { Route as PnlLoansRouteImport } from './routes/pnl-loans'
+import { Route as MortgageAnalyzerRouteImport } from './routes/mortgage-analyzer'
+import { Route as HelocRouteImport } from './routes/heloc'
+import { Route as FixedSecondMortgageRouteImport } from './routes/fixed-second-mortgage'
+import { Route as FhaLoansRouteImport } from './routes/fha-loans'
+import { Route as FaqRouteImport } from './routes/faq'
+import { Route as DscrLoansRouteImport } from './routes/dscr-loans'
+import { Route as ConventionalLoansRouteImport } from './routes/conventional-loans'
+import { Route as CommercialLoansRouteImport } from './routes/commercial-loans'
+import { Route as BankStatementLoansRouteImport } from './routes/bank-statement-loans'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as BlogIndexRouteImport } from './routes/blog.index'
+import { Route as ToolsFormToGhlRouteImport } from './routes/tools.form-to-ghl'
+import { Route as ToolsBlogPostGeneratorRouteImport } from './routes/tools.blog-post-generator'
+import { Route as ToolsAiSetupChecklistRouteImport } from './routes/tools.ai-setup-checklist'
+import { Route as BlogSlugRouteImport } from './routes/blog.$slug'
 
+const VaLoansRoute = VaLoansRouteImport.update({
+  id: '/va-loans',
+  path: '/va-loans',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
+  id: '/sitemap.xml',
+  path: '/sitemap.xml',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ReverseMortgagesRoute = ReverseMortgagesRouteImport.update({
+  id: '/reverse-mortgages',
+  path: '/reverse-mortgages',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PnlLoansRoute = PnlLoansRouteImport.update({
+  id: '/pnl-loans',
+  path: '/pnl-loans',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MortgageAnalyzerRoute = MortgageAnalyzerRouteImport.update({
+  id: '/mortgage-analyzer',
+  path: '/mortgage-analyzer',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const HelocRoute = HelocRouteImport.update({
+  id: '/heloc',
+  path: '/heloc',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const FixedSecondMortgageRoute = FixedSecondMortgageRouteImport.update({
+  id: '/fixed-second-mortgage',
+  path: '/fixed-second-mortgage',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const FhaLoansRoute = FhaLoansRouteImport.update({
+  id: '/fha-loans',
+  path: '/fha-loans',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const FaqRoute = FaqRouteImport.update({
+  id: '/faq',
+  path: '/faq',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DscrLoansRoute = DscrLoansRouteImport.update({
+  id: '/dscr-loans',
+  path: '/dscr-loans',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ConventionalLoansRoute = ConventionalLoansRouteImport.update({
+  id: '/conventional-loans',
+  path: '/conventional-loans',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CommercialLoansRoute = CommercialLoansRouteImport.update({
+  id: '/commercial-loans',
+  path: '/commercial-loans',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BankStatementLoansRoute = BankStatementLoansRouteImport.update({
+  id: '/bank-statement-loans',
+  path: '/bank-statement-loans',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const BlogIndexRoute = BlogIndexRouteImport.update({
+  id: '/blog/',
+  path: '/blog/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ToolsFormToGhlRoute = ToolsFormToGhlRouteImport.update({
+  id: '/tools/form-to-ghl',
+  path: '/tools/form-to-ghl',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ToolsBlogPostGeneratorRoute = ToolsBlogPostGeneratorRouteImport.update({
+  id: '/tools/blog-post-generator',
+  path: '/tools/blog-post-generator',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ToolsAiSetupChecklistRoute = ToolsAiSetupChecklistRouteImport.update({
+  id: '/tools/ai-setup-checklist',
+  path: '/tools/ai-setup-checklist',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BlogSlugRoute = BlogSlugRouteImport.update({
+  id: '/blog/$slug',
+  path: '/blog/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/bank-statement-loans': typeof BankStatementLoansRoute
+  '/commercial-loans': typeof CommercialLoansRoute
+  '/conventional-loans': typeof ConventionalLoansRoute
+  '/dscr-loans': typeof DscrLoansRoute
+  '/faq': typeof FaqRoute
+  '/fha-loans': typeof FhaLoansRoute
+  '/fixed-second-mortgage': typeof FixedSecondMortgageRoute
+  '/heloc': typeof HelocRoute
+  '/mortgage-analyzer': typeof MortgageAnalyzerRoute
+  '/pnl-loans': typeof PnlLoansRoute
+  '/reverse-mortgages': typeof ReverseMortgagesRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/va-loans': typeof VaLoansRoute
+  '/blog/$slug': typeof BlogSlugRoute
+  '/tools/ai-setup-checklist': typeof ToolsAiSetupChecklistRoute
+  '/tools/blog-post-generator': typeof ToolsBlogPostGeneratorRoute
+  '/tools/form-to-ghl': typeof ToolsFormToGhlRoute
+  '/blog/': typeof BlogIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/bank-statement-loans': typeof BankStatementLoansRoute
+  '/commercial-loans': typeof CommercialLoansRoute
+  '/conventional-loans': typeof ConventionalLoansRoute
+  '/dscr-loans': typeof DscrLoansRoute
+  '/faq': typeof FaqRoute
+  '/fha-loans': typeof FhaLoansRoute
+  '/fixed-second-mortgage': typeof FixedSecondMortgageRoute
+  '/heloc': typeof HelocRoute
+  '/mortgage-analyzer': typeof MortgageAnalyzerRoute
+  '/pnl-loans': typeof PnlLoansRoute
+  '/reverse-mortgages': typeof ReverseMortgagesRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/va-loans': typeof VaLoansRoute
+  '/blog/$slug': typeof BlogSlugRoute
+  '/tools/ai-setup-checklist': typeof ToolsAiSetupChecklistRoute
+  '/tools/blog-post-generator': typeof ToolsBlogPostGeneratorRoute
+  '/tools/form-to-ghl': typeof ToolsFormToGhlRoute
+  '/blog': typeof BlogIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/bank-statement-loans': typeof BankStatementLoansRoute
+  '/commercial-loans': typeof CommercialLoansRoute
+  '/conventional-loans': typeof ConventionalLoansRoute
+  '/dscr-loans': typeof DscrLoansRoute
+  '/faq': typeof FaqRoute
+  '/fha-loans': typeof FhaLoansRoute
+  '/fixed-second-mortgage': typeof FixedSecondMortgageRoute
+  '/heloc': typeof HelocRoute
+  '/mortgage-analyzer': typeof MortgageAnalyzerRoute
+  '/pnl-loans': typeof PnlLoansRoute
+  '/reverse-mortgages': typeof ReverseMortgagesRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/va-loans': typeof VaLoansRoute
+  '/blog/$slug': typeof BlogSlugRoute
+  '/tools/ai-setup-checklist': typeof ToolsAiSetupChecklistRoute
+  '/tools/blog-post-generator': typeof ToolsBlogPostGeneratorRoute
+  '/tools/form-to-ghl': typeof ToolsFormToGhlRoute
+  '/blog/': typeof BlogIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/bank-statement-loans'
+    | '/commercial-loans'
+    | '/conventional-loans'
+    | '/dscr-loans'
+    | '/faq'
+    | '/fha-loans'
+    | '/fixed-second-mortgage'
+    | '/heloc'
+    | '/mortgage-analyzer'
+    | '/pnl-loans'
+    | '/reverse-mortgages'
+    | '/sitemap.xml'
+    | '/va-loans'
+    | '/blog/$slug'
+    | '/tools/ai-setup-checklist'
+    | '/tools/blog-post-generator'
+    | '/tools/form-to-ghl'
+    | '/blog/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/bank-statement-loans'
+    | '/commercial-loans'
+    | '/conventional-loans'
+    | '/dscr-loans'
+    | '/faq'
+    | '/fha-loans'
+    | '/fixed-second-mortgage'
+    | '/heloc'
+    | '/mortgage-analyzer'
+    | '/pnl-loans'
+    | '/reverse-mortgages'
+    | '/sitemap.xml'
+    | '/va-loans'
+    | '/blog/$slug'
+    | '/tools/ai-setup-checklist'
+    | '/tools/blog-post-generator'
+    | '/tools/form-to-ghl'
+    | '/blog'
+  id:
+    | '__root__'
+    | '/'
+    | '/bank-statement-loans'
+    | '/commercial-loans'
+    | '/conventional-loans'
+    | '/dscr-loans'
+    | '/faq'
+    | '/fha-loans'
+    | '/fixed-second-mortgage'
+    | '/heloc'
+    | '/mortgage-analyzer'
+    | '/pnl-loans'
+    | '/reverse-mortgages'
+    | '/sitemap.xml'
+    | '/va-loans'
+    | '/blog/$slug'
+    | '/tools/ai-setup-checklist'
+    | '/tools/blog-post-generator'
+    | '/tools/form-to-ghl'
+    | '/blog/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  BankStatementLoansRoute: typeof BankStatementLoansRoute
+  CommercialLoansRoute: typeof CommercialLoansRoute
+  ConventionalLoansRoute: typeof ConventionalLoansRoute
+  DscrLoansRoute: typeof DscrLoansRoute
+  FaqRoute: typeof FaqRoute
+  FhaLoansRoute: typeof FhaLoansRoute
+  FixedSecondMortgageRoute: typeof FixedSecondMortgageRoute
+  HelocRoute: typeof HelocRoute
+  MortgageAnalyzerRoute: typeof MortgageAnalyzerRoute
+  PnlLoansRoute: typeof PnlLoansRoute
+  ReverseMortgagesRoute: typeof ReverseMortgagesRoute
+  SitemapDotxmlRoute: typeof SitemapDotxmlRoute
+  VaLoansRoute: typeof VaLoansRoute
+  BlogSlugRoute: typeof BlogSlugRoute
+  ToolsAiSetupChecklistRoute: typeof ToolsAiSetupChecklistRoute
+  ToolsBlogPostGeneratorRoute: typeof ToolsBlogPostGeneratorRoute
+  ToolsFormToGhlRoute: typeof ToolsFormToGhlRoute
+  BlogIndexRoute: typeof BlogIndexRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/va-loans': {
+      id: '/va-loans'
+      path: '/va-loans'
+      fullPath: '/va-loans'
+      preLoaderRoute: typeof VaLoansRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/sitemap.xml': {
+      id: '/sitemap.xml'
+      path: '/sitemap.xml'
+      fullPath: '/sitemap.xml'
+      preLoaderRoute: typeof SitemapDotxmlRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/reverse-mortgages': {
+      id: '/reverse-mortgages'
+      path: '/reverse-mortgages'
+      fullPath: '/reverse-mortgages'
+      preLoaderRoute: typeof ReverseMortgagesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/pnl-loans': {
+      id: '/pnl-loans'
+      path: '/pnl-loans'
+      fullPath: '/pnl-loans'
+      preLoaderRoute: typeof PnlLoansRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/mortgage-analyzer': {
+      id: '/mortgage-analyzer'
+      path: '/mortgage-analyzer'
+      fullPath: '/mortgage-analyzer'
+      preLoaderRoute: typeof MortgageAnalyzerRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/heloc': {
+      id: '/heloc'
+      path: '/heloc'
+      fullPath: '/heloc'
+      preLoaderRoute: typeof HelocRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/fixed-second-mortgage': {
+      id: '/fixed-second-mortgage'
+      path: '/fixed-second-mortgage'
+      fullPath: '/fixed-second-mortgage'
+      preLoaderRoute: typeof FixedSecondMortgageRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/fha-loans': {
+      id: '/fha-loans'
+      path: '/fha-loans'
+      fullPath: '/fha-loans'
+      preLoaderRoute: typeof FhaLoansRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/faq': {
+      id: '/faq'
+      path: '/faq'
+      fullPath: '/faq'
+      preLoaderRoute: typeof FaqRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/dscr-loans': {
+      id: '/dscr-loans'
+      path: '/dscr-loans'
+      fullPath: '/dscr-loans'
+      preLoaderRoute: typeof DscrLoansRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/conventional-loans': {
+      id: '/conventional-loans'
+      path: '/conventional-loans'
+      fullPath: '/conventional-loans'
+      preLoaderRoute: typeof ConventionalLoansRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/commercial-loans': {
+      id: '/commercial-loans'
+      path: '/commercial-loans'
+      fullPath: '/commercial-loans'
+      preLoaderRoute: typeof CommercialLoansRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/bank-statement-loans': {
+      id: '/bank-statement-loans'
+      path: '/bank-statement-loans'
+      fullPath: '/bank-statement-loans'
+      preLoaderRoute: typeof BankStatementLoansRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -48,22 +377,65 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/blog/': {
+      id: '/blog/'
+      path: '/blog'
+      fullPath: '/blog/'
+      preLoaderRoute: typeof BlogIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/tools/form-to-ghl': {
+      id: '/tools/form-to-ghl'
+      path: '/tools/form-to-ghl'
+      fullPath: '/tools/form-to-ghl'
+      preLoaderRoute: typeof ToolsFormToGhlRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/tools/blog-post-generator': {
+      id: '/tools/blog-post-generator'
+      path: '/tools/blog-post-generator'
+      fullPath: '/tools/blog-post-generator'
+      preLoaderRoute: typeof ToolsBlogPostGeneratorRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/tools/ai-setup-checklist': {
+      id: '/tools/ai-setup-checklist'
+      path: '/tools/ai-setup-checklist'
+      fullPath: '/tools/ai-setup-checklist'
+      preLoaderRoute: typeof ToolsAiSetupChecklistRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/blog/$slug': {
+      id: '/blog/$slug'
+      path: '/blog/$slug'
+      fullPath: '/blog/$slug'
+      preLoaderRoute: typeof BlogSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  BankStatementLoansRoute: BankStatementLoansRoute,
+  CommercialLoansRoute: CommercialLoansRoute,
+  ConventionalLoansRoute: ConventionalLoansRoute,
+  DscrLoansRoute: DscrLoansRoute,
+  FaqRoute: FaqRoute,
+  FhaLoansRoute: FhaLoansRoute,
+  FixedSecondMortgageRoute: FixedSecondMortgageRoute,
+  HelocRoute: HelocRoute,
+  MortgageAnalyzerRoute: MortgageAnalyzerRoute,
+  PnlLoansRoute: PnlLoansRoute,
+  ReverseMortgagesRoute: ReverseMortgagesRoute,
+  SitemapDotxmlRoute: SitemapDotxmlRoute,
+  VaLoansRoute: VaLoansRoute,
+  BlogSlugRoute: BlogSlugRoute,
+  ToolsAiSetupChecklistRoute: ToolsAiSetupChecklistRoute,
+  ToolsBlogPostGeneratorRoute: ToolsBlogPostGeneratorRoute,
+  ToolsFormToGhlRoute: ToolsFormToGhlRoute,
+  BlogIndexRoute: BlogIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}

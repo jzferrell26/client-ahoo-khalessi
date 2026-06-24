@@ -77,16 +77,30 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Lovable App" },
-      { name: "description", content: "Lovable Generated Project" },
-      { name: "author", content: "Lovable" },
-      { property: "og:title", content: "Lovable App" },
-      { property: "og:description", content: "Lovable Generated Project" },
+      { title: "CTC Equity | HELOC, Fixed Second, DSCR & Self-Employed Mortgage Specialists" },
+      {
+        name: "description",
+        content:
+          "CTC Equity gives borrowers access to 160+ lenders for HELOCs, fixed second mortgages, DSCR investment loans, and bank statement loans for self-employed borrowers.",
+      },
+      { name: "author", content: "Ahoo Khalessi, CTC Equity" },
+      { property: "og:title", content: "CTC Equity | Coast to Coast. Clear to Close." },
+      {
+        property: "og:description",
+        content:
+          "Access to 160+ lenders for HELOCs, fixed seconds, DSCR, and self-employed financing.",
+      },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
-      { name: "twitter:site", content: "@Lovable" },
+      { name: "twitter:title", content: "CTC Equity | Coast to Coast. Clear to Close." },
     ],
     links: [
+      { rel: "preconnect", href: "https://fonts.googleapis.com" },
+      { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
+      {
+        rel: "stylesheet",
+        href: "https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700;800&family=Archivo:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap",
+      },
       {
         rel: "stylesheet",
         href: appCss,
@@ -104,6 +118,14 @@ function RootShell({ children }: { children: ReactNode }) {
     <html lang="en">
       <head>
         <HeadContent />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(ROOT_ORG_SCHEMA) }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(ROOT_PEOPLE_SCHEMA) }}
+        />
       </head>
       <body>
         {children}
@@ -112,6 +134,84 @@ function RootShell({ children }: { children: ReactNode }) {
     </html>
   );
 }
+
+const ROOT_ORG_SCHEMA = {
+  "@context": "https://schema.org",
+  "@type": ["FinancialService", "LocalBusiness"],
+  "@id": "https://ctcequity.com/#org",
+  name: "CTC Equity",
+  alternateName: "Coast to Coast Equity",
+  description:
+    "Nationwide mortgage brokerage based in Orange County, CA with access to 160+ lenders, specializing in HELOCs, fixed second mortgages, DSCR investment loans, and bank statement / P&L loans for self-employed borrowers.",
+  url: "https://ctcequity.com",
+  telephone: "+1-949-877-7234",
+  email: "akhalessi@ctcequity.com",
+  address: {
+    "@type": "PostalAddress",
+    streetAddress: "3750 S Susan St",
+    addressLocality: "Santa Ana",
+    addressRegion: "CA",
+    postalCode: "92704",
+    addressCountry: "US",
+  },
+  geo: { "@type": "GeoCoordinates", latitude: "33.7100", longitude: "-117.9100" },
+  // TODO: paste Google Business Profile / Maps URL once claimed.
+  hasMap: "[INSERT GOOGLE BUSINESS PROFILE / MAPS URL]",
+  parentOrganization: { "@type": "Organization", name: "EMortgage Capital, Inc." },
+  areaServed: [
+    { "@type": "Country", name: "United States" },
+    { "@type": "AdministrativeArea", name: "Orange County, California" },
+  ],
+  knowsAbout: [
+    "HELOC",
+    "Fixed Second Mortgage",
+    "DSCR Loan",
+    "Bank Statement Loan",
+    "P&L Loan",
+    "Reverse Mortgage",
+    "Commercial Loan",
+    "Jumbo Loan",
+    "FHA Loan",
+    "VA Loan",
+    "Conventional Loan",
+    "No-appraisal HELOC or fixed second up to $400,000",
+    "HELOC and fixed second up to $4 million",
+  ],
+};
+
+const ROOT_PEOPLE_SCHEMA = [
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    name: "Ahoo Khalessi",
+    jobTitle: "Division Manager & Loan Officer",
+    worksFor: { "@id": "https://ctcequity.com/#org" },
+    identifier: "NMLS #2239510",
+    // TODO: fill the bracketed sameAs URLs with real profile links before launch.
+    sameAs: [
+      "[AHOO ZILLOW PROFILE URL]",
+      "[GOOGLE BUSINESS PROFILE URL]",
+      "[EXPERIENCE.COM PROFILE URL]",
+      "https://www.linkedin.com/in/ahookhalessi/",
+    ],
+    award: [
+      "Scotsman Guide Top Originator",
+      "Started the home equity department at Rocket Mortgage — top producer on team and in department",
+      "EMC Top 5% Loan Officer by Volume (2025)",
+      "EMC Top 5% Loan Officer by Units (2025)",
+      "EMC Top 10% Loan Officer by Units (Q1 2026)",
+      "Top 5% of originators nationally",
+    ],
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    name: "Ben Mokri",
+    jobTitle: "Partner & Executive Loan Officer",
+    worksFor: { "@id": "https://ctcequity.com/#org" },
+    identifier: "NMLS #2279528",
+  },
+];
 
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
