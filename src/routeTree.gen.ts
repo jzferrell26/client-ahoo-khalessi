@@ -23,6 +23,7 @@ import { Route as CommercialLoansRouteImport } from './routes/commercial-loans'
 import { Route as BankStatementLoansRouteImport } from './routes/bank-statement-loans'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as BlogIndexRouteImport } from './routes/blog.index'
+import { Route as ToolsFormToGhlRouteImport } from './routes/tools.form-to-ghl'
 import { Route as ToolsAiSetupChecklistRouteImport } from './routes/tools.ai-setup-checklist'
 import { Route as BlogSlugRouteImport } from './routes/blog.$slug'
 
@@ -96,6 +97,11 @@ const BlogIndexRoute = BlogIndexRouteImport.update({
   path: '/blog/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ToolsFormToGhlRoute = ToolsFormToGhlRouteImport.update({
+  id: '/tools/form-to-ghl',
+  path: '/tools/form-to-ghl',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ToolsAiSetupChecklistRoute = ToolsAiSetupChecklistRouteImport.update({
   id: '/tools/ai-setup-checklist',
   path: '/tools/ai-setup-checklist',
@@ -123,6 +129,7 @@ export interface FileRoutesByFullPath {
   '/va-loans': typeof VaLoansRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/tools/ai-setup-checklist': typeof ToolsAiSetupChecklistRoute
+  '/tools/form-to-ghl': typeof ToolsFormToGhlRoute
   '/blog/': typeof BlogIndexRoute
 }
 export interface FileRoutesByTo {
@@ -141,6 +148,7 @@ export interface FileRoutesByTo {
   '/va-loans': typeof VaLoansRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/tools/ai-setup-checklist': typeof ToolsAiSetupChecklistRoute
+  '/tools/form-to-ghl': typeof ToolsFormToGhlRoute
   '/blog': typeof BlogIndexRoute
 }
 export interface FileRoutesById {
@@ -160,6 +168,7 @@ export interface FileRoutesById {
   '/va-loans': typeof VaLoansRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/tools/ai-setup-checklist': typeof ToolsAiSetupChecklistRoute
+  '/tools/form-to-ghl': typeof ToolsFormToGhlRoute
   '/blog/': typeof BlogIndexRoute
 }
 export interface FileRouteTypes {
@@ -180,6 +189,7 @@ export interface FileRouteTypes {
     | '/va-loans'
     | '/blog/$slug'
     | '/tools/ai-setup-checklist'
+    | '/tools/form-to-ghl'
     | '/blog/'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -198,6 +208,7 @@ export interface FileRouteTypes {
     | '/va-loans'
     | '/blog/$slug'
     | '/tools/ai-setup-checklist'
+    | '/tools/form-to-ghl'
     | '/blog'
   id:
     | '__root__'
@@ -216,6 +227,7 @@ export interface FileRouteTypes {
     | '/va-loans'
     | '/blog/$slug'
     | '/tools/ai-setup-checklist'
+    | '/tools/form-to-ghl'
     | '/blog/'
   fileRoutesById: FileRoutesById
 }
@@ -235,6 +247,7 @@ export interface RootRouteChildren {
   VaLoansRoute: typeof VaLoansRoute
   BlogSlugRoute: typeof BlogSlugRoute
   ToolsAiSetupChecklistRoute: typeof ToolsAiSetupChecklistRoute
+  ToolsFormToGhlRoute: typeof ToolsFormToGhlRoute
   BlogIndexRoute: typeof BlogIndexRoute
 }
 
@@ -338,6 +351,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof BlogIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/tools/form-to-ghl': {
+      id: '/tools/form-to-ghl'
+      path: '/tools/form-to-ghl'
+      fullPath: '/tools/form-to-ghl'
+      preLoaderRoute: typeof ToolsFormToGhlRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/tools/ai-setup-checklist': {
       id: '/tools/ai-setup-checklist'
       path: '/tools/ai-setup-checklist'
@@ -371,6 +391,7 @@ const rootRouteChildren: RootRouteChildren = {
   VaLoansRoute: VaLoansRoute,
   BlogSlugRoute: BlogSlugRoute,
   ToolsAiSetupChecklistRoute: ToolsAiSetupChecklistRoute,
+  ToolsFormToGhlRoute: ToolsFormToGhlRoute,
   BlogIndexRoute: BlogIndexRoute,
 }
 export const routeTree = rootRouteImport
