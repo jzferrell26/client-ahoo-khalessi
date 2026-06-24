@@ -9,12 +9,18 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as PnlLoansRouteImport } from './routes/pnl-loans'
 import { Route as HelocRouteImport } from './routes/heloc'
 import { Route as FixedSecondMortgageRouteImport } from './routes/fixed-second-mortgage'
 import { Route as DscrLoansRouteImport } from './routes/dscr-loans'
 import { Route as BankStatementLoansRouteImport } from './routes/bank-statement-loans'
 import { Route as IndexRouteImport } from './routes/index'
 
+const PnlLoansRoute = PnlLoansRouteImport.update({
+  id: '/pnl-loans',
+  path: '/pnl-loans',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const HelocRoute = HelocRouteImport.update({
   id: '/heloc',
   path: '/heloc',
@@ -47,6 +53,7 @@ export interface FileRoutesByFullPath {
   '/dscr-loans': typeof DscrLoansRoute
   '/fixed-second-mortgage': typeof FixedSecondMortgageRoute
   '/heloc': typeof HelocRoute
+  '/pnl-loans': typeof PnlLoansRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -54,6 +61,7 @@ export interface FileRoutesByTo {
   '/dscr-loans': typeof DscrLoansRoute
   '/fixed-second-mortgage': typeof FixedSecondMortgageRoute
   '/heloc': typeof HelocRoute
+  '/pnl-loans': typeof PnlLoansRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -62,6 +70,7 @@ export interface FileRoutesById {
   '/dscr-loans': typeof DscrLoansRoute
   '/fixed-second-mortgage': typeof FixedSecondMortgageRoute
   '/heloc': typeof HelocRoute
+  '/pnl-loans': typeof PnlLoansRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -71,6 +80,7 @@ export interface FileRouteTypes {
     | '/dscr-loans'
     | '/fixed-second-mortgage'
     | '/heloc'
+    | '/pnl-loans'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -78,6 +88,7 @@ export interface FileRouteTypes {
     | '/dscr-loans'
     | '/fixed-second-mortgage'
     | '/heloc'
+    | '/pnl-loans'
   id:
     | '__root__'
     | '/'
@@ -85,6 +96,7 @@ export interface FileRouteTypes {
     | '/dscr-loans'
     | '/fixed-second-mortgage'
     | '/heloc'
+    | '/pnl-loans'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -93,10 +105,18 @@ export interface RootRouteChildren {
   DscrLoansRoute: typeof DscrLoansRoute
   FixedSecondMortgageRoute: typeof FixedSecondMortgageRoute
   HelocRoute: typeof HelocRoute
+  PnlLoansRoute: typeof PnlLoansRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/pnl-loans': {
+      id: '/pnl-loans'
+      path: '/pnl-loans'
+      fullPath: '/pnl-loans'
+      preLoaderRoute: typeof PnlLoansRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/heloc': {
       id: '/heloc'
       path: '/heloc'
@@ -141,6 +161,7 @@ const rootRouteChildren: RootRouteChildren = {
   DscrLoansRoute: DscrLoansRoute,
   FixedSecondMortgageRoute: FixedSecondMortgageRoute,
   HelocRoute: HelocRoute,
+  PnlLoansRoute: PnlLoansRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
