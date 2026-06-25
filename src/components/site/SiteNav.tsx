@@ -1,4 +1,5 @@
 import { Link } from "@tanstack/react-router";
+import ctcLogo from "@/assets/ctc-logo.png.asset.json";
 
 const NAV_LINKS: { to: string; label: string }[] = [
   { to: "/heloc", label: "HELOC" },
@@ -58,24 +59,13 @@ export function SiteNav() {
             to="/"
             style={{ display: "flex", alignItems: "center", gap: ".7rem", color: "#fff", textDecoration: "none" }}
           >
-            <span
-              style={{
-                width: 40,
-                height: 40,
-                borderRadius: 9,
-                background: "linear-gradient(135deg,var(--tiffany),var(--teal))",
-                display: "grid",
-                placeItems: "center",
-                fontFamily: "var(--display)",
-                fontWeight: 800,
-                color: "#fff",
-                fontSize: "1.05rem",
-                letterSpacing: "-.04em",
-                boxShadow: "inset 0 0 0 1px rgba(255,255,255,.2)",
-              }}
-            >
-              CC
-            </span>
+            <img
+              src={ctcLogo.url}
+              alt="Coast to Coast Equity logo"
+              width={44}
+              height={44}
+              style={{ width: 44, height: 44, objectFit: "contain", display: "block" }}
+            />
             <span style={{ display: "flex", flexDirection: "column", lineHeight: 1 }}>
               <span style={{ fontFamily: "var(--display)", fontWeight: 700, fontSize: "1.15rem" }}>CTC Equity</span>
               <span
