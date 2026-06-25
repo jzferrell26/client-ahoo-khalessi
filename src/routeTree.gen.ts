@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as VaLoansRouteImport } from './routes/va-loans'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as ReverseMortgagesRouteImport } from './routes/reverse-mortgages'
+import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as PnlLoansRouteImport } from './routes/pnl-loans'
 import { Route as MortgageAnalyzerRouteImport } from './routes/mortgage-analyzer'
 import { Route as HelocRouteImport } from './routes/heloc'
@@ -42,6 +43,11 @@ const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
 const ReverseMortgagesRoute = ReverseMortgagesRouteImport.update({
   id: '/reverse-mortgages',
   path: '/reverse-mortgages',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PrivacyRoute = PrivacyRouteImport.update({
+  id: '/privacy',
+  path: '/privacy',
   getParentRoute: () => rootRouteImport,
 } as any)
 const PnlLoansRoute = PnlLoansRouteImport.update({
@@ -137,6 +143,7 @@ export interface FileRoutesByFullPath {
   '/heloc': typeof HelocRoute
   '/mortgage-analyzer': typeof MortgageAnalyzerRoute
   '/pnl-loans': typeof PnlLoansRoute
+  '/privacy': typeof PrivacyRoute
   '/reverse-mortgages': typeof ReverseMortgagesRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/va-loans': typeof VaLoansRoute
@@ -158,6 +165,7 @@ export interface FileRoutesByTo {
   '/heloc': typeof HelocRoute
   '/mortgage-analyzer': typeof MortgageAnalyzerRoute
   '/pnl-loans': typeof PnlLoansRoute
+  '/privacy': typeof PrivacyRoute
   '/reverse-mortgages': typeof ReverseMortgagesRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/va-loans': typeof VaLoansRoute
@@ -180,6 +188,7 @@ export interface FileRoutesById {
   '/heloc': typeof HelocRoute
   '/mortgage-analyzer': typeof MortgageAnalyzerRoute
   '/pnl-loans': typeof PnlLoansRoute
+  '/privacy': typeof PrivacyRoute
   '/reverse-mortgages': typeof ReverseMortgagesRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/va-loans': typeof VaLoansRoute
@@ -203,6 +212,7 @@ export interface FileRouteTypes {
     | '/heloc'
     | '/mortgage-analyzer'
     | '/pnl-loans'
+    | '/privacy'
     | '/reverse-mortgages'
     | '/sitemap.xml'
     | '/va-loans'
@@ -224,6 +234,7 @@ export interface FileRouteTypes {
     | '/heloc'
     | '/mortgage-analyzer'
     | '/pnl-loans'
+    | '/privacy'
     | '/reverse-mortgages'
     | '/sitemap.xml'
     | '/va-loans'
@@ -245,6 +256,7 @@ export interface FileRouteTypes {
     | '/heloc'
     | '/mortgage-analyzer'
     | '/pnl-loans'
+    | '/privacy'
     | '/reverse-mortgages'
     | '/sitemap.xml'
     | '/va-loans'
@@ -267,6 +279,7 @@ export interface RootRouteChildren {
   HelocRoute: typeof HelocRoute
   MortgageAnalyzerRoute: typeof MortgageAnalyzerRoute
   PnlLoansRoute: typeof PnlLoansRoute
+  PrivacyRoute: typeof PrivacyRoute
   ReverseMortgagesRoute: typeof ReverseMortgagesRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   VaLoansRoute: typeof VaLoansRoute
@@ -298,6 +311,13 @@ declare module '@tanstack/react-router' {
       path: '/reverse-mortgages'
       fullPath: '/reverse-mortgages'
       preLoaderRoute: typeof ReverseMortgagesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/privacy': {
+      id: '/privacy'
+      path: '/privacy'
+      fullPath: '/privacy'
+      preLoaderRoute: typeof PrivacyRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/pnl-loans': {
@@ -427,6 +447,7 @@ const rootRouteChildren: RootRouteChildren = {
   HelocRoute: HelocRoute,
   MortgageAnalyzerRoute: MortgageAnalyzerRoute,
   PnlLoansRoute: PnlLoansRoute,
+  PrivacyRoute: PrivacyRoute,
   ReverseMortgagesRoute: ReverseMortgagesRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   VaLoansRoute: VaLoansRoute,
