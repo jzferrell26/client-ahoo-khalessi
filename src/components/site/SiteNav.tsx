@@ -1,5 +1,5 @@
 import { Link } from "@tanstack/react-router";
-import { useState } from "react";
+import { useState, type CSSProperties } from "react";
 import ctcLogo from "@/assets/ctc-logo.png.asset.json";
 
 const NAV_LINKS: { to: string; label: string }[] = [
@@ -201,8 +201,8 @@ export function SiteNav() {
   );
 }
 
-function menuBar(state: string): React.CSSProperties {
-  const base: React.CSSProperties = {
+function menuBar(state: string): CSSProperties {
+  const base: CSSProperties = {
     position: "absolute",
     left: 0,
     height: 2,
