@@ -1,4 +1,5 @@
 import { Link } from "@tanstack/react-router";
+import { useState, type CSSProperties } from "react";
 import ctcLogo from "@/assets/ctc-logo.png.asset.json";
 
 const NAV_LINKS: { to: string; label: string }[] = [
@@ -14,6 +15,8 @@ const NAV_LINKS: { to: string; label: string }[] = [
 export const APPLY_NOW_AHOO = "https://akhalessi.floify.com/apply-now";
 
 export function SiteNav() {
+  const [open, setOpen] = useState(false);
+  const closeMenu = () => setOpen(false);
   return (
     <>
       <div
@@ -31,11 +34,11 @@ export function SiteNav() {
             <b style={{ color: "#fff" }}>Toll-Free:</b>{" "}
             <a href="tel:+18772270477" style={{ color: "var(--tiffany-soft)" }}>(877) 227-0477</a>
           </span>
-          <span>
+          <span className="ctc-topbar-extra">
             <b style={{ color: "#fff" }}>Ahoo:</b>{" "}
             <a href="tel:+19498777234" style={{ color: "var(--tiffany-soft)" }}>(949) 877-7234</a>
           </span>
-          <span>
+          <span className="ctc-topbar-extra">
             <b style={{ color: "#fff" }}>Ben:</b>{" "}
             <a href="tel:+19498892993" style={{ color: "var(--tiffany-soft)" }}>(949) 889-2993</a>
           </span>
@@ -57,6 +60,7 @@ export function SiteNav() {
         >
           <Link
             to="/"
+            onClick={closeMenu}
             style={{ display: "flex", alignItems: "center", gap: ".7rem", color: "#fff", textDecoration: "none" }}
           >
             <img
@@ -96,9 +100,9 @@ export function SiteNav() {
               </Link>
             ))}
           </div>
-          <div style={{ display: "flex", alignItems: "center", gap: "0.6rem" }}>
+          <div className="btn-row-inline" style={{ display: "flex", alignItems: "center", gap: "0.6rem" }}>
             <a
-              className="btn btn-ghost"
+              className="btn btn-ghost ctc-nav-apply"
               href={APPLY_NOW_AHOO}
               target="_blank"
               rel="noopener"
@@ -106,12 +110,114 @@ export function SiteNav() {
             >
               Apply Now
             </a>
-            <Link to="/" hash="getstarted" className="btn btn-primary" style={{ padding: ".55rem 1.1rem" }}>
+            <Link
+              to="/"
+              hash="getstarted"
+              onClick={closeMenu}
+              className="btn btn-primary ctc-nav-apply"
+              style={{ padding: ".55rem 1.1rem" }}
+            >
               Get My Options
             </Link>
+            <button
+              type="button"
+              className="ctc-mobile-toggle"
+              aria-label={open ? "Close menu" : "Open menu"}
+              aria-expanded={open}
+              onClick={() => setOpen((o) => !o)}
+              style={{
+                background: "transparent",
+                border: "1px solid var(--line-on-dark)",
+                color: "#fff",
+                width: 44,
+                height: 44,
+                borderRadius: 10,
+                alignItems: "center",
+                justifyContent: "center",
+                cursor: "pointer",
+                padding: 0,
+              }}
+            >
+              <span aria-hidden="true" style={{ display: "block", position: "relative", width: 20, height: 14 }}>
+                <span style={menuBar(open ? "top-open" : "top")} />
+                <span style={menuBar(open ? "mid-open" : "mid")} />
+                <span style={menuBar(open ? "bot-open" : "bot")} />
+              </span>
+            </button>
           </div>
         </div>
+        {open && (
+          <div
+            style={{
+              background: "var(--ink)",
+              borderTop: "1px solid var(--line-on-dark)",
+              padding: "14px 18px 22px",
+            }}
+          >
+            <div style={{ display: "flex", flexDirection: "column", gap: 4 }}>
+              {NAV_LINKS.map((l) => (
+                <Link
+                  key={l.to}
+                  to={l.to}
+                  onClick={closeMenu}
+                  style={{
+                    color: "#fff",
+                    textDecoration: "none",
+                    padding: "12px 8px",
+                    borderBottom: "1px solid var(--line-on-dark)",
+                    fontWeight: 500,
+                    fontSize: "1rem",
+                  }}
+                >
+                  {l.label}
+                </Link>
+              ))}
+            </div>
+            <div style={{ display: "flex", flexDirection: "column", gap: 10, marginTop: 16 }}>
+              <a
+                className="btn btn-ghost"
+                href={APPLY_NOW_AHOO}
+                target="_blank"
+                rel="noopener"
+                onClick={closeMenu}
+                style={{ justifyContent: "center" }}
+              >
+                Apply Now
+              </a>
+              <Link
+                to="/"
+                hash="getstarted"
+                onClick={closeMenu}
+                className="btn btn-primary"
+                style={{ justifyContent: "center" }}
+              >
+                Get My Options
+              </Link>
+            </div>
+          </div>
+        )}
       </nav>
     </>
   );
+}
+
+function menuBar(state: string): CSSProperties {
+  const base: CSSProperties = {
+    position: "absolute",
+    left: 0,
+    height: 2,
+    width: "100%",
+    background: "#fff",
+    borderRadius: 2,
+    transition: "transform .2s ease, opacity .2s ease, top .2s ease",
+  };
+  switch (state) {
+    case "top": return { ...base, top: 0 };
+    case "mid": return { ...base, top: 6 };
+    case "bot": return { ...base, top: 12 };
+    case "top-open": return { ...base, top: 6, transform: "rotate(45deg)" };
+    case "mid-open": return { ...base, top: 6, opacity: 0 };
+    case "bot-open": return { ...base, top: 6, transform: "rotate(-45deg)" };
+    default: return base;
+  }
 }
