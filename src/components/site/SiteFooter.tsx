@@ -11,6 +11,8 @@ const FOOTER_LINKS = [
   { to: "/mortgage-analyzer", label: "Analyzer" },
   { to: "/blog", label: "Blog" },
   { to: "/faq", label: "FAQ" },
+  { to: "/privacy", label: "Privacy & SMS" },
+  { to: "/terms", label: "Terms & SMS" },
 ] as const;
 
 export function SiteFooter() {
