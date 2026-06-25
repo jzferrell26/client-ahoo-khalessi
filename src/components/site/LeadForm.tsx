@@ -1,7 +1,8 @@
 import { useState } from "react";
+import { Link } from "@tanstack/react-router";
 
 const CONSENT_TEXT =
-  "I agree to be contacted by CTC Equity / Ahoo Khalessi by phone, text, and email about my inquiry, including via automated technology. Consent is not a condition of any purchase. Message & data rates may apply.";
+  "I agree to be contacted by CTC Equity / Ahoo Khalessi by phone, text, and email about my inquiry, including via automated technology. Consent is not a condition of any purchase. Message & data rates may apply. See our Privacy Policy & SMS Consent and Terms of Service & SMS Policy.";
 
 const GOAL_GROUPS: { label: string; options: string[] }[] = [
   {
@@ -143,7 +144,19 @@ export function LeadForm({ source = "Website — Short Form" }: { source?: strin
         }}
       >
         <input id="lf-consent" name="consent" type="checkbox" required style={{ marginTop: 4 }} />
-        <span>{CONSENT_TEXT}</span>
+        <span>
+          I agree to be contacted by CTC Equity / Ahoo Khalessi by phone, text, and email
+          about my inquiry, including via automated technology. Consent is not a condition
+          of any purchase. Message &amp; data rates may apply. See our{" "}
+          <Link to="/privacy" target="_blank" style={{ color: "var(--navy)", textDecoration: "underline" }}>
+            Privacy Policy &amp; SMS Consent
+          </Link>{" "}
+          and{" "}
+          <Link to="/terms" target="_blank" style={{ color: "var(--navy)", textDecoration: "underline" }}>
+            Terms of Service &amp; SMS Policy
+          </Link>
+          .
+        </span>
       </label>
       <button
         className="btn btn-primary"
