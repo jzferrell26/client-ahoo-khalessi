@@ -56,22 +56,30 @@ QR landing page).
 ## Lead forms to GoHighLevel
 
 Both `LeadForm` (homepage short form) and `HomeValueForm` (the free-home-value
-mailer landing page) POST their submissions to a single GHL inbound webhook,
-configured via one environment variable:
+mailer landing page) POST their submissions to the internal server route
+**`/api/lead`** (`src/routes/api.lead.ts`). That route forwards the payload to
+the GHL inbound webhook server-side, using a runtime secret:
 
 ```
-VITE_GHL_INBOUND_WEBHOOK_URL=https://services.leadconnectorhq.com/hooks/...
+GHL_INBOUND_WEBHOOK_URL=https://services.leadconnectorhq.com/hooks/...
 ```
 
-Set this in the project's **Lovable secrets**.
+Set this in the project's **Lovable secrets** (a plain runtime secret, not a
+`VITE_` variable). Keeping the webhook server-side means the URL is never shipped
+in the public client bundle.
 
 - Each form sends a hidden `source` field so the GHL workflow can route leads into
   the right pipeline (homepage vs mailer).
 - The payload includes `consent`, `consent_language`, and `submitted_at` for the
   TCPA record.
-- If the env var is unset the form still shows a success state but only logs the
-  payload to the console, so **leads are not delivered until it is set.** Full
-  field mapping is documented on the internal route `/tools/form-to-ghl`.
+- `/api/lead` responds with `{ ok, configured }` (no sensitive data), so the
+  wiring can be checked after deploy: `configured: false` means the secret is
+  missing. Full field mapping is documented on the internal route
+  `/tools/form-to-ghl`.
+
+> Note: `VITE_`-prefixed variables can't be set through the Lovable API (reserved
+> prefix) and would also expose the value in the client bundle, which is why the
+> webhook is proxied server-side rather than read via `import.meta.env`.
 
 "Apply Now" is separate and routes to each loan officer's Floify application;
 "Book an appointment" routes to their Microsoft Bookings pages.
@@ -83,6 +91,6 @@ and deploys to `ctcequity.com`. There is no separate deploy step.
 
 ## Status / parked
 
-- **Live:** `/free-home-value-report` landing page (mailer QR destination).
-  Requires `VITE_GHL_INBOUND_WEBHOOK_URL` in Lovable secrets to deliver leads.
+- **Live:** `/free-home-value-report` landing page (mailer QR destination), with
+  both forms delivering to GHL through `/api/lead` (`GHL_INBOUND_WEBHOOK_URL` set).
 - **Parked:** the `/qr` permanent redirect and the branded QR code asset.
