@@ -86,21 +86,17 @@ export function HomeValueForm({
       submitted_at: new Date().toISOString(),
     };
 
-    // Jonathan: set VITE_GHL_INBOUND_WEBHOOK_URL to the GHL inbound webhook URL.
-    // Same env var the homepage LeadForm uses. See /tools/form-to-ghl for the wiring spec.
-    const webhook = import.meta.env.VITE_GHL_INBOUND_WEBHOOK_URL as string | undefined;
-    if (webhook) {
-      try {
-        await fetch(webhook, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(payload),
-        });
-      } catch {
-        /* fire-and-forget */
-      }
-    } else if (typeof window !== "undefined") {
-      console.info("[HomeValueForm] VITE_GHL_INBOUND_WEBHOOK_URL not set. Payload:", payload);
+    // Submit to our server-side proxy (/api/lead), which forwards to the GHL
+    // inbound webhook. The webhook URL stays server-side and is never shipped in
+    // the client bundle. See /tools/form-to-ghl for the wiring spec.
+    try {
+      await fetch("/api/lead", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+    } catch {
+      /* fire-and-forget; the server logs any delivery failure */
     }
 
     setSubmitting(false);

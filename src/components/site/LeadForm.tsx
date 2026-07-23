@@ -18,11 +18,24 @@ const GOAL_GROUPS: { label: string; options: string[] }[] = [
   },
   {
     label: "Self-employed & alternative income",
-    options: ["Bank statement loan", "P&L loan", "1099 income loan", "Stated income", "No-DTI (no debt-to-income) loan"],
+    options: [
+      "Bank statement loan",
+      "P&L loan",
+      "1099 income loan",
+      "Stated income",
+      "No-DTI (no debt-to-income) loan",
+    ],
   },
   {
     label: "Investor & construction",
-    options: ["DSCR purchase or refinance", "Fix & flip", "Bridge loan", "Hard money", "Construction", "Land loan"],
+    options: [
+      "DSCR purchase or refinance",
+      "Fix & flip",
+      "Bridge loan",
+      "Hard money",
+      "Construction",
+      "Land loan",
+    ],
   },
   { label: "Buy a home", options: ["Conventional", "FHA", "VA", "Jumbo"] },
   { label: "Specialty", options: ["Commercial", "Reverse mortgage", "Not sure yet"] },
@@ -36,29 +49,27 @@ export function LeadForm({ source = "Website — Short Form" }: { source?: strin
     e.preventDefault();
     setSubmitting(true);
     const form = e.currentTarget;
-    const data = Object.fromEntries(new FormData(form).entries()) as Record<string, FormDataEntryValue>;
+    const data = Object.fromEntries(new FormData(form).entries()) as Record<
+      string,
+      FormDataEntryValue
+    >;
     const payload = {
       ...data,
       consent: form.querySelector<HTMLInputElement>("#lf-consent")?.checked ?? false,
       submitted_at: new Date().toISOString(),
     };
 
-    // Jonathan: set VITE_GHL_INBOUND_WEBHOOK_URL to the GHL inbound webhook URL.
-    // See /tools/form-to-ghl for the full wiring spec.
-    const webhook = import.meta.env.VITE_GHL_INBOUND_WEBHOOK_URL as string | undefined;
-    if (webhook) {
-      try {
-        await fetch(webhook, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(payload),
-        });
-      } catch {
-        /* fire-and-forget */
-      }
-    } else if (typeof window !== "undefined") {
-      // eslint-disable-next-line no-console
-      console.info("[LeadForm] VITE_GHL_INBOUND_WEBHOOK_URL not set. Payload:", payload);
+    // Submit to our server-side proxy (/api/lead), which forwards to the GHL
+    // inbound webhook. The webhook URL stays server-side and is never shipped in
+    // the client bundle. See /tools/form-to-ghl for the wiring spec.
+    try {
+      await fetch("/api/lead", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+    } catch {
+      /* fire-and-forget; the server logs any delivery failure */
     }
 
     setSubmitting(false);
@@ -145,14 +156,22 @@ export function LeadForm({ source = "Website — Short Form" }: { source?: strin
       >
         <input id="lf-consent" name="consent" type="checkbox" required style={{ marginTop: 4 }} />
         <span>
-          I agree to be contacted by CTC Equity / Ahoo Khalessi by phone, text, and email
-          about my inquiry, including via automated technology. Consent is not a condition
-          of any purchase. Message &amp; data rates may apply. See our{" "}
-          <Link to="/privacy" target="_blank" style={{ color: "var(--navy)", textDecoration: "underline" }}>
+          I agree to be contacted by CTC Equity / Ahoo Khalessi by phone, text, and email about my
+          inquiry, including via automated technology. Consent is not a condition of any purchase.
+          Message &amp; data rates may apply. See our{" "}
+          <Link
+            to="/privacy"
+            target="_blank"
+            style={{ color: "var(--navy)", textDecoration: "underline" }}
+          >
             Privacy Policy &amp; SMS Consent
           </Link>{" "}
           and{" "}
-          <Link to="/terms" target="_blank" style={{ color: "var(--navy)", textDecoration: "underline" }}>
+          <Link
+            to="/terms"
+            target="_blank"
+            style={{ color: "var(--navy)", textDecoration: "underline" }}
+          >
             Terms of Service &amp; SMS Policy
           </Link>
           .
