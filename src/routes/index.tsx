@@ -592,16 +592,16 @@ function RecognitionSection() {
               [
                 { t: "Scotsman Guide Top Originator", y: "View on Ahoo's EMC profile ↗", href: EMC_PROFILES.ahoo },
                 { t: "Started the home equity department at Rocket Mortgage", y: "Top producer — team & department" },
-                { t: "EMC Top 5% Loan Officer — Volume", y: "EMortgage Capital · 2025" },
-                { t: "EMC Top 5% Loan Officer — Units", y: "EMortgage Capital · 2025" },
-                { t: "EMC Top 10% Loan Officer — Units", y: "EMortgage Capital · Q1 2026" },
+                { t: "EMC Top 5% Loan Officer — Volume", y: "EMortgage Capital · 2025", href: EMC_PROFILES.ahoo },
+                { t: "EMC Top 5% Loan Officer — Units", y: "EMortgage Capital · 2025", href: EMC_PROFILES.ahoo },
+                { t: "EMC Top 10% Loan Officer — Units", y: "EMortgage Capital · Q1 2026", href: EMC_PROFILES.ahoo },
               ] as { t: string; y: string; href?: string }[]
             ).map((a) => (
               <a
                 key={a.t}
                 href={a.href}
                 target={a.href ? "_blank" : undefined}
-                rel={a.href ? "noopener" : undefined}
+                rel={a.href ? "noopener noreferrer" : undefined}
                 style={{
                   background: "#fff",
                   border: "1px solid var(--line)",
@@ -703,7 +703,7 @@ function RecognitionSection() {
           <p style={{ fontSize: ".92rem", color: "var(--muted-ink)" }}>
             <b style={{ color: "var(--ink)" }}>
               Proudly originating through{" "}
-              <a href={EMC_SITE} target="_blank" rel="noopener" style={{ color: "var(--teal)" }}>
+              <a href={EMC_SITE} target="_blank" rel="noopener noreferrer" style={{ color: "var(--teal)" }}>
                 EMortgage Capital
               </a>
               .
@@ -777,7 +777,7 @@ function TeamSection() {
               key={m.n}
               href={m.href}
               target="_blank"
-              rel="noopener"
+              rel="noopener noreferrer"
               style={{ color: "var(--cyan)", textDecoration: "none" }}
             >
               {m.n} ↗
@@ -860,7 +860,7 @@ function TeamCard({
           Apply with {name.split(" ")[0]}
         </a>
         {booking && (
-          <a className="btn btn-dark" href={booking} target="_blank" rel="noopener" style={{ padding: ".6rem 1.1rem" }}>
+          <a className="btn btn-dark" href={booking} target="_blank" rel="noopener noreferrer" style={{ padding: ".6rem 1.1rem" }}>
             Book an appointment ↗
           </a>
         )}
@@ -869,7 +869,7 @@ function TeamCard({
         <a
           href={emcProfile}
           target="_blank"
-          rel="noopener"
+          rel="noopener noreferrer"
           style={{
             fontFamily: "var(--mono)",
             fontSize: ".78rem",

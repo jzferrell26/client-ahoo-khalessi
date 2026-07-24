@@ -42,12 +42,13 @@ export function SiteNav() {
             <b style={{ color: "#fff" }}>Ben:</b>{" "}
             <a href="tel:+19498892993" style={{ color: "var(--tiffany-soft)" }}>(949) 889-2993</a>
           </span>
-          <span className="ctc-topbar-extra" style={{ marginLeft: "auto" }}>
+          {/* Kept visible at all widths: the DBA line is compliance-relevant co-branding. */}
+          <span style={{ marginLeft: "auto" }}>
             A DBA of{" "}
             <a
               href="https://www.emortgagecapital.com"
               target="_blank"
-              rel="noopener"
+              rel="noopener noreferrer"
               style={{ color: "var(--tiffany-soft)" }}
             >
               EMortgage Capital, Inc.
