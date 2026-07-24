@@ -74,7 +74,8 @@ export function SiteFooter() {
           </div>
           {/* TODO before launch: replace [LICENSED STATES] with EMC's actual license footprint. */}
           CTC Equity is a DBA of EMortgage Capital, Inc. (Company NMLS #1416824). Ahoo Khalessi,
-          NMLS #2239510. Ben Mokri, NMLS #2279528. Licensed in:{" "}
+          NMLS #2239510. Ben Mokri, NMLS #2279528. Dong-Jin Kim, NMLS #2615439. Susan O'Donovan,
+          NMLS #2302891. Licensed in:{" "}
           [LICENSED STATES — insert actual EMC license footprint before launch]. This is not a
           commitment to lend. All loans subject to credit approval, lender guidelines, and property
           qualification. Rates and program availability vary and are subject to change. Verify
