@@ -30,6 +30,15 @@ export function SiteFooter() {
       <div className="ctc-wrap">
         <p>
           <b style={{ color: "#fff", fontFamily: "var(--display)", fontSize: "1.1rem" }}>CTC Equity</b>{" "}
+          &nbsp;·&nbsp; A DBA of{" "}
+          <a
+            href="https://www.emortgagecapital.com"
+            target="_blank"
+            rel="noopener"
+            style={{ color: "var(--tiffany-soft)" }}
+          >
+            EMortgage Capital, Inc.
+          </a>{" "}
           &nbsp;·&nbsp; Nationwide lending, based in Orange County, CA
         </p>
         <p style={{ marginTop: 8 }}>

@@ -42,6 +42,18 @@ export function SiteNav() {
             <b style={{ color: "#fff" }}>Ben:</b>{" "}
             <a href="tel:+19498892993" style={{ color: "var(--tiffany-soft)" }}>(949) 889-2993</a>
           </span>
+          <span className="ctc-topbar-extra" style={{ marginLeft: "auto" }}>
+            A DBA of{" "}
+            <a
+              href="https://www.emortgagecapital.com"
+              target="_blank"
+              rel="noopener"
+              style={{ color: "var(--tiffany-soft)" }}
+            >
+              EMortgage Capital, Inc.
+            </a>{" "}
+            · NMLS #1416824
+          </span>
         </div>
       </div>
       <nav
