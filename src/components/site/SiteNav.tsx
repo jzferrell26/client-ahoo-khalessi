@@ -47,7 +47,7 @@ export function SiteNav() {
             <a
               href="https://www.emortgagecapital.com"
               target="_blank"
-              rel="noopener"
+              rel="noopener noreferrer"
               style={{ color: "var(--tiffany-soft)" }}
             >
               EMortgage Capital, Inc.
