@@ -592,9 +592,9 @@ function RecognitionSection() {
               [
                 { t: "Scotsman Guide Top Originator", y: "View on Ahoo's EMC profile ↗", href: EMC_PROFILES.ahoo },
                 { t: "Started the home equity department at Rocket Mortgage", y: "Top producer — team & department" },
-                { t: "EMC Top 5% Loan Officer — Volume", y: "EMortgage Capital · 2025" },
-                { t: "EMC Top 5% Loan Officer — Units", y: "EMortgage Capital · 2025" },
-                { t: "EMC Top 10% Loan Officer — Units", y: "EMortgage Capital · Q1 2026" },
+                { t: "EMC Top 5% Loan Officer — Volume", y: "EMortgage Capital · 2025", href: EMC_PROFILES.ahoo },
+                { t: "EMC Top 5% Loan Officer — Units", y: "EMortgage Capital · 2025", href: EMC_PROFILES.ahoo },
+                { t: "EMC Top 10% Loan Officer — Units", y: "EMortgage Capital · Q1 2026", href: EMC_PROFILES.ahoo },
               ] as { t: string; y: string; href?: string }[]
             ).map((a) => (
               <a
