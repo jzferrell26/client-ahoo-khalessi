@@ -11,6 +11,14 @@ const PAGE_TITLE =
 const PAGE_DESC =
   "Access to 160+ lenders for HELOCs, fixed second mortgages, DSCR investment loans, and bank statement loans. We find solutions others miss — often after another lender said no.";
 
+const EMC_SITE = "https://www.emortgagecapital.com";
+const EMC_PROFILES = {
+  ahoo: `${EMC_SITE}/team/Ahoo-Khalessi-3928`,
+  ben: `${EMC_SITE}/team/Ben-Mokri-4026?UserId=005Pm00000958z3IAA`,
+  dongJin: `${EMC_SITE}/team/Dong-Jin-Kim-4233?UserId=005Pm000008swaHIAQ`,
+  susan: `${EMC_SITE}/team/Susan-ODonovan-5067?UserId=005Pm000009YufJIAS`,
+};
+
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
@@ -580,20 +588,28 @@ function RecognitionSection() {
             </div>
           </div>
           <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 14 }}>
-            {[
-              { t: "Scotsman Guide Top Originator", y: "[confirm year]" },
-              { t: "Started the home equity department at Rocket Mortgage", y: "Top producer — team & department" },
-              { t: "EMC Top 5% Loan Officer — Volume", y: "EMortgage Capital · 2025" },
-              { t: "EMC Top 5% Loan Officer — Units", y: "EMortgage Capital · 2025" },
-              { t: "EMC Top 10% Loan Officer — Units", y: "EMortgage Capital · Q1 2026" },
-            ].map((a) => (
-              <div
+            {(
+              [
+                { t: "Scotsman Guide Top Originator", y: "View on Ahoo's EMC profile ↗", href: EMC_PROFILES.ahoo },
+                { t: "Started the home equity department at Rocket Mortgage", y: "Top producer — team & department" },
+                { t: "EMC Top 5% Loan Officer — Volume", y: "EMortgage Capital · 2025" },
+                { t: "EMC Top 5% Loan Officer — Units", y: "EMortgage Capital · 2025" },
+                { t: "EMC Top 10% Loan Officer — Units", y: "EMortgage Capital · Q1 2026" },
+              ] as { t: string; y: string; href?: string }[]
+            ).map((a) => (
+              <a
                 key={a.t}
+                href={a.href}
+                target={a.href ? "_blank" : undefined}
+                rel={a.href ? "noopener" : undefined}
                 style={{
                   background: "#fff",
                   border: "1px solid var(--line)",
                   borderRadius: 14,
                   padding: 20,
+                  display: "block",
+                  color: "inherit",
+                  textDecoration: "none",
                 }}
               >
                 <div style={{ fontWeight: 700, fontSize: ".98rem", lineHeight: 1.3 }}>{a.t}</div>
@@ -609,7 +625,7 @@ function RecognitionSection() {
                 >
                   {a.y}
                 </div>
-              </div>
+              </a>
             ))}
           </div>
         </div>
@@ -685,7 +701,13 @@ function RecognitionSection() {
             EMC LOGO HERE
           </div>
           <p style={{ fontSize: ".92rem", color: "var(--muted-ink)" }}>
-            <b style={{ color: "var(--ink)" }}>Proudly originating through EMortgage Capital.</b>{" "}
+            <b style={{ color: "var(--ink)" }}>
+              Proudly originating through{" "}
+              <a href={EMC_SITE} target="_blank" rel="noopener" style={{ color: "var(--teal)" }}>
+                EMortgage Capital
+              </a>
+              .
+            </b>{" "}
             CTC Equity is a DBA of EMortgage Capital, Inc. — giving our clients the backing of a
             national lender with wholesale access to 160+ investors.
           </p>
@@ -712,6 +734,7 @@ function TeamSection() {
             phone="(949) 877-7234"
             email="akhalessi@ctcequity.com"
             apply={APPLY_NOW_AHOO}
+            emcProfile={EMC_PROFILES.ahoo}
             // TODO: confirm and update Microsoft Bookings URL.
             booking="https://bookings.cloud.microsoft/book/AhooKhalessi@emortgagecapital.com/"
             bio="Started the home equity department at Rocket Mortgage as top producer, then made home equity her wholesale specialty. Places HELOCs and fixed seconds up to $4M. Scotsman Guide Top Originator, EMC Top 5% Loan Officer (2025), top 5% nationally."
@@ -724,10 +747,42 @@ function TeamSection() {
             phone="(949) 889-2993"
             email="bmokri@ctcequity.com"
             apply="https://benmokri.floify.com/apply-now"
-            // TODO: confirm Ben's Microsoft Bookings URL.
-            booking="[Ben Microsoft Bookings URL]"
+            emcProfile={EMC_PROFILES.ben}
+            // TODO: add Ben's Microsoft Bookings URL when provided.
             bio="Partner at CTC Equity working alongside Ahoo on equity, DSCR, and self-employed financing for investors and business owners nationwide."
           />
+        </div>
+        <div
+          style={{
+            marginTop: 26,
+            fontFamily: "var(--mono)",
+            fontSize: ".76rem",
+            letterSpacing: ".1em",
+            textTransform: "uppercase",
+            color: "var(--muted-ink)",
+            display: "flex",
+            flexWrap: "wrap",
+            gap: "6px 16px",
+            alignItems: "center",
+          }}
+        >
+          <span>Our team on EMortgage Capital:</span>
+          {[
+            { n: "Ahoo Khalessi", href: EMC_PROFILES.ahoo },
+            { n: "Ben Mokri", href: EMC_PROFILES.ben },
+            { n: "Dong Jin Kim", href: EMC_PROFILES.dongJin },
+            { n: "Susan O'Donovan", href: EMC_PROFILES.susan },
+          ].map((m) => (
+            <a
+              key={m.n}
+              href={m.href}
+              target="_blank"
+              rel="noopener"
+              style={{ color: "var(--cyan)", textDecoration: "none" }}
+            >
+              {m.n} ↗
+            </a>
+          ))}
         </div>
       </div>
     </section>
@@ -743,6 +798,7 @@ function TeamCard({
   email,
   apply,
   booking,
+  emcProfile,
   bio,
 }: {
   name: string;
@@ -752,7 +808,8 @@ function TeamCard({
   phone: string;
   email: string;
   apply: string;
-  booking: string;
+  booking?: string;
+  emcProfile?: string;
   bio: string;
 }) {
   return (
@@ -802,10 +859,29 @@ function TeamCard({
         <a className="btn btn-primary" href={apply} target="_blank" rel="noopener" style={{ padding: ".6rem 1.1rem" }}>
           Apply with {name.split(" ")[0]}
         </a>
-        <a className="btn btn-dark" href={booking} target="_blank" rel="noopener" style={{ padding: ".6rem 1.1rem" }}>
-          Book an appointment ↗
-        </a>
+        {booking && (
+          <a className="btn btn-dark" href={booking} target="_blank" rel="noopener" style={{ padding: ".6rem 1.1rem" }}>
+            Book an appointment ↗
+          </a>
+        )}
       </div>
+      {emcProfile && (
+        <a
+          href={emcProfile}
+          target="_blank"
+          rel="noopener"
+          style={{
+            fontFamily: "var(--mono)",
+            fontSize: ".78rem",
+            letterSpacing: ".1em",
+            textTransform: "uppercase",
+            color: "var(--cyan)",
+            textDecoration: "none",
+          }}
+        >
+          EMC profile & awards ↗
+        </a>
+      )}
     </article>
   );
 }
