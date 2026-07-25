@@ -669,7 +669,6 @@ function RecognitionSection() {
             ))}
           </div>
         </div>
-        {/* TODO: replace this slot with the official EMortgage Capital logo (SVG or PNG). */}
         <div
           style={{
             display: "flex",
@@ -682,24 +681,13 @@ function RecognitionSection() {
             marginTop: 24,
           }}
         >
-          <div
-            style={{
-              width: 130,
-              height: 52,
-              border: "1px dashed var(--cyan)",
-              borderRadius: 8,
-              display: "grid",
-              placeItems: "center",
-              background: "#fff",
-              fontFamily: "var(--mono)",
-              fontSize: ".62rem",
-              color: "var(--muted-ink)",
-              textAlign: "center",
-              padding: 6,
-            }}
-          >
-            EMC LOGO HERE
-          </div>
+          <img
+            src="/emc-logo.png"
+            alt="EMortgage Capital logo"
+            width={56}
+            height={56}
+            style={{ width: 56, height: 56, objectFit: "contain", flex: "none" }}
+          />
           <p style={{ fontSize: ".92rem", color: "var(--muted-ink)" }}>
             <b style={{ color: "var(--ink)" }}>
               Proudly originating through{" "}
@@ -730,6 +718,7 @@ function TeamSection() {
             name="Ahoo Khalessi"
             role="Division Manager · Loan Officer"
             initials="AK"
+            photo="/team/ahoo.png"
             nmls="NMLS #2239510"
             phone="(949) 877-7234"
             email="akhalessi@ctcequity.com"
@@ -743,6 +732,7 @@ function TeamSection() {
             name="Ben Mokri"
             role="Partner · Executive Loan Officer"
             initials="BM"
+            photo="/team/ben.png"
             nmls="NMLS #2279528"
             phone="(949) 889-2993"
             email="bmokri@ctcequity.com"
@@ -750,6 +740,24 @@ function TeamSection() {
             emcProfile={EMC_PROFILES.ben}
             // TODO: add Ben's Microsoft Bookings URL when provided.
             bio="Partner at CTC Equity working alongside Ahoo on equity, DSCR, and self-employed financing for investors and business owners nationwide."
+          />
+          <TeamCard
+            name="Dong-Jin Kim"
+            role="Loan Officer"
+            initials="DK"
+            photo="/team/dong-jin.png"
+            nmls="NMLS #2615439"
+            phone="(510) 925-5490"
+            emcProfile={EMC_PROFILES.dongJin}
+          />
+          <TeamCard
+            name="Susan O'Donovan"
+            role="Loan Officer"
+            initials="SO"
+            photo="/team/susan.png"
+            nmls="NMLS #2302891"
+            phone="(949) 441-6545"
+            emcProfile={EMC_PROFILES.susan}
           />
         </div>
         <div
@@ -770,7 +778,7 @@ function TeamSection() {
           {[
             { n: "Ahoo Khalessi", href: EMC_PROFILES.ahoo },
             { n: "Ben Mokri", href: EMC_PROFILES.ben },
-            { n: "Dong Jin Kim", href: EMC_PROFILES.dongJin },
+            { n: "Dong-Jin Kim", href: EMC_PROFILES.dongJin },
             { n: "Susan O'Donovan", href: EMC_PROFILES.susan },
           ].map((m) => (
             <a
@@ -799,6 +807,7 @@ function TeamCard({
   apply,
   booking,
   emcProfile,
+  photo,
   bio,
 }: {
   name: string;
@@ -806,11 +815,12 @@ function TeamCard({
   initials: string;
   nmls: string;
   phone: string;
-  email: string;
-  apply: string;
+  email?: string;
+  apply?: string;
   booking?: string;
   emcProfile?: string;
-  bio: string;
+  photo?: string;
+  bio?: string;
 }) {
   return (
     <article
@@ -825,40 +835,62 @@ function TeamCard({
       }}
     >
       <div style={{ display: "flex", gap: 16, alignItems: "center" }}>
-        <div
-          style={{
-            width: 64,
-            height: 64,
-            borderRadius: 14,
-            background: "linear-gradient(135deg,var(--tiffany),var(--teal))",
-            color: "#fff",
-            fontFamily: "var(--display)",
-            fontWeight: 800,
-            fontSize: "1.4rem",
-            display: "grid",
-            placeItems: "center",
-            flex: "none",
-          }}
-        >
-          {initials}
-        </div>
+        {photo ? (
+          <img
+            src={photo}
+            alt={`${name} headshot`}
+            width={64}
+            height={64}
+            style={{ width: 64, height: 64, objectFit: "cover", borderRadius: "50%", flex: "none" }}
+          />
+        ) : (
+          <div
+            style={{
+              width: 64,
+              height: 64,
+              borderRadius: 14,
+              background: "linear-gradient(135deg,var(--tiffany),var(--teal))",
+              color: "#fff",
+              fontFamily: "var(--display)",
+              fontWeight: 800,
+              fontSize: "1.4rem",
+              display: "grid",
+              placeItems: "center",
+              flex: "none",
+            }}
+          >
+            {initials}
+          </div>
+        )}
         <div>
           <h3 style={{ fontFamily: "var(--display)", fontSize: "1.4rem" }}>{name}</h3>
           <div style={{ color: "var(--cyan)", fontWeight: 600, fontSize: ".9rem" }}>{role}</div>
         </div>
       </div>
-      <p style={{ color: "#33485a", lineHeight: 1.6, fontSize: ".95rem" }}>{bio}</p>
+      {bio && <p style={{ color: "#33485a", lineHeight: 1.6, fontSize: ".95rem" }}>{bio}</p>}
       <div style={{ fontFamily: "var(--mono)", fontSize: ".82rem", color: "var(--muted-ink)" }}>
         {nmls} · {phone}
-        <br />
-        <a href={`mailto:${email}`} style={{ color: "var(--cyan)" }}>
-          {email}
-        </a>
+        {email && (
+          <>
+            <br />
+            <a href={`mailto:${email}`} style={{ color: "var(--cyan)" }}>
+              {email}
+            </a>
+          </>
+        )}
       </div>
       <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
-        <a className="btn btn-primary" href={apply} target="_blank" rel="noopener" style={{ padding: ".6rem 1.1rem" }}>
-          Apply with {name.split(" ")[0]}
-        </a>
+        {apply && (
+          <a
+            className="btn btn-primary"
+            href={apply}
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{ padding: ".6rem 1.1rem" }}
+          >
+            Apply with {name.split(" ")[0]}
+          </a>
+        )}
         {booking && (
           <a className="btn btn-dark" href={booking} target="_blank" rel="noopener noreferrer" style={{ padding: ".6rem 1.1rem" }}>
             Book an appointment ↗
