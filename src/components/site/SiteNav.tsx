@@ -94,6 +94,16 @@ export function SiteNav() {
                 className="ctc-logo-img"
                 style={{ height: 38, width: "auto", objectFit: "contain", display: "block" }}
               />
+              <span
+                aria-hidden="true"
+                style={{
+                  width: 1,
+                  height: 30,
+                  background: "rgba(233,242,247,.35)",
+                  display: "inline-block",
+                  flexShrink: 0,
+                }}
+              />
               <img
                 src={emcLogo.url}
                 alt=""
