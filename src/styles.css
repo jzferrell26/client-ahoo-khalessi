@@ -282,8 +282,8 @@ details.qa .ans a { color: var(--cyan); font-weight: 600; }
 
 /* Default: show desktop nav links, hide mobile menu trigger. */
 .ctc-mobile-toggle { display: none; }
-.ctc-logo-img { width: 44px !important; height: 44px !important; }
-.emc-logo-img { height: 32px !important; width: auto !important; }
+.ctc-logo-img { height: 38px !important; width: auto !important; }
+.emc-logo-img { height: 34px !important; width: auto !important; }
 
 
 @media (max-width: 900px) {
@@ -335,7 +335,7 @@ details.qa .ans a { color: var(--cyan); font-weight: 600; }
   .hero-grad { padding: 44px 0 52px !important; }
   .btn { width: 100%; justify-content: center; }
   .btn-row-inline .btn { width: auto; }
-  .ctc-logo-img { width: 36px !important; height: 36px !important; }
-  .emc-logo-img { height: 24px !important; }
+  .ctc-logo-img { height: 30px !important; width: auto !important; }
+  .emc-logo-img { height: 26px !important; width: auto !important; }
 }
 
