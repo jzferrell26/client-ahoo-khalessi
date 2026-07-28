@@ -335,4 +335,7 @@ details.qa .ans a { color: var(--cyan); font-weight: 600; }
   .hero-grad { padding: 44px 0 52px !important; }
   .btn { width: 100%; justify-content: center; }
   .btn-row-inline .btn { width: auto; }
+  .ctc-logo-img { width: 36px !important; height: 36px !important; }
+  .emc-logo-img { height: 24px !important; }
 }
+
