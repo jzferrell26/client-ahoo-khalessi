@@ -3,8 +3,8 @@ import { useState, type CSSProperties } from "react";
 import ctcLogo from "@/assets/ctc-logo.png.asset.json";
 import emcLogo from "@/assets/emc-logo.png.asset.json";
 
-
 const NAV_LINKS: { to: string; label: string }[] = [
+
   { to: "/heloc", label: "HELOC" },
   { to: "/fixed-second-mortgage", label: "Fixed Second" },
   { to: "/dscr-loans", label: "DSCR" },
