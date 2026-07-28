@@ -1,6 +1,8 @@
 import { Link } from "@tanstack/react-router";
 import { useState, type CSSProperties } from "react";
 import ctcLogo from "@/assets/ctc-logo.png.asset.json";
+import emcLogo from "@/assets/emc-logo.png.asset.json";
+
 
 const NAV_LINKS: { to: string; label: string }[] = [
   { to: "/heloc", label: "HELOC" },
