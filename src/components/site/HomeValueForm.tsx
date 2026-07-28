@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Link } from "@tanstack/react-router";
 
 const CONSENT_TEXT =
-  "I agree to be contacted by CTC Equity / Ahoo Khalessi by phone, text, and email about my free home value report and my inquiry, including via automated technology. Consent is not a condition of any purchase. Message & data rates may apply. See our Privacy Policy & SMS Consent and Terms of Service & SMS Policy.";
+  "I agree to be contacted by CTC Equity / Ahoo Khalessi by phone, text message, and email regarding my Free Home Value Report, my inquiry, mortgage financing options, home equity solutions, refinancing opportunities, and other loan products and services that may be available to me, including through automated technology. Consent is not a condition of purchase. Message and data rates may apply.";
 
 const US_STATES = [
   "AL",
@@ -201,9 +201,11 @@ export function HomeValueForm({
       >
         <input id="hv-consent" name="consent" type="checkbox" required style={{ marginTop: 4 }} />
         <span>
-          I agree to be contacted by CTC Equity / Ahoo Khalessi by phone, text, and email about my
-          free home value report and my inquiry, including via automated technology. Consent is not
-          a condition of any purchase. Message &amp; data rates may apply. See our{" "}
+          I agree to be contacted by CTC Equity / Ahoo Khalessi by phone, text message, and email
+          regarding my Free Home Value Report, my inquiry, mortgage financing options, home equity
+          solutions, refinancing opportunities, and other loan products and services that may be
+          available to me, including through automated technology. Consent is not a condition of
+          purchase. Message and data rates may apply. See our{" "}
           <Link
             to="/privacy"
             target="_blank"
