@@ -73,33 +73,48 @@ export function SiteNav() {
           className="ctc-wrap"
           style={{ display: "flex", alignItems: "center", justifyContent: "space-between", height: 70 }}
         >
-          <Link
-            to="/"
+          <a
+            href={APPLY_NOW_AHOO}
+            target="_blank"
+            rel="noopener"
             onClick={closeMenu}
-            style={{ display: "flex", alignItems: "center", gap: ".7rem", color: "#fff", textDecoration: "none" }}
+            aria-label="Apply now with CTC Equity, a DBA of EMortgage Capital Inc."
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "flex-start",
+              color: "#fff",
+              textDecoration: "none",
+            }}
           >
-            <img
-              src={ctcLogo.url}
-              alt="Coast to Coast Equity logo"
-              width={44}
-              height={44}
-              style={{ width: 44, height: 44, objectFit: "contain", display: "block" }}
-            />
-            <span style={{ display: "flex", flexDirection: "column", lineHeight: 1 }}>
-              <span style={{ fontFamily: "var(--display)", fontWeight: 700, fontSize: "1.15rem" }}>CTC Equity</span>
-              <span
-                style={{
-                  fontFamily: "var(--mono)",
-                  fontSize: ".56rem",
-                  letterSpacing: ".28em",
-                  color: "var(--bright)",
-                  marginTop: 3,
-                }}
-              >
-                COAST TO COAST EQUITY
-              </span>
+            <span style={{ display: "flex", alignItems: "center", gap: ".7rem" }}>
+              <img
+                src={ctcLogo.url}
+                alt=""
+                width={44}
+                height={44}
+                style={{ width: 44, height: 44, objectFit: "contain", display: "block" }}
+              />
+              <img
+                src={emcLogo.url}
+                alt=""
+                style={{ height: 32, width: "auto", objectFit: "contain", display: "block" }}
+              />
             </span>
-          </Link>
+            <span
+              style={{
+                fontFamily: "var(--mono)",
+                fontSize: ".56rem",
+                letterSpacing: ".08em",
+                color: "var(--bright)",
+                marginTop: 4,
+                lineHeight: 1.2,
+              }}
+            >
+              CTC Equity is a DBA of EMortgage Capital Inc.
+            </span>
+          </a>
+
           <div
             style={{ display: "flex", alignItems: "center", gap: "1.4rem" }}
             className="ctc-nav-links"
