@@ -91,16 +91,14 @@ export function SiteNav() {
               <img
                 src={ctcLogo.url}
                 alt=""
-                width={44}
-                height={44}
                 className="ctc-logo-img"
-                style={{ width: 44, height: 44, objectFit: "contain", display: "block" }}
+                style={{ height: 38, width: "auto", objectFit: "contain", display: "block" }}
               />
               <img
                 src={emcLogo.url}
                 alt=""
                 className="emc-logo-img"
-                style={{ height: 32, width: "auto", objectFit: "contain", display: "block" }}
+                style={{ height: 34, width: "auto", objectFit: "contain", display: "block" }}
               />
             </span>
 
