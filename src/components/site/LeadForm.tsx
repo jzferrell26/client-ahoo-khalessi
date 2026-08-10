@@ -44,10 +44,12 @@ const GOAL_GROUPS: { label: string; options: string[] }[] = [
 export function LeadForm({ source = "Website — Short Form" }: { source?: string }) {
   const [submitted, setSubmitted] = useState(false);
   const [submitting, setSubmitting] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     setSubmitting(true);
+    setError(null);
     const form = e.currentTarget;
     const data = Object.fromEntries(new FormData(form).entries()) as Record<
       string,
@@ -63,13 +65,17 @@ export function LeadForm({ source = "Website — Short Form" }: { source?: strin
     // inbound webhook. The webhook URL stays server-side and is never shipped in
     // the client bundle. See /tools/form-to-ghl for the wiring spec.
     try {
-      await fetch("/api/lead", {
+      const response = await fetch("/api/lead", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
       });
+      const result = (await response.json()) as { ok?: boolean };
+      if (!response.ok || !result.ok) throw new Error("Lead delivery failed");
     } catch {
-      /* fire-and-forget; the server logs any delivery failure */
+      setSubmitting(false);
+      setError("We couldn't send your request yet. Please try again or call (949) 877-7234.");
+      return;
     }
 
     setSubmitting(false);
@@ -109,6 +115,9 @@ export function LeadForm({ source = "Website — Short Form" }: { source?: strin
       }}
     >
       <input type="hidden" name="source" value={source} />
+      <input type="hidden" name="lead_kind" value="get_my_options" />
+      <input type="hidden" name="lead_source" value="Website Get My Options" />
+      <input type="hidden" name="campaign" value="CTC Website" />
       <input type="hidden" name="consent_language" value={CONSENT_TEXT} />
       <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12, marginBottom: 12 }}>
         <Field label="First name" name="first" required />
@@ -117,6 +126,15 @@ export function LeadForm({ source = "Website — Short Form" }: { source?: strin
       <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12, marginBottom: 12 }}>
         <Field label="Phone" name="phone" type="tel" required />
         <Field label="Email" name="email" type="email" required />
+      </div>
+      <div style={{ marginBottom: 12 }}>
+        <Field
+          label="Property address"
+          name="property_address"
+          required
+          autoComplete="street-address"
+          placeholder="123 Main St"
+        />
       </div>
       <label style={{ display: "block", fontWeight: 600, fontSize: ".9rem", marginBottom: 6 }}>
         What are you looking to do?
@@ -187,6 +205,11 @@ export function LeadForm({ source = "Website — Short Form" }: { source?: strin
       >
         {submitting ? "Sending…" : "Get My Options"}
       </button>
+      {error && (
+        <p role="alert" style={{ color: "#a61b1b", fontWeight: 600, marginTop: 12 }}>
+          {error}
+        </p>
+      )}
       <p style={{ fontSize: ".74rem", color: "var(--muted-ink)", marginTop: 12, lineHeight: 1.5 }}>
         You can opt out anytime: reply <b>STOP</b> to texts or <b>unsubscribe</b> in any email.
         Reply HELP for help.
@@ -200,11 +223,15 @@ function Field({
   name,
   type = "text",
   required,
+  placeholder,
+  autoComplete,
 }: {
   label: string;
   name: string;
   type?: string;
   required?: boolean;
+  placeholder?: string;
+  autoComplete?: string;
 }) {
   return (
     <div>
@@ -215,6 +242,8 @@ function Field({
         name={name}
         type={type}
         required={required}
+        placeholder={placeholder}
+        autoComplete={autoComplete}
         style={{
           width: "100%",
           padding: ".7rem .85rem",

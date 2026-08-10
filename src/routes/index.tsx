@@ -275,11 +275,11 @@ function LeadFormSection() {
               color: "#fff",
             }}
           >
-            Tell us what you need. We'll find your options.
+            GET MY OPTIONS
           </h2>
-          <p style={{ color: "var(--muted-on-dark)", marginTop: 14, fontSize: "1.05rem", lineHeight: 1.6 }}>
-            No full application. A quick note gets you real options from across 160+ lenders — HELOC,
-            fixed second, DSCR, self-employed, and more.
+            <p style={{ color: "var(--muted-on-dark)", marginTop: 14, fontSize: "1.05rem", lineHeight: 1.6 }}>
+              Share the property address and a few contact details. We will compare real options from
+              across 160+ lenders for HELOCs, fixed seconds, DSCR, self-employed financing, and more.
           </p>
         </div>
         <LeadForm source="Website — Short Form (Schedule Consultation / Get My Options)" />
@@ -742,6 +742,15 @@ function TeamSection() {
             bio="Partner at CTC Equity working alongside Ahoo on equity, DSCR, and self-employed financing for investors and business owners nationwide."
           />
           <TeamCard
+            name="Bobby Khalessi"
+            role="Mortgage Loan Officer"
+            initials="BK"
+            photo="/team/bobby.png"
+            phone="(949) 413-9332"
+            // TODO: add Bobby's NMLS number after CTC confirms it.
+            bio="An analytical wholesale loan officer who compares a wide lender network for each scenario. Bobby focuses on careful loan structure, long-term portfolio planning, and keeping borrowers' options open from application through closing."
+          />
+          <TeamCard
             name="Dong-Jin Kim"
             role="Loan Officer"
             initials="DK"
@@ -813,7 +822,7 @@ function TeamCard({
   name: string;
   role: string;
   initials: string;
-  nmls: string;
+  nmls?: string;
   phone: string;
   email?: string;
   apply?: string;
@@ -869,7 +878,7 @@ function TeamCard({
       </div>
       {bio && <p style={{ color: "#33485a", lineHeight: 1.6, fontSize: ".95rem" }}>{bio}</p>}
       <div style={{ fontFamily: "var(--mono)", fontSize: ".82rem", color: "var(--muted-ink)" }}>
-        {nmls} · {phone}
+        {nmls ? `${nmls} · ${phone}` : phone}
         {email && (
           <>
             <br />

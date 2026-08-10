@@ -58,18 +58,24 @@ QR landing page).
 Both `LeadForm` (homepage short form) and `HomeValueForm` (the free-home-value
 mailer landing page) POST their submissions to the internal server route
 **`/api/lead`** (`src/routes/api.lead.ts`). That route forwards the payload to
-the GHL inbound webhook server-side, using a runtime secret:
+the matching GHL inbound webhook server-side, using two runtime secrets:
 
 ```
-GHL_INBOUND_WEBHOOK_URL=https://services.leadconnectorhq.com/hooks/...
+GHL_AVM_WEBHOOK_URL=https://services.leadconnectorhq.com/hooks/...
+GHL_GET_MY_OPTIONS_WEBHOOK_URL=https://services.leadconnectorhq.com/hooks/...
 ```
 
-Set this in the project's **Lovable secrets** (a plain runtime secret, not a
+Set both in the project's **Lovable secrets** (plain runtime secrets, not
 `VITE_` variable). Keeping the webhook server-side means the URL is never shipped
 in the public client bundle.
 
 - Each form sends a hidden `source` field so the GHL workflow can route leads into
   the right pipeline (homepage vs mailer).
+- The homepage form sends `lead_kind=get_my_options` and requires the property
+  address. The mailer QR form sends `lead_kind=avm_report_request`,
+  `lead_source=AVM Report Request`, and the complete subject-property address.
+- `/api/lead` validates the full submission with Zod and reports a delivery error
+  to the visitor if the GHL webhook is missing or rejects the request.
 - The payload includes `consent`, `consent_language`, and `submitted_at` for the
   TCPA record.
 - `/api/lead` responds with `{ ok, configured }` (no sensitive data), so the
@@ -92,5 +98,5 @@ and deploys to `ctcequity.com`. There is no separate deploy step.
 ## Status / parked
 
 - **Live:** `/free-home-value-report` landing page (mailer QR destination), with
-  both forms delivering to GHL through `/api/lead` (`GHL_INBOUND_WEBHOOK_URL` set).
+  both forms delivering to separate GHL workflows through `/api/lead`.
 - **Parked:** the `/qr` permanent redirect and the branded QR code asset.
