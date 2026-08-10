@@ -71,10 +71,12 @@ export function HomeValueForm({
 }) {
   const [submitted, setSubmitted] = useState(false);
   const [submitting, setSubmitting] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     setSubmitting(true);
+    setError(null);
     const form = e.currentTarget;
     const data = Object.fromEntries(new FormData(form).entries()) as Record<
       string,
@@ -90,13 +92,17 @@ export function HomeValueForm({
     // inbound webhook. The webhook URL stays server-side and is never shipped in
     // the client bundle. See /tools/form-to-ghl for the wiring spec.
     try {
-      await fetch("/api/lead", {
+      const response = await fetch("/api/lead", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
       });
+      const result = (await response.json()) as { ok?: boolean };
+      if (!response.ok || !result.ok) throw new Error("Lead delivery failed");
     } catch {
-      /* fire-and-forget; the server logs any delivery failure */
+      setSubmitting(false);
+      setError("We couldn't send your request yet. Please try again or call (949) 877-7234.");
+      return;
     }
 
     setSubmitting(false);
@@ -137,6 +143,9 @@ export function HomeValueForm({
       }}
     >
       <input type="hidden" name="source" value={source} />
+      <input type="hidden" name="lead_kind" value="avm_report_request" />
+      <input type="hidden" name="lead_source" value="AVM Report Request" />
+      <input type="hidden" name="campaign" value="CTC Mailer QR" />
       <input type="hidden" name="report_type" value="Free Virtual Home Value / Appraisal Report" />
       <input type="hidden" name="consent_language" value={CONSENT_TEXT} />
 
@@ -231,8 +240,13 @@ export function HomeValueForm({
         disabled={submitting}
         style={{ width: "100%", justifyContent: "center", marginTop: 18 }}
       >
-        {submitting ? "Sending…" : "Get My Free Home Value Report"}
+        {submitting ? "Sending…" : "Get a copy of your complimentary virtual appraisal report"}
       </button>
+      {error && (
+        <p role="alert" style={{ color: "#a61b1b", fontWeight: 600, marginTop: 12 }}>
+          {error}
+        </p>
+      )}
       <p style={{ fontSize: ".74rem", color: "var(--muted-ink)", marginTop: 12, lineHeight: 1.5 }}>
         You can opt out anytime: reply <b>STOP</b> to texts or <b>unsubscribe</b> in any email.
         Reply HELP for help. Your report is a no-cost estimate — no obligation.
