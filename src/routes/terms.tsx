@@ -145,7 +145,7 @@ function TermsPage() {
           <h2>Contact</h2>
           <p>
             Coast to Coast Equity — a DBA of EMortgage Capital, Inc.<br />
-            3750 S Susan St, Santa Ana, CA 92704<br />
+            3750 S Susan St, Orange County, CA 92704<br />
             (949) 877-7234 ·{" "}
             <a href="mailto:akhalessi@ctcequity.com">akhalessi@ctcequity.com</a>
           </p>

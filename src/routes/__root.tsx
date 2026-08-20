@@ -154,7 +154,7 @@ const ROOT_ORG_SCHEMA = {
   address: {
     "@type": "PostalAddress",
     streetAddress: "3750 S Susan St",
-    addressLocality: "Santa Ana",
+    addressLocality: "Orange County",
     addressRegion: "CA",
     postalCode: "92704",
     addressCountry: "US",
