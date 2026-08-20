@@ -41,7 +41,7 @@ const SECTIONS = [
       ["Zillow lender profile", "Send the URL so it drops into the site (reviews button, footer, schema). Embed the official widget on the Reviews section."],
       ["Experience.com + Google reviews", "Embed live widgets and keep requesting reviews after every closing."],
     ],
-    note: "NAP must match everywhere, exactly: CTC Equity · 3750 S Susan St, Santa Ana, CA 92704 · (949) 877-7234.",
+    note: "NAP must match everywhere, exactly: CTC Equity · 3750 S Susan St, Orange County, CA 92704 · (949) 877-7234.",
   },
   {
     title: "4. Build the off-site signals that make AI say your NAME",

@@ -243,7 +243,7 @@ function NationwideStrip() {
       <div className="ctc-wrap" style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: 20, padding: "26px 24px" }}>
         {[
           { t: "Licensed nationwide", d: "We lend coast to coast across our licensed states." },
-          { t: "Local in Orange County", d: "Based in Santa Ana, CA — a real team, not a call center." },
+          { t: "Local in Orange County", d: "Based in Orange County, CA — a real team, not a call center." },
           { t: "160+ lenders, one point of contact", d: "Wholesale access, handled directly by us." },
         ].map((s) => (
           <div key={s.t} style={{ display: "flex", flexDirection: "column", gap: 4 }}>

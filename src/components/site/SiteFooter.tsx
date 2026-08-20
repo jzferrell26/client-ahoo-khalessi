@@ -47,7 +47,7 @@ export function SiteFooter() {
           <a href="mailto:akhalessi@ctcequity.com" style={{ color: "var(--tiffany-soft)" }}>
             akhalessi@ctcequity.com
           </a>{" "}
-          &nbsp;·&nbsp; 3750 S Susan St, Santa Ana, CA 92704
+          &nbsp;·&nbsp; 3750 S Susan St, Orange County, CA 92704
         </p>
         <p style={{ marginTop: 14, display: "flex", flexWrap: "wrap", gap: "6px 10px" }}>
           {FOOTER_LINKS.map((l, i) => (

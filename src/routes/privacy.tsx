@@ -34,7 +34,7 @@ function PrivacyPage() {
           <h2>Who we are</h2>
           <p>
             Coast to Coast Equity ("CTC Equity", "we", "us") is a DBA of EMortgage
-            Capital, Inc. (NMLS #1416824). Our office is at 3750 S Susan St, Santa Ana,
+            Capital, Inc. (NMLS #1416824). Our office is at 3750 S Susan St, Orange County,
             CA 92704. You can reach us at{" "}
             <a href="tel:+19498777234">(949) 877-7234</a> or{" "}
             <a href="mailto:akhalessi@ctcequity.com">akhalessi@ctcequity.com</a>.
@@ -141,7 +141,7 @@ function PrivacyPage() {
           <h2>Contact</h2>
           <p>
             Coast to Coast Equity — a DBA of EMortgage Capital, Inc.<br />
-            3750 S Susan St, Santa Ana, CA 92704<br />
+            3750 S Susan St, Orange County, CA 92704<br />
             (949) 877-7234 ·{" "}
             <a href="mailto:akhalessi@ctcequity.com">akhalessi@ctcequity.com</a>
           </p>
