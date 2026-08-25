@@ -4,7 +4,7 @@ import ctcLogo from "@/assets/ctc-logo.png.asset.json";
 import emcLogo from "@/assets/emc-logo.png.asset.json";
 
 const NAV_LINKS: { to: string; label: string }[] = [
-
+  { to: "/get-my-options", label: "Get My Options" },
   { to: "/heloc", label: "HELOC" },
   { to: "/fixed-second-mortgage", label: "Fixed Second" },
   { to: "/dscr-loans", label: "DSCR" },

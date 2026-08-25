@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "@tanstack/react-router";
 
 const CONSENT_TEXT =
@@ -66,12 +66,28 @@ const US_STATES = [
  */
 export function HomeValueForm({
   source = "Free Home Value Report — Mailer QR",
+  noticeNumber = false,
 }: {
   source?: string;
+  /**
+   * Show the "code from your mailer" field. Used by the /avm campaign landing page
+   * so a QR scan can be tied back to the exact recipient the piece was mailed to.
+   * Off by default so the organic /free-home-value-report page is unchanged.
+   */
+  noticeNumber?: boolean;
 }) {
   const [submitted, setSubmitted] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [noticeValue, setNoticeValue] = useState("");
+
+  // Allow the code to be pre-filled from the QR URL (e.g. /avm?n=TX45210) so the
+  // borrower does not have to retype it. They can still edit or clear it.
+  useEffect(() => {
+    if (!noticeNumber || typeof window === "undefined") return;
+    const fromUrl = new URLSearchParams(window.location.search).get("n");
+    if (fromUrl) setNoticeValue(fromUrl.trim().slice(0, 64).toUpperCase());
+  }, [noticeNumber]);
 
   async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -82,11 +98,16 @@ export function HomeValueForm({
       string,
       FormDataEntryValue
     >;
-    const payload = {
+    const payload: Record<string, unknown> = {
       ...data,
       consent: form.querySelector<HTMLInputElement>("#hv-consent")?.checked ?? false,
       submitted_at: new Date().toISOString(),
     };
+    // Never forward an empty code — the field is optional and GHL should see it
+    // absent rather than blank.
+    if (typeof payload.notice_number === "string" && payload.notice_number.trim() === "") {
+      delete payload.notice_number;
+    }
 
     // Submit to our server-side proxy (/api/lead), which forwards to the GHL
     // inbound webhook. The webhook URL stays server-side and is never shipped in
@@ -148,6 +169,57 @@ export function HomeValueForm({
       <input type="hidden" name="campaign" value="CTC Mailer QR" />
       <input type="hidden" name="report_type" value="Free Virtual Home Value / Appraisal Report" />
       <input type="hidden" name="consent_language" value={CONSENT_TEXT} />
+
+      {noticeNumber && (
+        <div
+          style={{
+            background: "var(--sand, #f5f1ea)",
+            border: "1.5px solid var(--line)",
+            borderRadius: 12,
+            padding: "14px 16px",
+            marginBottom: 16,
+          }}
+        >
+          <label
+            htmlFor="hv-notice"
+            style={{ display: "block", fontWeight: 700, fontSize: ".88rem", marginBottom: 6 }}
+          >
+            Code from your mailer <span style={{ fontWeight: 500 }}>(optional)</span>
+          </label>
+          <input
+            id="hv-notice"
+            name="notice_number"
+            type="text"
+            value={noticeValue}
+            onChange={(e) => setNoticeValue(e.target.value.toUpperCase())}
+            autoComplete="off"
+            placeholder="e.g. TX45210"
+            style={{
+              width: "100%",
+              padding: ".7rem .85rem",
+              borderRadius: 10,
+              border: "1.5px solid var(--line)",
+              fontFamily: "var(--mono)",
+              fontSize: "1rem",
+              letterSpacing: ".06em",
+              textTransform: "uppercase",
+              background: "#fff",
+              color: "var(--ink)",
+            }}
+          />
+          <p
+            style={{
+              fontSize: ".74rem",
+              color: "var(--muted-ink)",
+              marginTop: 8,
+              lineHeight: 1.5,
+            }}
+          >
+            Entering the code printed on your letter lets us pull up your property details
+            instantly. Don't have it handy? Just leave it blank.
+          </p>
+        </div>
+      )}
 
       <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12, marginBottom: 12 }}>
         <Field label="First name" name="first" required autoComplete="given-name" />
