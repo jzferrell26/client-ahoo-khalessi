@@ -4,7 +4,6 @@ import ctcLogo from "@/assets/ctc-logo.png.asset.json";
 import emcLogo from "@/assets/emc-logo.png.asset.json";
 
 const NAV_LINKS: { to: string; label: string }[] = [
-
   { to: "/heloc", label: "HELOC" },
   { to: "/fixed-second-mortgage", label: "Fixed Second" },
   { to: "/dscr-loans", label: "DSCR" },
@@ -152,8 +151,7 @@ export function SiteNav() {
               Apply Now
             </a>
             <Link
-              to="/"
-              hash="getstarted"
+              to="/get-my-options"
               onClick={closeMenu}
               className="btn btn-primary ctc-nav-apply"
               style={{ padding: ".55rem 1.1rem" }}
@@ -226,8 +224,7 @@ export function SiteNav() {
                 Apply Now
               </a>
               <Link
-                to="/"
-                hash="getstarted"
+                to="/get-my-options"
                 onClick={closeMenu}
                 className="btn btn-primary"
                 style={{ justifyContent: "center" }}

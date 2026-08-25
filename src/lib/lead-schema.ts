@@ -14,6 +14,10 @@ const baseLeadSchema = z
     property_zip: optionalText,
     goal: optionalText,
     report_type: optionalText,
+    // Per-recipient code printed on the mailer. Lets an inbound scan/submission be
+    // tied back to the exact person the piece was sent to. Optional by design: a
+    // borrower who lost the mailer must still be able to submit.
+    notice_number: z.string().trim().max(64).optional(),
     source: z.string().trim().min(1).max(200),
     lead_source: z.string().trim().min(1).max(100),
     campaign: z.string().trim().min(1).max(100),

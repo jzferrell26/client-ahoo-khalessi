@@ -11,6 +11,7 @@ const DEFAULT_LASTMOD = "2026-06-01";
 
 const STATIC: Entry[] = [
   { path: "/", changefreq: "weekly", priority: "1.0" },
+  { path: "/get-my-options", changefreq: "monthly", priority: "0.9" },
   { path: "/heloc", changefreq: "monthly", priority: "0.9" },
   { path: "/fixed-second-mortgage", changefreq: "monthly", priority: "0.9" },
   { path: "/dscr-loans", changefreq: "monthly", priority: "0.9" },
