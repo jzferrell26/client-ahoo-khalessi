@@ -67,8 +67,15 @@ const US_STATES = [
 export function HomeValueForm({
   source = "Free Home Value Report — Mailer QR",
   noticeNumber = false,
+  assignedLo,
 }: {
   source?: string;
+  /**
+   * Loan officer this lead belongs to, emitted as `assigned_lo` so the GHL
+   * workflow can route Ahoo's and Ben's mailer leads separately. Omitted on the
+   * shared pages, which keep the existing default routing.
+   */
+  assignedLo?: string;
   /**
    * Show the "code from your mailer" field. Used by the /avm campaign landing page
    * so a QR scan can be tied back to the exact recipient the piece was mailed to.
@@ -166,6 +173,7 @@ export function HomeValueForm({
       <input type="hidden" name="source" value={source} />
       <input type="hidden" name="lead_kind" value="avm_report_request" />
       <input type="hidden" name="lead_source" value="AVM Report Request" />
+      {assignedLo && <input type="hidden" name="assigned_lo" value={assignedLo} />}
       <input type="hidden" name="campaign" value="CTC Mailer QR" />
       <input type="hidden" name="report_type" value="Free Virtual Home Value / Appraisal Report" />
       <input type="hidden" name="consent_language" value={CONSENT_TEXT} />
