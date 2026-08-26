@@ -55,7 +55,7 @@ A third item rides along: the homepage hero "Get My Options" button still scroll
 | AC-1a-8 | Given `src/routes/sitemap[.]xml.ts`, when it is inspected, then `/team` has been added as a new entry and every pre-existing entry is unchanged. |
 | AC-1a-9 | Given the site navigation, when `NAV_LINKS` in `src/components/site/SiteNav.tsx` is inspected, then it contains an entry pointing to `/team`, and that entry renders in both the desktop and the mobile navigation. |
 | AC-1a-10 | Given the `/team` page, when it is compared against the homepage team section, then no homepage content was moved to `/team` and removed from the homepage. The `/team` page is additive; the homepage `#team` section still renders. This follows the additive-growth rule: new surfaces are added, earning surfaces are not hollowed out. |
-| AC-1a-11 | **Gated on a decision by Jonathan.** Given the open question "should the homepage hero Get My Options button be aligned to `/get-my-options`?", when the run finishes, then either (a) Jonathan has answered "no" and `src/routes/index.tsx` lines 137 and 140 are unchanged, or (b) Jonathan has answered "yes" and exactly those hero `Link` targets have been changed with no other change to `index.tsx`. If no answer has been given, the criterion is recorded as blocked on Jonathan and no code change is made. Guessing the answer is a failure. |
+| AC-1a-11 | **DECIDED 2026-08-25 by Jonathan: yes, for the "Get My Options" hero button only.** Given the homepage hero, when the run finishes, then the `Link` on `src/routes/index.tsx` line 137 (label "Get My Options") targets `/get-my-options` and no longer carries `hash="getstarted"`. The `Link` on line 140 (label "Schedule a Consultation") is **out of scope and must remain unchanged**: it shares the same old target but expresses a different intent, and the decision given covered only the "Get My Options" button. Changing it is a failed criterion, not a consistency improvement. No other change to `index.tsx`. |
 
 ---
 
@@ -70,4 +70,5 @@ A third item rides along: the homepage hero "Get My Options" button still scroll
 ## Open questions
 
 - [ ] Should the fifth member be displayed as "Dong-Jin Kim", "James Kim", or "Dong-Jin (James) Kim"? The client refers to him as James. The current site says Dong-Jin Kim. Owner: client. This does not block AC-1a-3, which is about position, not label.
-- [ ] Hero CTA alignment. Owner: Jonathan. See AC-1a-11.
+- [x] Hero CTA alignment. **RESOLVED 2026-08-25:** Jonathan confirmed the hero "Get My Options" button targets `/get-my-options`. See AC-1a-11.
+- [ ] The hero "Schedule a Consultation" button (line 140) still points at `/` plus `#getstarted`, the same target the "Get My Options" button is moving off. It was deliberately left alone because the decision given named only the "Get My Options" button and a consultation request is a different intent (a calendar booking rather than a lead form). Owner: Jonathan.
