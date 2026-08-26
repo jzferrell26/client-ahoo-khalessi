@@ -84,6 +84,8 @@ Verified live on ctcequity.com on 2026-08-25 unless noted otherwise.
 | W-D8 | **Server-side lead proxy** so the webhook URL is never exposed to the browser. | Shipped as PR #3. |
 | W-D9 | **EMC co-branding, team section with five headshots, footer NMLS disclosure.** | Shipped as PRs #5, #6, #7. |
 | W-D10 | **"Santa Ana" replaced with "Orange County" sitewide.** | Commit `61f7175`. |
+| W-D11 | **Per-officer AVM landing pages** `/avm-ahoo` and `/avm-ben`. New requirement from Ben in Slack on 2026-08-25: "AVM page BEN, avm page ahoo on site ... so JUST make sure We are each having separate workflows." Each page shows that officer's own callback number and stamps `assigned_lo` on the submission so the GHL workflow can route it into their own pipeline. Both `noindex,follow` like the shared `/avm`. | Verified locally 2026-08-25. `src/components/site/avm-officers.ts`. |
+| W-D12 | **Footer NMLS disclosure reordered** to match the confirmed team order (Ahoo, Ben, then Susan, then Dong-Jin). | `src/components/site/SiteFooter.tsx`. |
 
 ---
 
@@ -166,6 +168,9 @@ This is not a new regression: the same `lead_kind` was in use before PR #9. What
 | O-P12 | FRU and LendingTree email and text campaigns for both Ahoo and Ben; investor campaigns; "Tiffany" and "Ashley" warm-transfer AI agents. | Not built | Steven |
 | O-P13 | Lovable project transfer to the client's own account. The invite link was sent 2026-08-25. Jonathan is to remain a collaborator. The GitHub repository transfer is deferred to a separate day. | Invite sent 2026-08-25; acceptance status unknown | Jonathan and client |
 | O-P14 | Ben's toll-free A2P verification (877-586-7977). | In progress | Ben |
+| O-P15 | **Bobby Khalessi is still absent from the footer NMLS disclosure.** The order was corrected, but Bobby cannot be listed without a real NMLS number: this is a regulatory licensing disclosure, and a placeholder or borrowed number is not an option. A code comment marks the exact insertion point. Also unconfirmed whether Bobby is NMLS-licensed at all. | Blocked | **Client** |
+| O-P16 | **Ben's dedicated toll-free (877) 586-7977 is not yet published on `/avm-ben`.** It was still in A2P verification on 2026-08-25 and the number before it was rejected outright, so the page shows his already-published direct line instead. Swap the two fields in `avm-officers.ts` once verification clears. | Blocked on A2P | **Ben / Steven** |
+| O-P17 | **Separate GHL workflows for the per-officer AVM leads.** The site now stamps `assigned_lo` as "Ahoo Khalessi" or "Ben Mokri". The routing itself is a GHL workflow change and is not built. | Not built | Steven |
 
 ---
 

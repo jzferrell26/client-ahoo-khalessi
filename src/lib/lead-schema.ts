@@ -18,6 +18,10 @@ const baseLeadSchema = z
     // tied back to the exact person the piece was sent to. Optional by design: a
     // borrower who lost the mailer must still be able to submit.
     notice_number: z.string().trim().max(64).optional(),
+    // Which loan officer this lead belongs to. Set by the per-officer AVM landing
+    // pages so the GHL workflow can route Ahoo's and Ben's mailer leads into their
+    // own pipelines. Absent on the shared pages, which stay on the default routing.
+    assigned_lo: z.string().trim().max(80).optional(),
     source: z.string().trim().min(1).max(200),
     lead_source: z.string().trim().min(1).max(100),
     campaign: z.string().trim().min(1).max(100),

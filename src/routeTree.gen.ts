@@ -11,6 +11,8 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AvmRouteImport } from './routes/avm'
+import { Route as AvmAhooRouteImport } from './routes/avm-ahoo'
+import { Route as AvmBenRouteImport } from './routes/avm-ben'
 import { Route as BankStatementLoansRouteImport } from './routes/bank-statement-loans'
 import { Route as CommercialLoansRouteImport } from './routes/commercial-loans'
 import { Route as ConventionalLoansRouteImport } from './routes/conventional-loans'
@@ -44,6 +46,16 @@ const IndexRoute = IndexRouteImport.update({
 const AvmRoute = AvmRouteImport.update({
   id: '/avm',
   path: '/avm',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AvmAhooRoute = AvmAhooRouteImport.update({
+  id: '/avm-ahoo',
+  path: '/avm-ahoo',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AvmBenRoute = AvmBenRouteImport.update({
+  id: '/avm-ben',
+  path: '/avm-ben',
   getParentRoute: () => rootRouteImport,
 } as any)
 const BankStatementLoansRoute = BankStatementLoansRouteImport.update({
@@ -170,6 +182,8 @@ const ToolsFormToGhlRoute = ToolsFormToGhlRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/avm': typeof AvmRoute
+  '/avm-ahoo': typeof AvmAhooRoute
+  '/avm-ben': typeof AvmBenRoute
   '/bank-statement-loans': typeof BankStatementLoansRoute
   '/commercial-loans': typeof CommercialLoansRoute
   '/conventional-loans': typeof ConventionalLoansRoute
@@ -198,6 +212,8 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/avm': typeof AvmRoute
+  '/avm-ahoo': typeof AvmAhooRoute
+  '/avm-ben': typeof AvmBenRoute
   '/bank-statement-loans': typeof BankStatementLoansRoute
   '/commercial-loans': typeof CommercialLoansRoute
   '/conventional-loans': typeof ConventionalLoansRoute
@@ -227,6 +243,8 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/avm': typeof AvmRoute
+  '/avm-ahoo': typeof AvmAhooRoute
+  '/avm-ben': typeof AvmBenRoute
   '/bank-statement-loans': typeof BankStatementLoansRoute
   '/commercial-loans': typeof CommercialLoansRoute
   '/conventional-loans': typeof ConventionalLoansRoute
@@ -257,6 +275,8 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/avm'
+    | '/avm-ahoo'
+    | '/avm-ben'
     | '/bank-statement-loans'
     | '/commercial-loans'
     | '/conventional-loans'
@@ -285,6 +305,8 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/avm'
+    | '/avm-ahoo'
+    | '/avm-ben'
     | '/bank-statement-loans'
     | '/commercial-loans'
     | '/conventional-loans'
@@ -313,6 +335,8 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/avm'
+    | '/avm-ahoo'
+    | '/avm-ben'
     | '/bank-statement-loans'
     | '/commercial-loans'
     | '/conventional-loans'
@@ -342,6 +366,8 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AvmRoute: typeof AvmRoute
+  AvmAhooRoute: typeof AvmAhooRoute
+  AvmBenRoute: typeof AvmBenRoute
   BankStatementLoansRoute: typeof BankStatementLoansRoute
   CommercialLoansRoute: typeof CommercialLoansRoute
   ConventionalLoansRoute: typeof ConventionalLoansRoute
@@ -382,6 +408,20 @@ declare module '@tanstack/react-router' {
       path: '/avm'
       fullPath: '/avm'
       preLoaderRoute: typeof AvmRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/avm-ahoo': {
+      id: '/avm-ahoo'
+      path: '/avm-ahoo'
+      fullPath: '/avm-ahoo'
+      preLoaderRoute: typeof AvmAhooRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/avm-ben': {
+      id: '/avm-ben'
+      path: '/avm-ben'
+      fullPath: '/avm-ben'
+      preLoaderRoute: typeof AvmBenRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/bank-statement-loans': {
@@ -558,6 +598,8 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AvmRoute: AvmRoute,
+  AvmAhooRoute: AvmAhooRoute,
+  AvmBenRoute: AvmBenRoute,
   BankStatementLoansRoute: BankStatementLoansRoute,
   CommercialLoansRoute: CommercialLoansRoute,
   ConventionalLoansRoute: ConventionalLoansRoute,
