@@ -57,7 +57,7 @@ const SECTIONS = [
     title: "5. Confirm before launch",
     who: "Ahoo",
     items: [
-      ["Licensed states", "Replace [LICENSED STATES] in every footer with EMC's actual license footprint."],
+      ["Licensed states", "Done: the footer now links to EMC's Licensing and Disclosures page instead of listing states inline, so it stays current as EMC's footprint changes. Confirm with EMC that linking is acceptable for your disclosure."],
       ["EMC logo", "Drop the official logo into the two logo slots."],
       ["Headshots", "Swap the AK/BM initials avatars on the homepage for real photos."],
       ["Scotsman Guide year", "Fill the remaining year placeholder on the awards card."],
