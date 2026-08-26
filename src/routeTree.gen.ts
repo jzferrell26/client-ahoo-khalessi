@@ -26,6 +26,7 @@ import { Route as PnlLoansRouteImport } from './routes/pnl-loans'
 import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as ReverseMortgagesRouteImport } from './routes/reverse-mortgages'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
+import { Route as TeamRouteImport } from './routes/team'
 import { Route as TermsRouteImport } from './routes/terms'
 import { Route as VaLoansRouteImport } from './routes/va-loans'
 import { Route as ApiLeadRouteImport } from './routes/api.lead'
@@ -120,6 +121,11 @@ const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
   path: '/sitemap.xml',
   getParentRoute: () => rootRouteImport,
 } as any)
+const TeamRoute = TeamRouteImport.update({
+  id: '/team',
+  path: '/team',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const TermsRoute = TermsRouteImport.update({
   id: '/terms',
   path: '/terms',
@@ -179,6 +185,7 @@ export interface FileRoutesByFullPath {
   '/privacy': typeof PrivacyRoute
   '/reverse-mortgages': typeof ReverseMortgagesRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/team': typeof TeamRoute
   '/terms': typeof TermsRoute
   '/va-loans': typeof VaLoansRoute
   '/api/lead': typeof ApiLeadRoute
@@ -206,6 +213,7 @@ export interface FileRoutesByTo {
   '/privacy': typeof PrivacyRoute
   '/reverse-mortgages': typeof ReverseMortgagesRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/team': typeof TeamRoute
   '/terms': typeof TermsRoute
   '/va-loans': typeof VaLoansRoute
   '/api/lead': typeof ApiLeadRoute
@@ -234,6 +242,7 @@ export interface FileRoutesById {
   '/privacy': typeof PrivacyRoute
   '/reverse-mortgages': typeof ReverseMortgagesRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/team': typeof TeamRoute
   '/terms': typeof TermsRoute
   '/va-loans': typeof VaLoansRoute
   '/api/lead': typeof ApiLeadRoute
@@ -263,6 +272,7 @@ export interface FileRouteTypes {
     | '/privacy'
     | '/reverse-mortgages'
     | '/sitemap.xml'
+    | '/team'
     | '/terms'
     | '/va-loans'
     | '/api/lead'
@@ -290,6 +300,7 @@ export interface FileRouteTypes {
     | '/privacy'
     | '/reverse-mortgages'
     | '/sitemap.xml'
+    | '/team'
     | '/terms'
     | '/va-loans'
     | '/api/lead'
@@ -317,6 +328,7 @@ export interface FileRouteTypes {
     | '/privacy'
     | '/reverse-mortgages'
     | '/sitemap.xml'
+    | '/team'
     | '/terms'
     | '/va-loans'
     | '/api/lead'
@@ -345,6 +357,7 @@ export interface RootRouteChildren {
   PrivacyRoute: typeof PrivacyRoute
   ReverseMortgagesRoute: typeof ReverseMortgagesRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
+  TeamRoute: typeof TeamRoute
   TermsRoute: typeof TermsRoute
   VaLoansRoute: typeof VaLoansRoute
   ApiLeadRoute: typeof ApiLeadRoute
@@ -476,6 +489,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SitemapDotxmlRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/team': {
+      id: '/team'
+      path: '/team'
+      fullPath: '/team'
+      preLoaderRoute: typeof TeamRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/terms': {
       id: '/terms'
       path: '/terms'
@@ -553,6 +573,7 @@ const rootRouteChildren: RootRouteChildren = {
   PrivacyRoute: PrivacyRoute,
   ReverseMortgagesRoute: ReverseMortgagesRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
+  TeamRoute: TeamRoute,
   TermsRoute: TermsRoute,
   VaLoansRoute: VaLoansRoute,
   ApiLeadRoute: ApiLeadRoute,

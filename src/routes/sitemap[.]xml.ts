@@ -25,6 +25,7 @@ const STATIC: Entry[] = [
   { path: "/mortgage-analyzer", changefreq: "monthly", priority: "0.8" },
   { path: "/faq", changefreq: "monthly", priority: "0.8" },
   { path: "/blog", changefreq: "weekly", priority: "0.8" },
+  { path: "/team", changefreq: "monthly", priority: "0.6" },
   { path: "/privacy", changefreq: "yearly", priority: "0.3" },
   { path: "/terms", changefreq: "yearly", priority: "0.3" },
 ];

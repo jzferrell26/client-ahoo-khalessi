@@ -10,8 +10,11 @@ export const Route = createFileRoute("/tools/form-to-ghl")({
   component: Page,
 });
 
-const SNIPPET = `// .env / Lovable secrets
-VITE_GHL_INBOUND_WEBHOOK_URL=https://services.leadconnectorhq.com/hooks/...`;
+const SNIPPET = `// Lovable secrets (server-side runtime env, NOT prefixed with VITE_)
+GHL_GET_MY_OPTIONS_WEBHOOK_URL=https://services.leadconnectorhq.com/hooks/...
+GHL_AVM_WEBHOOK_URL=https://services.leadconnectorhq.com/hooks/...
+// Legacy fallback, AVM only, used when GHL_AVM_WEBHOOK_URL is unset:
+GHL_INBOUND_WEBHOOK_URL=https://services.leadconnectorhq.com/hooks/...`;
 
 function Page() {
   return (
@@ -33,10 +36,12 @@ function Page() {
           <Card title="What the form is">
             <p>
               The <code>LeadForm</code> component (rendered in the homepage <code>#getstarted</code>{" "}
-              section, plus the loan-page CTAs) collects the fields below. By default it POSTs to a
-              GHL inbound webhook if the env var <code>VITE_GHL_INBOUND_WEBHOOK_URL</code> is set.
-              If it's missing, the form still completes — payload is console-logged so you can
-              inspect it in preview.
+              section and on <code>/get-my-options</code>) and the <code>HomeValueForm</code>{" "}
+              component (rendered on <code>/avm</code> and <code>/free-home-value-report</code>)
+              collect the fields below. Neither form talks to GoHighLevel directly. Both POST to
+              this site's own server route, <code>/api/lead</code>, which validates the payload and
+              forwards it to GHL using a server-side secret. See "How the routing actually works"
+              below for the full picture.
             </p>
             <Table
               head={["name", "meaning"]}
@@ -54,11 +59,47 @@ function Page() {
             />
           </Card>
 
-          <Card title="Wiring (recommended): GHL inbound webhook">
+          <Card title="How the routing actually works">
+            <p>
+              Both forms POST a JSON payload to the server route <code>/api/lead</code>, defined in{" "}
+              <code>src/routes/api.lead.ts</code>. The browser never talks to GoHighLevel directly,
+              and it never sees a webhook URL. The handler validates the payload with{" "}
+              <code>leadSubmissionSchema</code> (in <code>src/lib/lead-schema.ts</code>), a Zod{" "}
+              <code>.strict()</code> discriminated union keyed on a hidden field named{" "}
+              <code>lead_kind</code>. That field is how the server decides which GHL webhook to
+              forward to: it is not a UI choice, it is baked into which form the visitor is on.
+            </p>
+            <Table
+              head={["lead_kind", "sent by", "server reads"]}
+              rows={[
+                [
+                  "get_my_options",
+                  "`LeadForm` (homepage `#getstarted` section and `/get-my-options`)",
+                  "`GHL_GET_MY_OPTIONS_WEBHOOK_URL`",
+                ],
+                [
+                  "avm_report_request",
+                  "`HomeValueForm` (`/avm` and `/free-home-value-report`)",
+                  "`GHL_AVM_WEBHOOK_URL`, falling back to `GHL_INBOUND_WEBHOOK_URL`",
+                ],
+              ]}
+            />
+            <p>
+              <b>The fallback only exists for <code>avm_report_request</code>.</b>{" "}
+              <code>get_my_options</code> has no fallback variable at all. If{" "}
+              <code>GHL_GET_MY_OPTIONS_WEBHOOK_URL</code> is unset, every Get My Options submission,
+              including the homepage form, fails outright: the handler returns HTTP 503 with{" "}
+              <code>{"{ ok: false, configured: false }"}</code> and the lead is not forwarded
+              anywhere. This is the single most likely cause of "leads stopped arriving." See
+              "Troubleshooting a missing lead" below.
+            </p>
+          </Card>
+
+          <Card title="Setting the webhook secrets">
             <ol style={{ paddingLeft: "1.2rem", color: "#33485a", lineHeight: 1.7 }}>
               <li>
-                In GHL, create a Workflow with an <b>Inbound Webhook</b> trigger. Copy the webhook
-                URL.
+                In GHL, create a Workflow with an <b>Inbound Webhook</b> trigger for each intake
+                path (Get My Options, AVM report request). Copy each webhook URL.
               </li>
               <li>
                 In that workflow: Create/Update Contact → map the fields below → add to the{" "}
@@ -68,11 +109,45 @@ function Page() {
                 <code>source</code>.
               </li>
               <li>
-                Set the webhook URL as <code>VITE_GHL_INBOUND_WEBHOOK_URL</code> in the project's
-                Lovable secrets (rebuild the preview to pick it up).
+                Set the URLs as <code>GHL_GET_MY_OPTIONS_WEBHOOK_URL</code> and{" "}
+                <code>GHL_AVM_WEBHOOK_URL</code> in the project's Lovable secrets, then rebuild.
+                These are read on the server only; none of the three variables carries a{" "}
+                <code>VITE_</code> prefix, and that's by design. A <code>VITE_</code>-prefixed
+                variable gets bundled into the client-side JavaScript, which would expose the
+                webhook URL to anyone viewing the page source. Whether these variables are
+                currently set in this project's Lovable secrets has not been verified here; check
+                the secrets panel directly.
               </li>
             </ol>
             <Pre code={SNIPPET} />
+          </Card>
+
+          <Card title="Troubleshooting a missing lead">
+            <p>
+              If a lead should have arrived and didn't, the first thing to check is the response{" "}
+              <code>/api/lead</code> gave the browser:
+            </p>
+            <Table
+              head={["Response", "Meaning"]}
+              rows={[
+                [
+                  "HTTP 503, `{ ok: false, configured: false }`",
+                  "The webhook URL for that `lead_kind` is unset on the server. Check `GHL_GET_MY_OPTIONS_WEBHOOK_URL` for the homepage/Get My Options forms, or `GHL_AVM_WEBHOOK_URL` (and its fallback `GHL_INBOUND_WEBHOOK_URL`) for the AVM forms, in Lovable secrets.",
+                ],
+                [
+                  'HTTP 502, `{ ok: false, configured: true, error: "forward_failed" }`',
+                  "The webhook URL is set, but GHL rejected the forwarded request or the fetch itself failed. Check the GHL workflow's Inbound Webhook trigger is still active and the URL hasn't been regenerated.",
+                ],
+                [
+                  'HTTP 400, `{ ok: false, error: "invalid_submission" }`',
+                  "The payload failed Zod validation against `leadSubmissionSchema`. Usually means a form field changed shape without the schema being updated to match.",
+                ],
+                [
+                  'HTTP 413, `{ ok: false, error: "payload_too_large" }`',
+                  "The request body exceeded the 16 KB cap. Not expected from the site's own forms; likely a probe or a broken client.",
+                ],
+              ]}
+            />
           </Card>
 
           <Card title="Field mapping → GHL contact">
