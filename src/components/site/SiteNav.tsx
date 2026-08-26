@@ -11,6 +11,7 @@ const NAV_LINKS: { to: string; label: string }[] = [
   { to: "/mortgage-analyzer", label: "Analyzer" },
   { to: "/blog", label: "Blog" },
   { to: "/faq", label: "FAQ" },
+  { to: "/team", label: "Team" },
 ];
 
 export const APPLY_NOW_AHOO = "https://akhalessi.floify.com/apply-now";

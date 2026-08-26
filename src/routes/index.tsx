@@ -4,7 +4,8 @@ import { FaqList } from "@/components/site/FaqList";
 import { JsonLd, faqPageSchema, type FaqItem } from "@/components/site/JsonLd";
 import { LeadForm } from "@/components/site/LeadForm";
 import { SiteFooter } from "@/components/site/SiteFooter";
-import { SiteNav, APPLY_NOW_AHOO } from "@/components/site/SiteNav";
+import { SiteNav } from "@/components/site/SiteNav";
+import { TeamMembers } from "@/components/site/TeamMembers";
 
 const PAGE_TITLE =
   "CTC Equity | HELOC, Fixed Second, DSCR & Self-Employed Mortgage Specialists";
@@ -134,7 +135,7 @@ function Hero() {
             wherever you are.
           </p>
           <div style={{ display: "flex", flexWrap: "wrap", gap: 14, marginTop: 32 }}>
-            <Link to="/" hash="getstarted" className="btn btn-primary">
+            <Link to="/get-my-options" className="btn btn-primary">
               Get My Options
             </Link>
             <Link to="/" hash="getstarted" className="btn btn-ghost">
@@ -713,217 +714,9 @@ function TeamSection() {
           <span className="eyebrow">Who you're working with</span>
           <h2>Meet the team</h2>
         </div>
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(320px,1fr))", gap: 22 }}>
-          <TeamCard
-            name="Ahoo Khalessi"
-            role="Division Manager · Loan Officer"
-            initials="AK"
-            photo="/team/ahoo.png"
-            nmls="NMLS #2239510"
-            phone="(949) 877-7234"
-            email="akhalessi@ctcequity.com"
-            apply={APPLY_NOW_AHOO}
-            emcProfile={EMC_PROFILES.ahoo}
-            // TODO: confirm and update Microsoft Bookings URL.
-            booking="https://bookings.cloud.microsoft/book/AhooKhalessi@emortgagecapital.com/"
-            bio="Started the home equity department at Rocket Mortgage as top producer, then made home equity her wholesale specialty. Places HELOCs and fixed seconds up to $4M. Scotsman Guide Top Originator, EMC Top 5% Loan Officer (2025), top 5% nationally."
-          />
-          <TeamCard
-            name="Ben Mokri"
-            role="Partner · Executive Loan Officer"
-            initials="BM"
-            photo="/team/ben.png"
-            nmls="NMLS #2279528"
-            phone="(949) 889-2993"
-            email="bmokri@ctcequity.com"
-            apply="https://benmokri.floify.com/apply-now"
-            emcProfile={EMC_PROFILES.ben}
-            // TODO: add Ben's Microsoft Bookings URL when provided.
-            bio="Partner at CTC Equity working alongside Ahoo on equity, DSCR, and self-employed financing for investors and business owners nationwide."
-          />
-          <TeamCard
-            name="Bobby Khalessi"
-            role="Mortgage Loan Officer"
-            initials="BK"
-            photo="/team/bobby.png"
-            phone="(949) 413-9332"
-            // TODO: add Bobby's NMLS number after CTC confirms it.
-            bio="An analytical wholesale loan officer who compares a wide lender network for each scenario. Bobby focuses on careful loan structure, long-term portfolio planning, and keeping borrowers' options open from application through closing."
-          />
-          <TeamCard
-            name="Dong-Jin Kim"
-            role="Loan Officer"
-            initials="DK"
-            photo="/team/dong-jin.png"
-            nmls="NMLS #2615439"
-            phone="(510) 925-5490"
-            emcProfile={EMC_PROFILES.dongJin}
-          />
-          <TeamCard
-            name="Susan O'Donovan"
-            role="Loan Officer"
-            initials="SO"
-            photo="/team/susan.png"
-            nmls="NMLS #2302891"
-            phone="(949) 441-6545"
-            emcProfile={EMC_PROFILES.susan}
-          />
-        </div>
-        <div
-          style={{
-            marginTop: 26,
-            fontFamily: "var(--mono)",
-            fontSize: ".76rem",
-            letterSpacing: ".1em",
-            textTransform: "uppercase",
-            color: "var(--muted-ink)",
-            display: "flex",
-            flexWrap: "wrap",
-            gap: "6px 16px",
-            alignItems: "center",
-          }}
-        >
-          <span>Our team on EMortgage Capital:</span>
-          {[
-            { n: "Ahoo Khalessi", href: EMC_PROFILES.ahoo },
-            { n: "Ben Mokri", href: EMC_PROFILES.ben },
-            { n: "Dong-Jin Kim", href: EMC_PROFILES.dongJin },
-            { n: "Susan O'Donovan", href: EMC_PROFILES.susan },
-          ].map((m) => (
-            <a
-              key={m.n}
-              href={m.href}
-              target="_blank"
-              rel="noopener noreferrer"
-              style={{ color: "var(--cyan)", textDecoration: "none" }}
-            >
-              {m.n} ↗
-            </a>
-          ))}
-        </div>
+        <TeamMembers />
       </div>
     </section>
-  );
-}
-
-function TeamCard({
-  name,
-  role,
-  initials,
-  nmls,
-  phone,
-  email,
-  apply,
-  booking,
-  emcProfile,
-  photo,
-  bio,
-}: {
-  name: string;
-  role: string;
-  initials: string;
-  nmls?: string;
-  phone: string;
-  email?: string;
-  apply?: string;
-  booking?: string;
-  emcProfile?: string;
-  photo?: string;
-  bio?: string;
-}) {
-  return (
-    <article
-      style={{
-        background: "#fff",
-        border: "1px solid var(--line)",
-        borderRadius: 18,
-        padding: 26,
-        display: "flex",
-        flexDirection: "column",
-        gap: 14,
-      }}
-    >
-      <div style={{ display: "flex", gap: 16, alignItems: "center" }}>
-        {photo ? (
-          <img
-            src={photo}
-            alt={`${name} headshot`}
-            width={64}
-            height={64}
-            style={{ width: 64, height: 64, objectFit: "cover", borderRadius: "50%", flex: "none" }}
-          />
-        ) : (
-          <div
-            style={{
-              width: 64,
-              height: 64,
-              borderRadius: 14,
-              background: "linear-gradient(135deg,var(--tiffany),var(--teal))",
-              color: "#fff",
-              fontFamily: "var(--display)",
-              fontWeight: 800,
-              fontSize: "1.4rem",
-              display: "grid",
-              placeItems: "center",
-              flex: "none",
-            }}
-          >
-            {initials}
-          </div>
-        )}
-        <div>
-          <h3 style={{ fontFamily: "var(--display)", fontSize: "1.4rem" }}>{name}</h3>
-          <div style={{ color: "var(--cyan)", fontWeight: 600, fontSize: ".9rem" }}>{role}</div>
-        </div>
-      </div>
-      {bio && <p style={{ color: "#33485a", lineHeight: 1.6, fontSize: ".95rem" }}>{bio}</p>}
-      <div style={{ fontFamily: "var(--mono)", fontSize: ".82rem", color: "var(--muted-ink)" }}>
-        {nmls ? `${nmls} · ${phone}` : phone}
-        {email && (
-          <>
-            <br />
-            <a href={`mailto:${email}`} style={{ color: "var(--cyan)" }}>
-              {email}
-            </a>
-          </>
-        )}
-      </div>
-      <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
-        {apply && (
-          <a
-            className="btn btn-primary"
-            href={apply}
-            target="_blank"
-            rel="noopener noreferrer"
-            style={{ padding: ".6rem 1.1rem" }}
-          >
-            Apply with {name.split(" ")[0]}
-          </a>
-        )}
-        {booking && (
-          <a className="btn btn-dark" href={booking} target="_blank" rel="noopener noreferrer" style={{ padding: ".6rem 1.1rem" }}>
-            Book an appointment ↗
-          </a>
-        )}
-      </div>
-      {emcProfile && (
-        <a
-          href={emcProfile}
-          target="_blank"
-          rel="noopener noreferrer"
-          style={{
-            fontFamily: "var(--mono)",
-            fontSize: ".78rem",
-            letterSpacing: ".1em",
-            textTransform: "uppercase",
-            color: "var(--cyan)",
-            textDecoration: "none",
-          }}
-        >
-          EMC profile & awards ↗
-        </a>
-      )}
-    </article>
   );
 }
 
