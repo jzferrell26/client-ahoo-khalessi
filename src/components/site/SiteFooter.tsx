@@ -72,22 +72,29 @@ export function SiteFooter() {
           <div style={{ marginBottom: 6 }}>
             ⌂ Equal Housing Lender &nbsp;·&nbsp; EMC Company NMLS #1416824
           </div>
-          {/* TODO before launch: replace [LICENSED STATES] with EMC's actual license footprint. */}
           CTC Equity is a DBA of EMortgage Capital, Inc. (Company NMLS #1416824). Ahoo Khalessi,
           NMLS #2239510. Ben Mokri, NMLS #2279528.{" "}
           {/* TODO: Bobby Khalessi belongs here, between Ben and Susan, to match the team order.
               He is deliberately ABSENT rather than listed without a number: this is a regulatory
               licensing disclosure and an NMLS entry must carry a real, client-confirmed number.
               When CTC supplies it, insert exactly: Bobby Khalessi, NMLS #XXXXXXX. */}
-          Susan O'Donovan, NMLS #2302891. Dong-Jin Kim, NMLS #2615439. Licensed in:{" "}
-          [LICENSED STATES — insert actual EMC license footprint before launch]. This is not a
-          commitment to lend. All loans subject to credit approval, lender guidelines, and property
-          qualification. Rates and program availability vary and are subject to change. Verify
-          licensing at{" "}
+          Susan O'Donovan, NMLS #2302891. Dong-Jin Kim, NMLS #2615439. For the states in which
+          EMortgage Capital is currently licensed, see{" "}
           <a
-            href="https://www.nmlsconsumeraccess.org"
+            href="https://www.emortgagecapital.com/licensing-and-disclosures"
             target="_blank"
-            rel="noopener"
+            rel="noopener noreferrer"
+            style={{ color: "var(--tiffany-soft)" }}
+          >
+            EMC's Licensing and Disclosures
+          </a>
+          . This is not a commitment to lend. All loans subject to credit approval, lender
+          guidelines, and property qualification. Rates and program availability vary and are
+          subject to change. Verify licensing at{" "}
+          <a
+            href="https://www.nmlsconsumeraccess.org/EntityDetails.aspx/COMPANY/1416824"
+            target="_blank"
+            rel="noopener noreferrer"
             style={{ color: "var(--tiffany-soft)" }}
           >
             nmlsconsumeraccess.org
