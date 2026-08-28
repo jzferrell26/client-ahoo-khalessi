@@ -98,7 +98,7 @@ export function AvmLanding({ officer }: { officer: AvmOfficer }) {
           </div>
 
           <div id="get-report">
-            <HomeValueForm source={officer.source} assignedLo={officer.assignedLo} noticeNumber />
+            <HomeValueForm officer={officer} noticeNumber />
           </div>
         </div>
       </header>

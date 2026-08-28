@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react";
 import { Link } from "@tanstack/react-router";
+import type { AvmOfficer } from "@/components/site/avm-officers";
 
-const CONSENT_TEXT =
-  "I agree to be contacted by CTC Equity / Ahoo Khalessi by phone, text message, and email regarding my Free Home Value Report, my inquiry, mortgage financing options, home equity solutions, refinancing opportunities, and other loan products and services that may be available to me, including through automated technology. Consent is not a condition of purchase. Message and data rates may apply.";
+function buildConsentText(contactName: string) {
+  return `I agree to be contacted by CTC Equity / ${contactName} by phone, text message, and email regarding my Free Home Value Report, my inquiry, mortgage financing options, home equity solutions, refinancing opportunities, and other loan products and services that may be available to me, including through automated technology. Consent is not a condition of purchase. Message and data rates may apply.`;
+}
 
 const US_STATES = [
   "AL",
@@ -67,15 +69,11 @@ const US_STATES = [
 export function HomeValueForm({
   source = "Free Home Value Report — Mailer QR",
   noticeNumber = false,
-  assignedLo,
+  officer,
 }: {
   source?: string;
-  /**
-   * Loan officer this lead belongs to, emitted as `assigned_lo` so the GHL
-   * workflow can route Ahoo's and Ben's mailer leads separately. Omitted on the
-   * shared pages, which keep the existing default routing.
-   */
-  assignedLo?: string;
+  /** Officer-specific display and routing data. Omitted on shared pages. */
+  officer?: AvmOfficer;
   /**
    * Show the "code from your mailer" field. Used by the /avm campaign landing page
    * so a QR scan can be tied back to the exact recipient the piece was mailed to.
@@ -83,6 +81,10 @@ export function HomeValueForm({
    */
   noticeNumber?: boolean;
 }) {
+  const effectiveSource = officer?.source ?? source;
+  const consentText = buildConsentText(officer?.name ?? "Ahoo Khalessi");
+  const callbackPhone = officer?.phoneLabel ?? "(949) 877-7234";
+  const confirmationName = officer?.firstName ?? "Ahoo";
   const [submitted, setSubmitted] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -129,7 +131,7 @@ export function HomeValueForm({
       if (!response.ok || !result.ok) throw new Error("Lead delivery failed");
     } catch {
       setSubmitting(false);
-      setError("We couldn't send your request yet. Please try again or call (949) 877-7234.");
+      setError(`We couldn't send your request yet. Please try again or call ${callbackPhone}.`);
       return;
     }
 
@@ -152,8 +154,8 @@ export function HomeValueForm({
           You're all set — your report is on its way.
         </h3>
         <p style={{ color: "var(--muted-ink)" }}>
-          Ahoo and the CTC Equity team will prepare your free home value report and reach out
-          shortly with your numbers.
+          {confirmationName} and the CTC Equity team will prepare your free home value report and
+          reach out shortly with your numbers.
         </p>
       </div>
     );
@@ -170,13 +172,13 @@ export function HomeValueForm({
         color: "var(--ink)",
       }}
     >
-      <input type="hidden" name="source" value={source} />
+      <input type="hidden" name="source" value={effectiveSource} />
       <input type="hidden" name="lead_kind" value="avm_report_request" />
       <input type="hidden" name="lead_source" value="AVM Report Request" />
-      {assignedLo && <input type="hidden" name="assigned_lo" value={assignedLo} />}
+      {officer && <input type="hidden" name="assigned_lo" value={officer.assignedLo} />}
       <input type="hidden" name="campaign" value="CTC Mailer QR" />
       <input type="hidden" name="report_type" value="Free Virtual Home Value / Appraisal Report" />
-      <input type="hidden" name="consent_language" value={CONSENT_TEXT} />
+      <input type="hidden" name="consent_language" value={consentText} />
 
       {noticeNumber && (
         <div

@@ -3,6 +3,7 @@ import { z } from "zod";
 const optionalText = z.string().trim().max(500).optional();
 
 export const assignedLoanOfficerSchema = z.enum(["Ahoo Khalessi", "Ben Mokri"]);
+export type AssignedLoanOfficer = z.infer<typeof assignedLoanOfficerSchema>;
 
 const baseLeadSchema = z
   .object({

@@ -18,7 +18,7 @@ export type AvmOfficer = {
   /** How to describe the number in copy, for example "toll-free". */
   phoneNote: string;
   /** Stamped onto the submission as `assigned_lo` for GHL workflow routing. */
-  assignedLo: string;
+  assignedLo: AssignedLoanOfficer;
   /** Stamped onto the submission as `source`. */
   source: string;
 };
@@ -52,3 +52,4 @@ export const AVM_OFFICERS: Record<"ahoo" | "ben", AvmOfficer> = {
     source: "AVM Report Request (Ben Mailer QR)",
   },
 };
+import type { AssignedLoanOfficer } from "@/lib/lead-schema";
