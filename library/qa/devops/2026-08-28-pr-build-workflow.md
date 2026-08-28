@@ -18,6 +18,8 @@ The single verification job:
 
 The formatting rule is temporarily excluded because the inherited branch has repository-wide Prettier debt. Functional ESLint rules remain blocking, and formatting cleanup is intentionally separated from protected content pages so this change does not create a broad, risky diff.
 
+The workflow file was also parsed with a YAML linter after the code-lint command was expressed as a folded block scalar. This prevents the colon inside the ESLint rule value from being interpreted as YAML syntax.
+
 ## Security and concurrency controls
 
 - Workflow permissions default to none.

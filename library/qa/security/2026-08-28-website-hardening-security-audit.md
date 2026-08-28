@@ -98,6 +98,8 @@ The production homepage returned these headers on 2026-08-28:
 
 The complete diff was reviewed, targeted ESLint passed, the production build passed, and local endpoint probes returned 200 for a trapped bot post and 400 for an invalid post.
 
+The post-review workflow syntax correction was rechecked for permissions and supply-chain impact. It changes only the YAML encoding of the existing ESLint command, retains `permissions: {}` plus job-level `contents: read`, and introduces no new action, secret, or executable dependency.
+
 ## Recommended Follow-Up
 
 - Configure Cloudflare per-IP rate limiting for `POST /api/lead`.

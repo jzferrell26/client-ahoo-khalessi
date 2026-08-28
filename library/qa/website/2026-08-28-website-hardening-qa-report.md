@@ -54,6 +54,8 @@ The binding constraints in `prd-001-website-pending-work-index.md` were treated 
 
 - Production build passed after the final source changes.
 - Repository-wide functional ESLint passed with zero errors and nine inherited Fast Refresh warnings.
+- Workflow YAML parsing passed after the code-lint command was encoded as a folded block scalar.
+- The workflow-only correction received a security recheck before this final quality confirmation.
 - Dependency audit returned no advisories.
 - Local lead-handler probes passed for trapped and invalid requests.
 - Three mobile Lighthouse runs were completed for the homepage, with additional mobile runs for `/get-my-options`, `/heloc`, and `/team`.
