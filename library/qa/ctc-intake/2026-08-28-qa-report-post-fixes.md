@@ -1,5 +1,7 @@
 # QA Report: CTC Equity client request rollout, post-fix verification
 
+> **Superseded:** Live HTML verification found that the visible Ben consent label still named Ahoo even though the hidden consent record named Ben. See `2026-08-28-qa-report-live-consent-correction.md` for the corrected final verdict.
+
 **Plan document:** `../operator-home-ctc-client-work/cuantico-clients/active/ctc-equity/pending-work.md`
 **Audit date:** 2026-08-28
 **Base branch:** `origin/main`
