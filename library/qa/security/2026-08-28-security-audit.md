@@ -1,10 +1,10 @@
 # Security Audit Report: CTC Equity per-officer AVM intake
 
-**Audit date:** 2026-08-28  
-**Auditor:** security-guardian  
-**Scope:** AVM and Get My Options lead forms, `/api/lead`, GHL webhook secret routing, team JSON-LD, runtime headers, and the resolved dependency graph  
-**Next.js version audited:** Not applicable, this project uses TanStack Start  
-**React version audited:** 19.2.8  
+**Audit date:** 2026-08-28
+**Auditor:** security-guardian
+**Scope:** AVM and Get My Options lead forms, `/api/lead`, GHL webhook secret routing, team JSON-LD, runtime headers, and the resolved dependency graph
+**Next.js version audited:** Not applicable, this project uses TanStack Start
+**React version audited:** 19.2.8
 **CVE watchlist last refreshed:** 2026-04-24 (126 days old, refresh required)
 
 ## Executive Summary

@@ -1,10 +1,10 @@
 # Security Audit Report: CTC Equity post-QA officer copy fixes
 
-**Audit date:** 2026-08-28  
-**Auditor:** security-guardian  
-**Scope:** `HomeValueForm`, `AvmLanding`, officer configuration, lead schema typing, and the previously audited dependency graph  
-**Next.js version audited:** Not applicable, this project uses TanStack Start  
-**React version audited:** 19.2.8  
+**Audit date:** 2026-08-28
+**Auditor:** security-guardian
+**Scope:** `HomeValueForm`, `AvmLanding`, officer configuration, lead schema typing, and the previously audited dependency graph
+**Next.js version audited:** Not applicable, this project uses TanStack Start
+**React version audited:** 19.2.8
 **CVE watchlist last refreshed:** 2026-04-24 (126 days old, refresh required)
 
 ## Executive Summary

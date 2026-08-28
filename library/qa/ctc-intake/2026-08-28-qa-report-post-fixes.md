@@ -1,9 +1,9 @@
 # QA Report: CTC Equity client request rollout, post-fix verification
 
-**Plan document:** `../operator-home-ctc-client-work/cuantico-clients/active/ctc-equity/pending-work.md`  
-**Audit date:** 2026-08-28  
-**Base branch:** `origin/main`  
-**Head:** `agent/ctc-equity/per-officer-avm-webhooks` at `a48c54a`  
+**Plan document:** `../operator-home-ctc-client-work/cuantico-clients/active/ctc-equity/pending-work.md`
+**Audit date:** 2026-08-28
+**Base branch:** `origin/main`
+**Head:** `agent/ctc-equity/per-officer-avm-webhooks` at `a48c54a`
 **Auditor:** quality-guardian
 
 ## Summary

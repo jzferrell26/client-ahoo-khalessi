@@ -24,4 +24,3 @@ Local TanStack Start render at `http://127.0.0.1:4173/team` produced:
 
 - `npm run build`: pass
 - Targeted ESLint for `TeamMembers.tsx` and `team.tsx`: pass with 0 errors and 0 warnings
-
