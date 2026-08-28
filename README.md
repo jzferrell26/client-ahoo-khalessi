@@ -58,14 +58,15 @@ QR landing page).
 Both `LeadForm` (homepage short form) and `HomeValueForm` (the free-home-value
 mailer landing page) POST their submissions to the internal server route
 **`/api/lead`** (`src/routes/api.lead.ts`). That route forwards the payload to
-the matching GHL inbound webhook server-side, using two runtime secrets:
+the matching GHL inbound webhook server-side, using three runtime secrets:
 
 ```
 GHL_AVM_WEBHOOK_URL=https://services.leadconnectorhq.com/hooks/...
+GHL_AVM_BEN_WEBHOOK_URL=https://services.leadconnectorhq.com/hooks/...
 GHL_GET_MY_OPTIONS_WEBHOOK_URL=https://services.leadconnectorhq.com/hooks/...
 ```
 
-Set both in the project's **Lovable secrets** (plain runtime secrets, not
+Set all three in the project's **Lovable secrets** (plain runtime secrets, not
 `VITE_` variable). Keeping the webhook server-side means the URL is never shipped
 in the public client bundle.
 
@@ -74,6 +75,9 @@ in the public client bundle.
 - The homepage form sends `lead_kind=get_my_options` and requires the property
   address. The mailer QR form sends `lead_kind=avm_report_request`,
   `lead_source=AVM Report Request`, and the complete subject-property address.
+- `/avm-ben` uses `GHL_AVM_BEN_WEBHOOK_URL` so Ben's leads enter his separate
+  GHL location. It fails closed if that secret is missing instead of falling
+  back to Ahoo's AVM webhook.
 - `/api/lead` validates the full submission with Zod and reports a delivery error
   to the visitor if the GHL webhook is missing or rejects the request.
 - The payload includes `consent`, `consent_language`, and `submitted_at` for the

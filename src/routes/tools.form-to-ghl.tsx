@@ -13,16 +13,32 @@ export const Route = createFileRoute("/tools/form-to-ghl")({
 const SNIPPET = `// Lovable secrets (server-side runtime env, NOT prefixed with VITE_)
 GHL_GET_MY_OPTIONS_WEBHOOK_URL=https://services.leadconnectorhq.com/hooks/...
 GHL_AVM_WEBHOOK_URL=https://services.leadconnectorhq.com/hooks/...
+GHL_AVM_BEN_WEBHOOK_URL=https://services.leadconnectorhq.com/hooks/...
 // Legacy fallback, AVM only, used when GHL_AVM_WEBHOOK_URL is unset:
 GHL_INBOUND_WEBHOOK_URL=https://services.leadconnectorhq.com/hooks/...`;
 
 function Page() {
   return (
     <div style={{ background: "var(--sand)", minHeight: "100vh" }}>
-      <header className="hero-grad" style={{ position: "relative", padding: "40px 0", borderBottom: "1px solid var(--tiffany)" }}>
+      <header
+        className="hero-grad"
+        style={{
+          position: "relative",
+          padding: "40px 0",
+          borderBottom: "1px solid var(--tiffany)",
+        }}
+      >
         <div className="ctc-wrap-narrow">
           <span className="eyebrow on-dark">CTC Equity · Dev handoff</span>
-          <h1 style={{ fontFamily: "var(--display)", fontWeight: 700, fontSize: "2rem", color: "#fff", margin: "10px 0 8px" }}>
+          <h1
+            style={{
+              fontFamily: "var(--display)",
+              fontWeight: 700,
+              fontSize: "2rem",
+              color: "#fff",
+              margin: "10px 0 8px",
+            }}
+          >
             Wire the website short form to GHL
           </h1>
           <p style={{ color: "var(--muted-on-dark)" }}>
@@ -79,13 +95,20 @@ function Page() {
                 ],
                 [
                   "avm_report_request",
-                  "`HomeValueForm` (`/avm` and `/free-home-value-report`)",
+                  "`HomeValueForm` (`/avm`, `/avm-ahoo`, and `/free-home-value-report`)",
                   "`GHL_AVM_WEBHOOK_URL`, falling back to `GHL_INBOUND_WEBHOOK_URL`",
+                ],
+                [
+                  "avm_report_request + Ben Mokri",
+                  "`HomeValueForm` on `/avm-ben`",
+                  "`GHL_AVM_BEN_WEBHOOK_URL` with no fallback",
                 ],
               ]}
             />
             <p>
-              <b>The fallback only exists for <code>avm_report_request</code>.</b>{" "}
+              <b>
+                The fallback only exists for <code>avm_report_request</code>.
+              </b>{" "}
               <code>get_my_options</code> has no fallback variable at all. If{" "}
               <code>GHL_GET_MY_OPTIONS_WEBHOOK_URL</code> is unset, every Get My Options submission,
               including the homepage form, fails outright: the handler returns HTTP 503 with{" "}
@@ -93,30 +116,34 @@ function Page() {
               anywhere. This is the single most likely cause of "leads stopped arriving." See
               "Troubleshooting a missing lead" below.
             </p>
+            <p>
+              <b>Ben's AVM route also has no fallback.</b> A Ben submission belongs to a separate
+              GHL location. If <code>GHL_AVM_BEN_WEBHOOK_URL</code> is unset, the server returns
+              HTTP 503 instead of silently sending the lead to Ahoo's subaccount.
+            </p>
           </Card>
 
           <Card title="Setting the webhook secrets">
             <ol style={{ paddingLeft: "1.2rem", color: "#33485a", lineHeight: 1.7 }}>
               <li>
                 In GHL, create a Workflow with an <b>Inbound Webhook</b> trigger for each intake
-                path (Get My Options, AVM report request). Copy each webhook URL.
+                path (Get My Options, Ahoo/shared AVM, and Ben AVM). Copy each webhook URL.
               </li>
               <li>
                 In that workflow: Create/Update Contact → map the fields below → add to the{" "}
                 <b>Sales pipeline, stage "New Lead"</b> → start the follow-up automation. Save{" "}
-                <code>consent</code>, <code>consent_language</code>, and{" "}
-                <code>submitted_at</code> as custom fields on the contact (TCPA record). Tag with{" "}
-                <code>source</code>.
+                <code>consent</code>, <code>consent_language</code>, and <code>submitted_at</code>{" "}
+                as custom fields on the contact (TCPA record). Tag with <code>source</code>.
               </li>
               <li>
                 Set the URLs as <code>GHL_GET_MY_OPTIONS_WEBHOOK_URL</code> and{" "}
-                <code>GHL_AVM_WEBHOOK_URL</code> in the project's Lovable secrets, then rebuild.
-                These are read on the server only; none of the three variables carries a{" "}
-                <code>VITE_</code> prefix, and that's by design. A <code>VITE_</code>-prefixed
-                variable gets bundled into the client-side JavaScript, which would expose the
-                webhook URL to anyone viewing the page source. Whether these variables are
-                currently set in this project's Lovable secrets has not been verified here; check
-                the secrets panel directly.
+                <code>GHL_AVM_WEBHOOK_URL</code>, and <code>GHL_AVM_BEN_WEBHOOK_URL</code> in the
+                project's Lovable secrets, then rebuild. These are read on the server only; none of
+                the four variables carries a <code>VITE_</code> prefix, and that's by design. A{" "}
+                <code>VITE_</code>-prefixed variable gets bundled into the client-side JavaScript,
+                which would expose the webhook URL to anyone viewing the page source. Whether these
+                variables are currently set in this project's Lovable secrets has not been verified
+                here; check the secrets panel directly.
               </li>
             </ol>
             <Pre code={SNIPPET} />
@@ -132,7 +159,7 @@ function Page() {
               rows={[
                 [
                   "HTTP 503, `{ ok: false, configured: false }`",
-                  "The webhook URL for that `lead_kind` is unset on the server. Check `GHL_GET_MY_OPTIONS_WEBHOOK_URL` for the homepage/Get My Options forms, or `GHL_AVM_WEBHOOK_URL` (and its fallback `GHL_INBOUND_WEBHOOK_URL`) for the AVM forms, in Lovable secrets.",
+                  "The webhook URL for that intake path is unset on the server. Check `GHL_GET_MY_OPTIONS_WEBHOOK_URL` for homepage/Get My Options, `GHL_AVM_BEN_WEBHOOK_URL` for `/avm-ben`, or `GHL_AVM_WEBHOOK_URL` (and its fallback `GHL_INBOUND_WEBHOOK_URL`) for shared/Ahoo AVM, in Lovable secrets.",
                 ],
                 [
                   'HTTP 502, `{ ok: false, configured: true, error: "forward_failed" }`',
@@ -189,7 +216,9 @@ function Page() {
           </Card>
 
           <p style={{ textAlign: "center", marginTop: 24 }}>
-            <Link to="/" style={{ color: "var(--cyan)" }}>← Back to site</Link>
+            <Link to="/" style={{ color: "var(--cyan)" }}>
+              ← Back to site
+            </Link>
           </p>
         </div>
       </main>
@@ -208,7 +237,9 @@ function Card({ title, children }: { title: string; children: React.ReactNode })
         marginBottom: 18,
       }}
     >
-      <h2 style={{ fontFamily: "var(--display)", fontSize: "1.3rem", marginBottom: 12 }}>{title}</h2>
+      <h2 style={{ fontFamily: "var(--display)", fontSize: "1.3rem", marginBottom: 12 }}>
+        {title}
+      </h2>
       <div style={{ color: "#33485a", lineHeight: 1.7 }}>{children}</div>
     </div>
   );

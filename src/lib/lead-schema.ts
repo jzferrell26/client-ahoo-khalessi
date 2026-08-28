@@ -2,6 +2,8 @@ import { z } from "zod";
 
 const optionalText = z.string().trim().max(500).optional();
 
+export const assignedLoanOfficerSchema = z.enum(["Ahoo Khalessi", "Ben Mokri"]);
+
 const baseLeadSchema = z
   .object({
     first: z.string().trim().min(1).max(100),
@@ -21,7 +23,7 @@ const baseLeadSchema = z
     // Which loan officer this lead belongs to. Set by the per-officer AVM landing
     // pages so the GHL workflow can route Ahoo's and Ben's mailer leads into their
     // own pipelines. Absent on the shared pages, which stay on the default routing.
-    assigned_lo: z.string().trim().max(80).optional(),
+    assigned_lo: assignedLoanOfficerSchema.optional(),
     source: z.string().trim().min(1).max(200),
     lead_source: z.string().trim().min(1).max(100),
     campaign: z.string().trim().min(1).max(100),
