@@ -58,8 +58,8 @@ const SECTIONS = [
     who: "Ahoo",
     items: [
       ["Licensed states", "Done: the footer now links to EMC's Licensing and Disclosures page instead of listing states inline, so it stays current as EMC's footprint changes. Confirm with EMC that linking is acceptable for your disclosure."],
-      ["EMC logo", "Drop the official logo into the two logo slots."],
-      ["Headshots", "Swap the AK/BM initials avatars on the homepage for real photos."],
+      ["EMC logo", "Done: the official EMC logo is live in both co-branding slots."],
+      ["Headshots", "Done: real team headshots are live on the homepage and /team."],
       ["Scotsman Guide year", "Fill the remaining year placeholder on the awards card."],
     ],
   },

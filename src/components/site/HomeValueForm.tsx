@@ -1,6 +1,7 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Link } from "@tanstack/react-router";
 import type { AvmOfficer } from "@/components/site/avm-officers";
+import { BotTrap } from "@/components/site/BotTrap";
 
 function buildConsentText(contactName: string) {
   return `I agree to be contacted by CTC Equity / ${contactName} by phone, text message, and email regarding my Free Home Value Report, my inquiry, mortgage financing options, home equity solutions, refinancing opportunities, and other loan products and services that may be available to me, including through automated technology. Consent is not a condition of purchase. Message and data rates may apply.`;
@@ -81,6 +82,7 @@ export function HomeValueForm({
    */
   noticeNumber?: boolean;
 }) {
+  const formStartedAt = useRef(Date.now());
   const effectiveSource = officer?.source ?? source;
   const consentText = buildConsentText(officer?.name ?? "Ahoo Khalessi");
   const callbackPhone = officer?.phoneLabel ?? "(949) 877-7234";
@@ -110,6 +112,7 @@ export function HomeValueForm({
     const payload: Record<string, unknown> = {
       ...data,
       consent: form.querySelector<HTMLInputElement>("#hv-consent")?.checked ?? false,
+      form_started_at: new Date(formStartedAt.current).toISOString(),
       submitted_at: new Date().toISOString(),
     };
     // Never forward an empty code — the field is optional and GHL should see it
@@ -179,6 +182,7 @@ export function HomeValueForm({
       <input type="hidden" name="campaign" value="CTC Mailer QR" />
       <input type="hidden" name="report_type" value="Free Virtual Home Value / Appraisal Report" />
       <input type="hidden" name="consent_language" value={consentText} />
+      <BotTrap />
 
       {noticeNumber && (
         <div
@@ -259,10 +263,19 @@ export function HomeValueForm({
       >
         <Field label="City" name="property_city" required autoComplete="address-level2" />
         <div>
-          <label style={{ display: "block", fontWeight: 600, fontSize: ".88rem", marginBottom: 6 }}>
+          <label
+            htmlFor="property_state"
+            style={{ display: "block", fontWeight: 600, fontSize: ".88rem", marginBottom: 6 }}
+          >
             State
           </label>
-          <select name="property_state" defaultValue="CA" required style={selectStyle}>
+          <select
+            id="property_state"
+            name="property_state"
+            defaultValue="CA"
+            required
+            style={selectStyle}
+          >
             {US_STATES.map((s) => (
               <option key={s} value={s}>
                 {s}
@@ -363,10 +376,14 @@ function Field({
 }) {
   return (
     <div>
-      <label style={{ display: "block", fontWeight: 600, fontSize: ".88rem", marginBottom: 6 }}>
+      <label
+        htmlFor={name}
+        style={{ display: "block", fontWeight: 600, fontSize: ".88rem", marginBottom: 6 }}
+      >
         {label}
       </label>
       <input
+        id={name}
         name={name}
         type={type}
         required={required}

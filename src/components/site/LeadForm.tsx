@@ -1,5 +1,6 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { Link } from "@tanstack/react-router";
+import { BotTrap } from "@/components/site/BotTrap";
 
 const CONSENT_TEXT =
   "I agree to be contacted by CTC Equity / Ahoo Khalessi by phone, text message, and email regarding my Free Home Value Report, my inquiry, mortgage financing options, home equity solutions, refinancing opportunities, and other loan products and services that may be available to me, including through automated technology. Consent is not a condition of purchase. Message and data rates may apply.";
@@ -42,6 +43,7 @@ const GOAL_GROUPS: { label: string; options: string[] }[] = [
 ];
 
 export function LeadForm({ source = "Website — Short Form" }: { source?: string }) {
+  const formStartedAt = useRef(Date.now());
   const [submitted, setSubmitted] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -58,6 +60,7 @@ export function LeadForm({ source = "Website — Short Form" }: { source?: strin
     const payload = {
       ...data,
       consent: form.querySelector<HTMLInputElement>("#lf-consent")?.checked ?? false,
+      form_started_at: new Date(formStartedAt.current).toISOString(),
       submitted_at: new Date().toISOString(),
     };
 
@@ -119,6 +122,7 @@ export function LeadForm({ source = "Website — Short Form" }: { source?: strin
       <input type="hidden" name="lead_source" value="Website Get My Options" />
       <input type="hidden" name="campaign" value="CTC Website" />
       <input type="hidden" name="consent_language" value={CONSENT_TEXT} />
+      <BotTrap />
       <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12, marginBottom: 12 }}>
         <Field label="First name" name="first" required />
         <Field label="Last name" name="last" required />
@@ -136,10 +140,14 @@ export function LeadForm({ source = "Website — Short Form" }: { source?: strin
           placeholder="123 Main St"
         />
       </div>
-      <label style={{ display: "block", fontWeight: 600, fontSize: ".9rem", marginBottom: 6 }}>
+      <label
+        htmlFor="goal"
+        style={{ display: "block", fontWeight: 600, fontSize: ".9rem", marginBottom: 6 }}
+      >
         What are you looking to do?
       </label>
       <select
+        id="goal"
         name="goal"
         defaultValue="HELOC"
         style={{
@@ -235,10 +243,14 @@ function Field({
 }) {
   return (
     <div>
-      <label style={{ display: "block", fontWeight: 600, fontSize: ".88rem", marginBottom: 6 }}>
+      <label
+        htmlFor={name}
+        style={{ display: "block", fontWeight: 600, fontSize: ".88rem", marginBottom: 6 }}
+      >
         {label}
       </label>
       <input
+        id={name}
         name={name}
         type={type}
         required={required}

@@ -30,6 +30,8 @@ const baseLeadSchema = z
     campaign: z.string().trim().min(1).max(100),
     consent_language: z.string().trim().min(1).max(2_500),
     consent: z.literal(true),
+    company_website: z.string().trim().max(250).optional(),
+    form_started_at: z.string().datetime().optional(),
     submitted_at: z.string().datetime(),
   })
   .strict();

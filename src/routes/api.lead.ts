@@ -44,6 +44,24 @@ function json(body: unknown, status = 200): Response {
 }
 
 const MAX_BODY_BYTES = 16_384;
+const MIN_FORM_COMPLETION_MS = 800;
+
+function looksAutomated(submission: LeadSubmission): boolean {
+  if (submission.company_website) return true;
+  if (!submission.form_started_at) return false;
+
+  const startedAt = Date.parse(submission.form_started_at);
+  const submittedAt = Date.parse(submission.submitted_at);
+  const elapsed = submittedAt - startedAt;
+  return elapsed < 0 || elapsed < MIN_FORM_COMPLETION_MS;
+}
+
+function webhookPayload(submission: LeadSubmission): Record<string, unknown> {
+  const payload: Record<string, unknown> = { ...submission };
+  delete payload.company_website;
+  delete payload.form_started_at;
+  return payload;
+}
 
 export const Route = createFileRoute("/api/lead")({
   server: {
@@ -70,6 +88,13 @@ export const Route = createFileRoute("/api/lead")({
           return json({ ok: false, error: "invalid_submission" }, 400);
         }
 
+        // Acknowledge likely bot posts without forwarding them or revealing the
+        // trap. This is low-risk application-layer filtering, not a substitute
+        // for durable edge rate limiting in Cloudflare.
+        if (looksAutomated(parsed.data)) {
+          return json({ ok: true, configured: true }, 200);
+        }
+
         const webhook = readWebhookUrl(parsed.data);
         if (!webhook) {
           const intakePath =
@@ -85,7 +110,7 @@ export const Route = createFileRoute("/api/lead")({
           const res = await fetch(webhook, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(parsed.data),
+            body: JSON.stringify(webhookPayload(parsed.data)),
           });
           if (!res.ok) {
             console.error(`[api/lead] GHL webhook returned ${res.status}`);

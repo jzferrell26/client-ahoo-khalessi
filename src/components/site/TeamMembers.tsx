@@ -253,19 +253,24 @@ function TeamCard({
     >
       <div style={{ display: "flex", gap: 16, alignItems: "center" }}>
         {photo ? (
-          <img
-            src={photo}
-            alt={`${name} headshot`}
-            width={avatar}
-            height={avatar}
-            style={{
-              width: avatar,
-              height: avatar,
-              objectFit: "cover",
-              borderRadius: "50%",
-              flex: "none",
-            }}
-          />
+          <picture style={{ display: "block", width: avatar, height: avatar, flex: "none" }}>
+            <source srcSet={photo.replace(/\.png$/, ".avif")} type="image/avif" />
+            <source srcSet={photo.replace(/\.png$/, ".webp")} type="image/webp" />
+            <img
+              src={photo}
+              alt={`${name} headshot`}
+              width={avatar}
+              height={avatar}
+              loading="lazy"
+              decoding="async"
+              style={{
+                width: avatar,
+                height: avatar,
+                objectFit: "cover",
+                borderRadius: "50%",
+              }}
+            />
+          </picture>
         ) : (
           <div
             style={{

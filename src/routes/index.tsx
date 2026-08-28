@@ -597,37 +597,44 @@ function RecognitionSection() {
                 { t: "EMC Top 5% Loan Officer — Units", y: "EMortgage Capital · 2025", href: EMC_PROFILES.ahoo },
                 { t: "EMC Top 10% Loan Officer — Units", y: "EMortgage Capital · Q1 2026", href: EMC_PROFILES.ahoo },
               ] as { t: string; y: string; href?: string }[]
-            ).map((a) => (
-              <a
-                key={a.t}
-                href={a.href}
-                target={a.href ? "_blank" : undefined}
-                rel={a.href ? "noopener noreferrer" : undefined}
-                style={{
-                  background: "#fff",
-                  border: "1px solid var(--line)",
-                  borderRadius: 14,
-                  padding: 20,
-                  display: "block",
-                  color: "inherit",
-                  textDecoration: "none",
-                }}
-              >
-                <div style={{ fontWeight: 700, fontSize: ".98rem", lineHeight: 1.3 }}>{a.t}</div>
-                <div
-                  style={{
-                    fontFamily: "var(--mono)",
-                    fontSize: ".66rem",
-                    letterSpacing: ".1em",
-                    textTransform: "uppercase",
-                    color: "var(--cyan)",
-                    marginTop: 6,
-                  }}
-                >
-                  {a.y}
+            ).map((a) => {
+              const content = (
+                <>
+                  <div style={{ fontWeight: 700, fontSize: ".98rem", lineHeight: 1.3 }}>{a.t}</div>
+                  <div
+                    style={{
+                      fontFamily: "var(--mono)",
+                      fontSize: ".66rem",
+                      letterSpacing: ".1em",
+                      textTransform: "uppercase",
+                      color: "var(--cyan)",
+                      marginTop: 6,
+                    }}
+                  >
+                    {a.y}
+                  </div>
+                </>
+              );
+              const style = {
+                background: "#fff",
+                border: "1px solid var(--line)",
+                borderRadius: 14,
+                padding: 20,
+                display: "block",
+                color: "inherit",
+                textDecoration: "none",
+              } as const;
+
+              return a.href ? (
+                <a key={a.t} href={a.href} target="_blank" rel="noopener noreferrer" style={style}>
+                  {content}
+                </a>
+              ) : (
+                <div key={a.t} style={style}>
+                  {content}
                 </div>
-              </a>
-            ))}
+              );
+            })}
           </div>
         </div>
         <div>
@@ -682,13 +689,18 @@ function RecognitionSection() {
             marginTop: 24,
           }}
         >
-          <img
-            src="/emc-logo.png"
-            alt="EMortgage Capital logo"
-            width={56}
-            height={56}
-            style={{ width: 56, height: 56, objectFit: "contain", flex: "none" }}
-          />
+          <picture style={{ width: 56, height: 56, flex: "none" }}>
+            <source srcSet="/emc-logo.webp" type="image/webp" />
+            <img
+              src="/emc-logo.png"
+              alt="EMortgage Capital logo"
+              width={56}
+              height={56}
+              loading="lazy"
+              decoding="async"
+              style={{ width: 56, height: 56, objectFit: "contain" }}
+            />
+          </picture>
           <p style={{ fontSize: ".92rem", color: "var(--muted-ink)" }}>
             <b style={{ color: "var(--ink)" }}>
               Proudly originating through{" "}

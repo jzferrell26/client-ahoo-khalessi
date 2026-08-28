@@ -1,7 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import { useState, type CSSProperties } from "react";
 import ctcLogo from "@/assets/ctc-logo.png.asset.json";
-import emcLogo from "@/assets/emc-logo.png.asset.json";
 
 const NAV_LINKS: { to: string; label: string }[] = [
   { to: "/heloc", label: "HELOC" },
@@ -31,18 +30,27 @@ export function SiteNav() {
           borderBottom: "1px solid var(--line-on-dark)",
         }}
       >
-        <div className="ctc-wrap" style={{ display: "flex", gap: "22px", flexWrap: "wrap", padding: "8px 24px" }}>
+        <div
+          className="ctc-wrap"
+          style={{ display: "flex", gap: "22px", flexWrap: "wrap", padding: "8px 24px" }}
+        >
           <span>
             <b style={{ color: "#fff" }}>Toll-Free:</b>{" "}
-            <a href="tel:+18772270477" style={{ color: "var(--tiffany-soft)" }}>(877) 227-0477</a>
+            <a href="tel:+18772270477" style={{ color: "var(--tiffany-soft)" }}>
+              (877) 227-0477
+            </a>
           </span>
           <span className="ctc-topbar-extra">
             <b style={{ color: "#fff" }}>Ahoo:</b>{" "}
-            <a href="tel:+19498777234" style={{ color: "var(--tiffany-soft)" }}>(949) 877-7234</a>
+            <a href="tel:+19498777234" style={{ color: "var(--tiffany-soft)" }}>
+              (949) 877-7234
+            </a>
           </span>
           <span className="ctc-topbar-extra">
             <b style={{ color: "#fff" }}>Ben:</b>{" "}
-            <a href="tel:+19498892993" style={{ color: "var(--tiffany-soft)" }}>(949) 889-2993</a>
+            <a href="tel:+19498892993" style={{ color: "var(--tiffany-soft)" }}>
+              (949) 889-2993
+            </a>
           </span>
           {/* Kept visible at all widths: the DBA line is compliance-relevant co-branding. */}
           <span style={{ marginLeft: "auto" }}>
@@ -71,14 +79,19 @@ export function SiteNav() {
       >
         <div
           className="ctc-wrap"
-          style={{ display: "flex", alignItems: "center", justifyContent: "space-between", height: 70 }}
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+            height: 70,
+          }}
         >
           <a
             href={APPLY_NOW_AHOO}
             target="_blank"
             rel="noopener"
             onClick={closeMenu}
-            aria-label="Apply now with CTC Equity, a DBA of EMortgage Capital Inc."
+            aria-label="CTC Equity is a DBA of EMortgage Capital Inc. Apply now"
             style={{
               display: "flex",
               flexDirection: "column",
@@ -104,12 +117,17 @@ export function SiteNav() {
                   flexShrink: 0,
                 }}
               />
-              <img
-                src={emcLogo.url}
-                alt=""
-                className="emc-logo-img"
-                style={{ height: 34, width: "auto", objectFit: "contain", display: "block" }}
-              />
+              <picture>
+                <source srcSet="/emc-logo.webp" type="image/webp" />
+                <img
+                  src="/emc-logo.png"
+                  alt=""
+                  width={150}
+                  height={150}
+                  className="emc-logo-img"
+                  style={{ height: 34, width: "auto", objectFit: "contain", display: "block" }}
+                />
+              </picture>
             </span>
 
             <span
@@ -134,14 +152,22 @@ export function SiteNav() {
               <Link
                 key={l.to}
                 to={l.to}
-                style={{ color: "rgba(233,242,247,.72)", fontSize: ".92rem", fontWeight: 500, textDecoration: "none" }}
+                style={{
+                  color: "rgba(233,242,247,.72)",
+                  fontSize: ".92rem",
+                  fontWeight: 500,
+                  textDecoration: "none",
+                }}
                 activeProps={{ style: { color: "#fff" } }}
               >
                 {l.label}
               </Link>
             ))}
           </div>
-          <div className="btn-row-inline" style={{ display: "flex", alignItems: "center", gap: "0.6rem" }}>
+          <div
+            className="btn-row-inline"
+            style={{ display: "flex", alignItems: "center", gap: "0.6rem" }}
+          >
             <a
               className="btn btn-ghost ctc-nav-apply"
               href={APPLY_NOW_AHOO}
@@ -178,7 +204,10 @@ export function SiteNav() {
                 padding: 0,
               }}
             >
-              <span aria-hidden="true" style={{ display: "block", position: "relative", width: 20, height: 14 }}>
+              <span
+                aria-hidden="true"
+                style={{ display: "block", position: "relative", width: 20, height: 14 }}
+              >
                 <span style={menuBar(open ? "top-open" : "top")} />
                 <span style={menuBar(open ? "mid-open" : "mid")} />
                 <span style={menuBar(open ? "bot-open" : "bot")} />
@@ -251,12 +280,19 @@ function menuBar(state: string): CSSProperties {
     transition: "transform .2s ease, opacity .2s ease, top .2s ease",
   };
   switch (state) {
-    case "top": return { ...base, top: 0 };
-    case "mid": return { ...base, top: 6 };
-    case "bot": return { ...base, top: 12 };
-    case "top-open": return { ...base, top: 6, transform: "rotate(45deg)" };
-    case "mid-open": return { ...base, top: 6, opacity: 0 };
-    case "bot-open": return { ...base, top: 6, transform: "rotate(-45deg)" };
-    default: return base;
+    case "top":
+      return { ...base, top: 0 };
+    case "mid":
+      return { ...base, top: 6 };
+    case "bot":
+      return { ...base, top: 12 };
+    case "top-open":
+      return { ...base, top: 6, transform: "rotate(45deg)" };
+    case "mid-open":
+      return { ...base, top: 6, opacity: 0 };
+    case "bot-open":
+      return { ...base, top: 6, transform: "rotate(-45deg)" };
+    default:
+      return base;
   }
 }
