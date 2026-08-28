@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import type {} from "@tanstack/react-start";
-import { leadSubmissionSchema } from "@/lib/lead-schema";
+import { leadSubmissionSchema, type LeadSubmission } from "@/lib/lead-schema";
 
 /**
  * Server-side proxy for lead-form submissions.
@@ -11,18 +11,26 @@ import { leadSubmissionSchema } from "@/lib/lead-schema";
  * client bundle.
  *
  * Requires one runtime secret per intake path (set in Lovable secrets):
- * GHL_AVM_WEBHOOK_URL and GHL_GET_MY_OPTIONS_WEBHOOK_URL.
+ * GHL_AVM_WEBHOOK_URL, GHL_AVM_BEN_WEBHOOK_URL, and
+ * GHL_GET_MY_OPTIONS_WEBHOOK_URL.
  * GHL_INBOUND_WEBHOOK_URL remains a backwards-compatible fallback for the AVM
  * form while production secrets are migrated.
  * The response includes a non-sensitive `configured` flag so the wiring can be
  * verified after deploy without exposing the URL.
  */
-function readWebhookUrl(leadKind: "avm_report_request" | "get_my_options"): string | undefined {
+function readWebhookUrl(submission: LeadSubmission): string | undefined {
   const proc = (globalThis as { process?: { env?: Record<string, string | undefined> } }).process;
   const env = proc?.env;
 
-  if (leadKind === "get_my_options") {
+  if (submission.lead_kind === "get_my_options") {
     return env?.GHL_GET_MY_OPTIONS_WEBHOOK_URL;
+  }
+
+  // Ben has a dedicated intake workflow inside Ahoo's centralized GHL location.
+  // Do not fall back to the shared AVM webhook when his route is unconfigured,
+  // because that silently bypasses his assignment and reporting path.
+  if (submission.assigned_lo === "Ben Mokri") {
+    return env?.GHL_AVM_BEN_WEBHOOK_URL;
   }
 
   return env?.GHL_AVM_WEBHOOK_URL ?? env?.GHL_INBOUND_WEBHOOK_URL;
@@ -62,11 +70,14 @@ export const Route = createFileRoute("/api/lead")({
           return json({ ok: false, error: "invalid_submission" }, 400);
         }
 
-        const webhook = readWebhookUrl(parsed.data.lead_kind);
+        const webhook = readWebhookUrl(parsed.data);
         if (!webhook) {
-          console.error(
-            `[api/lead] webhook is not set for ${parsed.data.lead_kind}; lead not forwarded`,
-          );
+          const intakePath =
+            parsed.data.lead_kind === "avm_report_request" &&
+            parsed.data.assigned_lo === "Ben Mokri"
+              ? "avm_report_request:ben_mokri"
+              : parsed.data.lead_kind;
+          console.error(`[api/lead] webhook is not set for ${intakePath}; lead not forwarded`);
           return json({ ok: false, configured: false }, 503);
         }
 

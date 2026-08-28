@@ -1,3 +1,4 @@
+import { JsonLd } from "@/components/site/JsonLd";
 import { APPLY_NOW_AHOO } from "@/components/site/SiteNav";
 
 /**
@@ -104,6 +105,58 @@ const TEAM_SUPPORT: TeamMember[] = [
 
 /** Canonical top-to-bottom render order: Ahoo, Ben, Bobby, Susan, Dong-Jin. */
 const TEAM_ROSTER: TeamMember[] = [...TEAM_LEADS, ...TEAM_SUPPORT];
+const TEAM_URL = "https://ctcequity.com/team";
+
+export function TeamSchema({ title, description }: { title: string; description: string }) {
+  return (
+    <JsonLd
+      data={{
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "CollectionPage",
+            "@id": `${TEAM_URL}#page`,
+            url: TEAM_URL,
+            name: title,
+            description,
+            isPartOf: { "@id": "https://ctcequity.com/#website" },
+            mainEntity: { "@id": `${TEAM_URL}#team-list` },
+          },
+          {
+            "@type": "ItemList",
+            "@id": `${TEAM_URL}#team-list`,
+            name: "CTC Equity loan officers",
+            numberOfItems: TEAM_ROSTER.length,
+            itemListElement: TEAM_ROSTER.map((member, index) => ({
+              "@type": "ListItem",
+              position: index + 1,
+              item: { "@id": personId(member.name) },
+            })),
+          },
+          ...TEAM_ROSTER.map((member) => ({
+            "@type": "Person",
+            "@id": personId(member.name),
+            name: member.name,
+            jobTitle: member.role.replaceAll(" · ", ", "),
+            image: member.photo ? new URL(member.photo, TEAM_URL).href : undefined,
+            telephone: member.phone,
+            email: member.email ? `mailto:${member.email}` : undefined,
+            identifier: member.nmls,
+            worksFor: { "@id": "https://ctcequity.com/#org" },
+            sameAs: member.emcProfile ? [member.emcProfile] : undefined,
+          })),
+        ],
+      }}
+    />
+  );
+}
+
+function personId(name: string) {
+  return `${TEAM_URL}#${name
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/(^-|-$)/g, "")}`;
+}
 
 /**
  * The team roster: two leads in a horizontal row at a larger card size, the
