@@ -1,12 +1,11 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { SiteFooter } from "@/components/site/SiteFooter";
 import { SiteNav } from "@/components/site/SiteNav";
-import { TeamMembers } from "@/components/site/TeamMembers";
+import { TeamMembers, TeamSchema } from "@/components/site/TeamMembers";
 
 const TITLE = "Meet the Team | CTC Equity Mortgage Loan Officers — Orange County, CA";
 const DESC =
   "Meet the CTC Equity team — licensed mortgage loan officers specializing in HELOCs, fixed second mortgages, DSCR investment loans, and self-employed financing. Based in Orange County, CA and licensed coast to coast.";
-
 /**
  * /team — the standalone team page.
  *
@@ -32,6 +31,7 @@ export const Route = createFileRoute("/team")({
 function TeamPage() {
   return (
     <div>
+      <TeamSchema title={TITLE} description={DESC} />
       <SiteNav />
 
       <header className="hero-grad" style={{ position: "relative", padding: "64px 0 72px" }}>
