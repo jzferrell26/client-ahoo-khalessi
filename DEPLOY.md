@@ -121,20 +121,20 @@ These are **server-side** Lovable secrets. None of them carries a `VITE_` prefix
 deliberate: a `VITE_` prefixed variable is bundled into the browser JavaScript, which would expose
 the webhook URL publicly.
 
-| Variable                         | Used by                                                                          |
-| -------------------------------- | -------------------------------------------------------------------------------- |
-| `GHL_GET_MY_OPTIONS_WEBHOOK_URL` | `lead_kind: get_my_options`. **No fallback.**                                    |
-| `GHL_AVM_WEBHOOK_URL`            | Shared and Ahoo `lead_kind: avm_report_request` submissions                      |
-| `GHL_AVM_BEN_WEBHOOK_URL`        | `/avm-ben` submissions assigned to Ben's separate GHL location. **No fallback.** |
-| `GHL_INBOUND_WEBHOOK_URL`        | Legacy fallback, AVM only                                                        |
+| Variable                         | Used by                                                                                              |
+| -------------------------------- | ---------------------------------------------------------------------------------------------------- |
+| `GHL_GET_MY_OPTIONS_WEBHOOK_URL` | `lead_kind: get_my_options`. **No fallback.**                                                        |
+| `GHL_AVM_WEBHOOK_URL`            | Shared and Ahoo `lead_kind: avm_report_request` submissions                                          |
+| `GHL_AVM_BEN_WEBHOOK_URL`        | `/avm-ben` submissions sent to Ben's dedicated workflow inside Ahoo's GHL location. **No fallback.** |
+| `GHL_INBOUND_WEBHOOK_URL`        | Legacy fallback, AVM only                                                                            |
 
 If `GHL_GET_MY_OPTIONS_WEBHOOK_URL` is unset, every Get My Options submission, **including the
 homepage form**, returns HTTP 503 and the lead is lost with no visible error. There is no fallback
 for that path. `/tools/form-to-ghl` documents this in full.
 
 If `GHL_AVM_BEN_WEBHOOK_URL` is unset, `/avm-ben` submissions return HTTP 503. They deliberately
-do not fall back to the shared Ahoo webhook, because that would silently put Ben's leads in the
-wrong GHL subaccount.
+do not fall back to the shared Ahoo webhook, because that would silently bypass Ben's assignment
+and reporting path.
 
 Secrets are set in the Lovable project's secrets panel. Changing one requires a rebuild to take
 effect.

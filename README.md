@@ -75,9 +75,9 @@ in the public client bundle.
 - The homepage form sends `lead_kind=get_my_options` and requires the property
   address. The mailer QR form sends `lead_kind=avm_report_request`,
   `lead_source=AVM Report Request`, and the complete subject-property address.
-- `/avm-ben` uses `GHL_AVM_BEN_WEBHOOK_URL` so Ben's leads enter his separate
-  GHL location. It fails closed if that secret is missing instead of falling
-  back to Ahoo's AVM webhook.
+- `/avm-ben` uses `GHL_AVM_BEN_WEBHOOK_URL` so Ben's leads enter his dedicated
+  workflow inside Ahoo's GHL location. It fails closed if that secret is missing
+  instead of bypassing Ben's assignment and reporting path.
 - `/api/lead` validates the full submission with Zod and reports a delivery error
   to the visitor if the GHL webhook is missing or rejects the request.
 - The payload includes `consent`, `consent_language`, and `submitted_at` for the

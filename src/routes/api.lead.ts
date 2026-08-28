@@ -26,9 +26,9 @@ function readWebhookUrl(submission: LeadSubmission): string | undefined {
     return env?.GHL_GET_MY_OPTIONS_WEBHOOK_URL;
   }
 
-  // Ben operates in a separate GHL location. Do not fall back to Ahoo's AVM
-  // webhook when his route is unconfigured, because that silently assigns a
-  // client lead to the wrong subaccount.
+  // Ben has a dedicated intake workflow inside Ahoo's centralized GHL location.
+  // Do not fall back to the shared AVM webhook when his route is unconfigured,
+  // because that silently bypasses his assignment and reporting path.
   if (submission.assigned_lo === "Ben Mokri") {
     return env?.GHL_AVM_BEN_WEBHOOK_URL;
   }

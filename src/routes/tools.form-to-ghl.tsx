@@ -117,9 +117,9 @@ function Page() {
               "Troubleshooting a missing lead" below.
             </p>
             <p>
-              <b>Ben's AVM route also has no fallback.</b> A Ben submission belongs to a separate
-              GHL location. If <code>GHL_AVM_BEN_WEBHOOK_URL</code> is unset, the server returns
-              HTTP 503 instead of silently sending the lead to Ahoo's subaccount.
+              <b>Ben's AVM route also has no fallback.</b> His dedicated workflow lives inside
+              Ahoo's centralized GHL location. If <code>GHL_AVM_BEN_WEBHOOK_URL</code> is unset, the
+              server returns HTTP 503 instead of bypassing Ben's assignment and reporting path.
             </p>
           </Card>
 
