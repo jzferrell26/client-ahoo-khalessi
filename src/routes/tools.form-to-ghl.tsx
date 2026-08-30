@@ -14,6 +14,7 @@ const SNIPPET = `// Lovable secrets (server-side runtime env, NOT prefixed with 
 GHL_GET_MY_OPTIONS_WEBHOOK_URL=https://services.leadconnectorhq.com/hooks/...
 GHL_AVM_WEBHOOK_URL=https://services.leadconnectorhq.com/hooks/...
 GHL_AVM_BEN_WEBHOOK_URL=https://services.leadconnectorhq.com/hooks/...
+GHL_AVM_BOBBY_WEBHOOK_URL=https://services.leadconnectorhq.com/hooks/...
 // Legacy fallback, AVM only, used when GHL_AVM_WEBHOOK_URL is unset:
 GHL_INBOUND_WEBHOOK_URL=https://services.leadconnectorhq.com/hooks/...`;
 
@@ -103,6 +104,11 @@ function Page() {
                   "`HomeValueForm` on `/avm-ben`",
                   "`GHL_AVM_BEN_WEBHOOK_URL` with no fallback",
                 ],
+                [
+                  "avm_report_request + Bobby Khalessi",
+                  "`HomeValueForm` on `/avm-bobby`",
+                  "`GHL_AVM_BOBBY_WEBHOOK_URL` with no fallback",
+                ],
               ]}
             />
             <p>
@@ -117,9 +123,10 @@ function Page() {
               "Troubleshooting a missing lead" below.
             </p>
             <p>
-              <b>Ben's AVM route also has no fallback.</b> His dedicated workflow lives inside
-              Ahoo's centralized GHL location. If <code>GHL_AVM_BEN_WEBHOOK_URL</code> is unset, the
-              server returns HTTP 503 instead of bypassing Ben's assignment and reporting path.
+              <b>Ben's and Bobby's AVM routes also have no fallback.</b> Their dedicated workflows
+              live inside Ahoo's centralized GHL location. If the matching officer webhook secret is
+              unset, the server returns HTTP 503 instead of bypassing that officer's assignment and
+              reporting path.
             </p>
           </Card>
 
@@ -127,7 +134,8 @@ function Page() {
             <ol style={{ paddingLeft: "1.2rem", color: "#33485a", lineHeight: 1.7 }}>
               <li>
                 In GHL, create a Workflow with an <b>Inbound Webhook</b> trigger for each intake
-                path (Get My Options, Ahoo/shared AVM, and Ben AVM). Copy each webhook URL.
+                path (Get My Options, Ahoo/shared AVM, Ben AVM, and Bobby AVM). Copy each webhook
+                URL.
               </li>
               <li>
                 In that workflow: Create/Update Contact → map the fields below → add to the{" "}
@@ -137,13 +145,14 @@ function Page() {
               </li>
               <li>
                 Set the URLs as <code>GHL_GET_MY_OPTIONS_WEBHOOK_URL</code> and{" "}
-                <code>GHL_AVM_WEBHOOK_URL</code>, and <code>GHL_AVM_BEN_WEBHOOK_URL</code> in the
-                project's Lovable secrets, then rebuild. These are read on the server only; none of
-                the four variables carries a <code>VITE_</code> prefix, and that's by design. A{" "}
-                <code>VITE_</code>-prefixed variable gets bundled into the client-side JavaScript,
-                which would expose the webhook URL to anyone viewing the page source. Whether these
-                variables are currently set in this project's Lovable secrets has not been verified
-                here; check the secrets panel directly.
+                <code>GHL_AVM_WEBHOOK_URL</code>, <code>GHL_AVM_BEN_WEBHOOK_URL</code>, and{" "}
+                <code>GHL_AVM_BOBBY_WEBHOOK_URL</code> in the project's Lovable secrets, then
+                rebuild. These are read on the server only; none of the five variables carries a{" "}
+                <code>VITE_</code> prefix, and that's by design. A <code>VITE_</code>-prefixed
+                variable gets bundled into the client-side JavaScript, which would expose the
+                webhook URL to anyone viewing the page source. Whether these variables are currently
+                set in this project's Lovable secrets has not been verified here; check the secrets
+                panel directly.
               </li>
             </ol>
             <Pre code={SNIPPET} />
@@ -159,7 +168,7 @@ function Page() {
               rows={[
                 [
                   "HTTP 503, `{ ok: false, configured: false }`",
-                  "The webhook URL for that intake path is unset on the server. Check `GHL_GET_MY_OPTIONS_WEBHOOK_URL` for homepage/Get My Options, `GHL_AVM_BEN_WEBHOOK_URL` for `/avm-ben`, or `GHL_AVM_WEBHOOK_URL` (and its fallback `GHL_INBOUND_WEBHOOK_URL`) for shared/Ahoo AVM, in Lovable secrets.",
+                  "The webhook URL for that intake path is unset on the server. Check `GHL_GET_MY_OPTIONS_WEBHOOK_URL` for homepage/Get My Options, `GHL_AVM_BEN_WEBHOOK_URL` for `/avm-ben`, `GHL_AVM_BOBBY_WEBHOOK_URL` for `/avm-bobby`, or `GHL_AVM_WEBHOOK_URL` (and its fallback `GHL_INBOUND_WEBHOOK_URL`) for shared/Ahoo AVM, in Lovable secrets.",
                 ],
                 [
                   'HTTP 502, `{ ok: false, configured: true, error: "forward_failed" }`',

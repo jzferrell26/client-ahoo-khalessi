@@ -23,7 +23,7 @@ export type AvmOfficer = {
   source: string;
 };
 
-export const AVM_OFFICERS: Record<"ahoo" | "ben", AvmOfficer> = {
+export const AVM_OFFICERS: Record<"ahoo" | "ben" | "bobby", AvmOfficer> = {
   ahoo: {
     slug: "avm-ahoo",
     name: "Ahoo Khalessi",
@@ -50,6 +50,16 @@ export const AVM_OFFICERS: Record<"ahoo" | "ben", AvmOfficer> = {
     phoneNote: "direct",
     assignedLo: "Ben Mokri",
     source: "AVM Report Request (Ben Mailer QR)",
+  },
+  bobby: {
+    slug: "avm-bobby",
+    name: "Bobby Khalessi",
+    firstName: "Bobby",
+    phoneLabel: "(949) 413-9332",
+    phoneHref: "tel:+19494139332",
+    phoneNote: "direct",
+    assignedLo: "Bobby Khalessi",
+    source: "AVM Report Request (Bobby Mailer QR)",
   },
 };
 import type { AssignedLoanOfficer } from "@/lib/lead-schema";

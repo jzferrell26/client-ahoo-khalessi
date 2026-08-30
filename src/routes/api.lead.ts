@@ -11,7 +11,8 @@ import { leadSubmissionSchema, type LeadSubmission } from "@/lib/lead-schema";
  * client bundle.
  *
  * Requires one runtime secret per intake path (set in Lovable secrets):
- * GHL_AVM_WEBHOOK_URL, GHL_AVM_BEN_WEBHOOK_URL, and
+ * GHL_AVM_WEBHOOK_URL, GHL_AVM_BEN_WEBHOOK_URL,
+ * GHL_AVM_BOBBY_WEBHOOK_URL, and
  * GHL_GET_MY_OPTIONS_WEBHOOK_URL.
  * GHL_INBOUND_WEBHOOK_URL remains a backwards-compatible fallback for the AVM
  * form while production secrets are migrated.
@@ -31,6 +32,12 @@ function readWebhookUrl(submission: LeadSubmission): string | undefined {
   // because that silently bypasses his assignment and reporting path.
   if (submission.assigned_lo === "Ben Mokri") {
     return env?.GHL_AVM_BEN_WEBHOOK_URL;
+  }
+
+  // Bobby also has a dedicated intake workflow inside Ahoo's centralized GHL
+  // location. Fail closed so a missing secret cannot silently misroute his lead.
+  if (submission.assigned_lo === "Bobby Khalessi") {
+    return env?.GHL_AVM_BOBBY_WEBHOOK_URL;
   }
 
   return env?.GHL_AVM_WEBHOOK_URL ?? env?.GHL_INBOUND_WEBHOOK_URL;
@@ -98,9 +105,8 @@ export const Route = createFileRoute("/api/lead")({
         const webhook = readWebhookUrl(parsed.data);
         if (!webhook) {
           const intakePath =
-            parsed.data.lead_kind === "avm_report_request" &&
-            parsed.data.assigned_lo === "Ben Mokri"
-              ? "avm_report_request:ben_mokri"
+            parsed.data.lead_kind === "avm_report_request" && parsed.data.assigned_lo
+              ? `avm_report_request:${parsed.data.assigned_lo.toLowerCase().replaceAll(" ", "_")}`
               : parsed.data.lead_kind;
           console.error(`[api/lead] webhook is not set for ${intakePath}; lead not forwarded`);
           return json({ ok: false, configured: false }, 503);

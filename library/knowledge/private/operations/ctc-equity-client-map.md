@@ -84,7 +84,7 @@ Verified live on ctcequity.com on 2026-08-25 unless noted otherwise.
 | W-D8 | **Server-side lead proxy** so the webhook URL is never exposed to the browser. | Shipped as PR #3. |
 | W-D9 | **EMC co-branding, team section with five headshots, footer NMLS disclosure.** | Shipped as PRs #5, #6, #7. |
 | W-D10 | **"Santa Ana" replaced with "Orange County" sitewide.** | Commit `61f7175`. |
-| W-D11 | **Per-officer AVM landing pages** `/avm-ahoo` and `/avm-ben`. New requirement from Ben in Slack on 2026-08-25: "AVM page BEN, avm page ahoo on site ... so JUST make sure We are each having separate workflows." Each page shows that officer's own callback number and stamps `assigned_lo` on the submission so the GHL workflow can route it into their own pipeline. Both `noindex,follow` like the shared `/avm`. | Verified locally 2026-08-25. `src/components/site/avm-officers.ts`. |
+| W-D11 | **Per-officer AVM landing pages** `/avm-ahoo`, `/avm-ben`, and `/avm-bobby`. Each page shows that officer's own callback number and stamps `assigned_lo` on the submission so the server can select the dedicated GHL workflow. All three are `noindex,follow` like the shared `/avm`. | Ahoo and Ben verified live 2026-08-28. Bobby verified locally 2026-08-30 and ready to publish. `src/components/site/avm-officers.ts`. |
 | W-D12 | **Footer NMLS disclosure reordered** to match the confirmed team order (Ahoo, Ben, then Susan, then Dong-Jin). | `src/components/site/SiteFooter.tsx`. |
 | W-D13 | **Live compliance placeholder removed.** The footer of every page rendered the literal string `[LICENSED STATES - insert actual EMC license footprint before launch]` on a regulated licensing disclosure. Replaced with a link to EMC's official licensing page, and the stale internal checklist item in `tools.ai-setup-checklist.tsx` was updated to match. | Verified live. Satisfies `prd-001d` AC-1d-1. |
 | W-D14 | **`DEPLOY.md` runbook added** at the repo root, covering the merge-then-publish sequence, the fact that publishing never fires on merge, how to verify against the live domain rather than the sync, rollback, the do-not-break list, and the server-side secrets. Written for the pending client handover. | `DEPLOY.md`. |
@@ -103,6 +103,7 @@ From the 2026-08-20 and 2026-08-25 calls. Owner of record: Steven unless noted.
 | O-D4 | **"Split to Mailer 1 / Mailer 2 / Mailer 3" workflow built.** | Built by Steven. |
 | O-D5 | **GHL call recording enabled.** | Enabled 2026-08-25. |
 | O-D6 | **Ben assigned a local number.** | Interim measure while his toll-free number (877-586-7977) is in A2P verification. |
+| O-D7 | **Bobby's dedicated AVM workflow published in Ahoo's GHL location.** | Published 2026-08-30 as `AVM Website Intake - Bobby Khalessi`. Assigned to Bobby's GHL user, internal SMS goes to (949) 413-9332, internal email goes to Ahoo and Bobby, borrower copy names Bobby, and the dedicated webhook URL is stored as the server-side Lovable secret `GHL_AVM_BOBBY_WEBHOOK_URL`. No custom fields were deleted. |
 
 ---
 
@@ -172,7 +173,7 @@ This is not a new regression: the same `lead_kind` was in use before PR #9. What
 | O-P14 | Ben's toll-free A2P verification (877-586-7977). | In progress | Ben |
 | O-P15 | **Bobby Khalessi is still absent from the footer NMLS disclosure.** The order was corrected, but Bobby cannot be listed without a real NMLS number: this is a regulatory licensing disclosure, and a placeholder or borrowed number is not an option. A code comment marks the exact insertion point. Also unconfirmed whether Bobby is NMLS-licensed at all. | Blocked | **Client** |
 | O-P16 | **Ben's dedicated toll-free (877) 586-7977 is not yet published on `/avm-ben`.** It was still in A2P verification on 2026-08-25 and the number before it was rejected outright, so the page shows his already-published direct line instead. Swap the two fields in `avm-officers.ts` once verification clears. | Blocked on A2P | **Ben / Steven** |
-| O-P17 | **Separate GHL workflows for the per-officer AVM leads.** The site now stamps `assigned_lo` as "Ahoo Khalessi" or "Ben Mokri". The routing itself is a GHL workflow change and is not built. | Not built | Steven |
+| ~~O-P17~~ | **RESOLVED 2026-08-30. Separate GHL workflows for the per-officer AVM leads.** Ben's and Bobby's dedicated workflows are published inside Ahoo's GHL location. Bobby's workflow assigns the lead to Bobby and uses Bobby-specific internal and borrower notifications. Its webhook URL is stored only in the dedicated server-side Lovable secret. A controlled production submission remains part of the website release verification, not an open build item. | Done | Jonathan and Steven |
 
 ---
 
