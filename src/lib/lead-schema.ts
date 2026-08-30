@@ -2,7 +2,7 @@ import { z } from "zod";
 
 const optionalText = z.string().trim().max(500).optional();
 
-export const assignedLoanOfficerSchema = z.enum(["Ahoo Khalessi", "Ben Mokri"]);
+export const assignedLoanOfficerSchema = z.enum(["Ahoo Khalessi", "Ben Mokri", "Bobby Khalessi"]);
 export type AssignedLoanOfficer = z.infer<typeof assignedLoanOfficerSchema>;
 
 const baseLeadSchema = z
@@ -22,7 +22,7 @@ const baseLeadSchema = z
     // borrower who lost the mailer must still be able to submit.
     notice_number: z.string().trim().max(64).optional(),
     // Which loan officer this lead belongs to. Set by the per-officer AVM landing
-    // pages so the GHL workflow can route Ahoo's and Ben's mailer leads into their
+    // pages so the GHL workflow can route each officer's mailer leads into their
     // own pipelines. Absent on the shared pages, which stay on the default routing.
     assigned_lo: assignedLoanOfficerSchema.optional(),
     source: z.string().trim().min(1).max(200),
