@@ -86,7 +86,10 @@ const TEAM_LEADS: TeamMember[] = [
     apply: "https://benmokri.floify.com/apply-now",
     emcProfile: EMC_PROFILES.ben,
     // TODO: add Ben's Microsoft Bookings URL when provided.
-    bio: "Partner at CTC Equity working alongside Ahoo on equity, DSCR, and self-employed financing for investors and business owners nationwide.",
+    // Refreshed 2026-08-31 from Ben's own EMC profile bio, condensed into the
+    // third-person house style. The partner detail is retained from the previous
+    // copy; everything else comes from his EMC bio.
+    bio: "Partner at CTC Equity and an Executive Loan Officer, with a background spanning finance, real estate, and architecture. Ben works with clients in all states across mortgages, refinancing, commercial lending, DSCR, and self-employed financing, and focuses on finding workable structures for the scenarios other lenders pass on.",
     // Ben's Top 5% plaque is published on his EMC profile but had never been
     // shown anywhere on this site.
     awards: [{ label: "EMC Top 5% Loan Officer", source: "emc" }],
@@ -105,9 +108,10 @@ const TEAM_SUPPORT: TeamMember[] = [
     role: "Mortgage Loan Officer",
     initials: "BK",
     photo: "/team/bobby.png",
+    nmls: "NMLS #1901225",
     phone: "(949) 413-9332",
-    // TODO: add Bobby's NMLS number after CTC confirms it.
     bio: "An analytical wholesale loan officer who compares a wide lender network for each scenario. Bobby focuses on careful loan structure, long-term portfolio planning, and keeping borrowers' options open from application through closing.",
+    apply: APPLY_NOW_AHOO,
     certifications: ["Conventional"],
   },
   {
@@ -137,6 +141,12 @@ const TEAM_SUPPORT: TeamMember[] = [
     // Per the 2026-08-27 call: Susan and James route through Ahoo's application
     // link so every team card has a congruent "Apply" action.
     apply: APPLY_NOW_AHOO,
+    // WRITTEN BY CUANTICO 2026-08-31, not sourced. James's EMC profile has an
+    // empty ABOUT ME section, so unlike Susan's there was nothing to condense.
+    // This asserts only his role, his team, and the product areas CTC already
+    // advertises. It invents no tenure, volume, specialty, or accolade. Replace
+    // it the moment CTC supplies real copy.
+    bio: "A licensed loan officer on the CTC Equity team, working with borrowers nationwide on purchase, refinance, and home equity financing.",
   },
 ];
 
