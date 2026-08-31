@@ -378,7 +378,9 @@ function TeamCard({
               </span>
               <span>
                 {a.label}
-                {a.detail && <span style={{ color: "var(--muted-ink)" }}> &middot; {a.detail}</span>}
+                {a.detail && (
+                  <span style={{ color: "var(--muted-ink)" }}> &middot; {a.detail}</span>
+                )}
               </span>
             </li>
           ))}
