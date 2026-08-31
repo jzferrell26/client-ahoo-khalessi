@@ -94,6 +94,10 @@ const TEAM_SUPPORT: TeamMember[] = [
     // Per the 2026-08-27 call: Susan and James route through Ahoo's application
     // link so every team card has a congruent "Apply" action.
     apply: APPLY_NOW_AHOO,
+    // Condensed into the third-person house style used by the other cards, from
+    // the facts in Susan's own EMC profile bio. No claim here is invented, but
+    // the wording is ours, so it is worth her sign-off.
+    bio: "A nationally licensed loan officer serving purchases, refinances, investment properties, and equity loans. Susan pairs traditional financing with bank statement, asset depletion, and profit-and-loss options for borrowers across a wide range of income and credit profiles.",
   },
   {
     name: "Dong-Jin Kim",

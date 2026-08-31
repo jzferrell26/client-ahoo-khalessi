@@ -73,13 +73,9 @@ export function SiteFooter() {
             ⌂ Equal Housing Lender &nbsp;·&nbsp; EMC Company NMLS #1416824
           </div>
           CTC Equity is a DBA of EMortgage Capital, Inc. (Company NMLS #1416824). Ahoo Khalessi,
-          NMLS #2239510. Ben Mokri, NMLS #2279528.{" "}
-          {/* TODO: Bobby Khalessi belongs here, between Ben and Susan, to match the team order.
-              He is deliberately ABSENT rather than listed without a number: this is a regulatory
-              licensing disclosure and an NMLS entry must carry a real, client-confirmed number.
-              When CTC supplies it, insert exactly: Bobby Khalessi, NMLS #XXXXXXX. */}
-          Susan O'Donovan, NMLS #2302891. Dong-Jin Kim, NMLS #2615439. For the states in which
-          EMortgage Capital is currently licensed, see{" "}
+          NMLS #2239510. Ben Mokri, NMLS #2279528. Bobby Khalessi, NMLS #1901225. Susan O'Donovan,
+          NMLS #2302891. Dong-Jin Kim, NMLS #2615439. For the states in which EMortgage Capital is
+          currently licensed, see{" "}
           <a
             href="https://www.emortgagecapital.com/licensing-and-disclosures"
             target="_blank"
