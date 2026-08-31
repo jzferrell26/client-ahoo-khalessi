@@ -35,6 +35,21 @@ export type TeamMember = {
   emcProfile?: string;
   photo?: string;
   bio?: string;
+  /**
+   * Recognition shown on the officer's card.
+   *
+   * `source` records where each claim comes from and is NOT rendered. "emc"
+   * means a matching award plaque is published on that officer's EMortgage
+   * Capital profile and was verified there on 2026-08-31. "client" means CTC
+   * asserts it and Jonathan confirmed it on 2026-08-31; it is not evidenced on
+   * the EMC profile, which is expected for a non-EMC award such as Scotsman
+   * Guide. Keep this field accurate: on a licensed mortgage site, knowing which
+   * claims are independently evidenced is the difference between answering a
+   * challenge in seconds and having to go re-research it.
+   */
+  awards?: { label: string; detail?: string; source: "emc" | "client" }[];
+  /** EMC certification badges, verified on the officer's EMC profile 2026-08-31. */
+  certifications?: string[];
 };
 
 /** Team leads. Rendered side by side, above the rest, at a larger card size. */
@@ -52,6 +67,13 @@ const TEAM_LEADS: TeamMember[] = [
     // TODO: confirm and update Microsoft Bookings URL.
     booking: "https://bookings.cloud.microsoft/book/AhooKhalessi@emortgagecapital.com/",
     bio: "Started the home equity department at Rocket Mortgage as top producer, then made home equity her wholesale specialty. Places HELOCs and fixed seconds up to $4M. Scotsman Guide Top Originator, EMC Top 5% Loan Officer (2025), top 5% nationally.",
+    awards: [
+      { label: "Scotsman Guide Top Originator", source: "client" },
+      { label: "EMC Top 5% Loan Officer, Volume", detail: "2025", source: "emc" },
+      { label: "EMC Top 5% Loan Officer, Units", detail: "2025", source: "emc" },
+      { label: "EMC Top 10% Loan Officer, Units", detail: "Q1 2026", source: "client" },
+    ],
+    certifications: ["HELOC", "Non-QM", "VA"],
   },
   {
     name: "Ben Mokri",
@@ -65,6 +87,10 @@ const TEAM_LEADS: TeamMember[] = [
     emcProfile: EMC_PROFILES.ben,
     // TODO: add Ben's Microsoft Bookings URL when provided.
     bio: "Partner at CTC Equity working alongside Ahoo on equity, DSCR, and self-employed financing for investors and business owners nationwide.",
+    // Ben's Top 5% plaque is published on his EMC profile but had never been
+    // shown anywhere on this site.
+    awards: [{ label: "EMC Top 5% Loan Officer", source: "emc" }],
+    certifications: ["Non-QM", "Challenged Credit", "HELOAN"],
   },
 ];
 
@@ -82,6 +108,7 @@ const TEAM_SUPPORT: TeamMember[] = [
     phone: "(949) 413-9332",
     // TODO: add Bobby's NMLS number after CTC confirms it.
     bio: "An analytical wholesale loan officer who compares a wide lender network for each scenario. Bobby focuses on careful loan structure, long-term portfolio planning, and keeping borrowers' options open from application through closing.",
+    certifications: ["Conventional"],
   },
   {
     name: "Susan O'Donovan",
@@ -243,8 +270,21 @@ function TeamCard({
   member: TeamMember;
   variant?: "lead" | "member";
 }) {
-  const { name, role, initials, nmls, phone, email, apply, booking, emcProfile, photo, bio } =
-    member;
+  const {
+    name,
+    role,
+    initials,
+    nmls,
+    phone,
+    email,
+    apply,
+    booking,
+    emcProfile,
+    photo,
+    bio,
+    awards,
+    certifications,
+  } = member;
   const isLead = variant === "lead";
   const avatar = isLead ? 88 : 64;
 
@@ -315,6 +355,60 @@ function TeamCard({
         <p style={{ color: "#33485a", lineHeight: 1.6, fontSize: isLead ? "1rem" : ".95rem" }}>
           {bio}
         </p>
+      )}
+      {awards && awards.length > 0 && (
+        <ul
+          aria-label={`${name} recognition`}
+          style={{ listStyle: "none", margin: 0, padding: 0, display: "grid", gap: 6 }}
+        >
+          {awards.map((a) => (
+            <li
+              key={a.label}
+              style={{
+                display: "flex",
+                gap: 8,
+                alignItems: "baseline",
+                fontSize: isLead ? ".92rem" : ".88rem",
+                color: "#33485a",
+                lineHeight: 1.45,
+              }}
+            >
+              <span aria-hidden="true" style={{ color: "var(--tiffany)", fontWeight: 700 }}>
+                &#9733;
+              </span>
+              <span>
+                {a.label}
+                {a.detail && (
+                  <span style={{ color: "var(--muted-ink)" }}> &middot; {a.detail}</span>
+                )}
+              </span>
+            </li>
+          ))}
+        </ul>
+      )}
+      {certifications && certifications.length > 0 && (
+        <div
+          aria-label={`${name} certifications`}
+          style={{ display: "flex", flexWrap: "wrap", gap: 6 }}
+        >
+          {certifications.map((c) => (
+            <span
+              key={c}
+              style={{
+                fontFamily: "var(--mono)",
+                fontSize: ".68rem",
+                letterSpacing: ".05em",
+                padding: ".28rem .6rem",
+                borderRadius: 999,
+                border: "1px solid var(--line)",
+                color: "var(--muted-ink)",
+                fontWeight: 600,
+              }}
+            >
+              {c}
+            </span>
+          ))}
+        </div>
       )}
       <div
         style={{
