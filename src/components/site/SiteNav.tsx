@@ -86,12 +86,10 @@ export function SiteNav() {
             height: 70,
           }}
         >
-          <a
-            href={APPLY_NOW_AHOO}
-            target="_blank"
-            rel="noopener"
+          <Link
+            to="/"
             onClick={closeMenu}
-            aria-label="CTC Equity is a DBA of EMortgage Capital Inc. Apply now"
+            aria-label="CTC Equity home. A DBA of EMortgage Capital Inc."
             style={{
               display: "flex",
               flexDirection: "column",
@@ -142,7 +140,7 @@ export function SiteNav() {
             >
               CTC Equity is a DBA of EMortgage Capital Inc.
             </span>
-          </a>
+          </Link>
 
           <div
             style={{ display: "flex", alignItems: "center", gap: "1.4rem" }}
