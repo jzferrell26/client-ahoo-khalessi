@@ -84,8 +84,13 @@ const TEAM_LEADS: TeamMember[] = [
     phone: "(949) 889-2993",
     email: "bmokri@ctcequity.com",
     apply: "https://benmokri.floify.com/apply-now",
+    // Supplied by Ben in Slack 2026-08-31 and verified the same day: the page
+    // resolves to "Bookings with me - Ben Mokri" and lets a borrower continue as
+    // a guest without a Microsoft sign-in. Note this is a Book With Me link on
+    // the ctcequity.com tenant, not an EMC Bookings page like Ahoo's.
+    booking:
+      "https://outlook.office.com/bookwithme/user/0b254cf5058d47aca6e262954b39337c@ctcequity.com/meetingtype/HQtsLliNK0OeAseDE6etww2?anonymous&ismsaljsauthenabled&ep=mcard",
     emcProfile: EMC_PROFILES.ben,
-    // TODO: add Ben's Microsoft Bookings URL when provided.
     // Refreshed 2026-08-31 from Ben's own EMC profile bio, condensed into the
     // third-person house style. The partner detail is retained from the previous
     // copy; everything else comes from his EMC bio.
