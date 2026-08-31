@@ -30,9 +30,13 @@ export const AVM_OFFICERS: Record<"ahoo" | "ben" | "bobby", AvmOfficer> = {
     slug: "avm-ahoo",
     name: "Ahoo Khalessi",
     firstName: "Ahoo",
-    // The mailer toll-free already published site-wide in the top bar.
-    phoneLabel: "(877) 227-0477",
-    phoneHref: "tel:+18772270477",
+    // Ahoo's OWN toll-free, posted by Steven in Slack on 2026-08-28 alongside
+    // Ben's and Bobby's. This page previously showed (877) 227-0477, which is
+    // the general site toll-free in the top bar, not hers. A per-officer mailer
+    // page needs her own line, both for attribution and for the inbound-traffic
+    // line reputation that motivated the per-officer split in the first place.
+    phoneLabel: "(877) 638-1737",
+    phoneHref: "tel:+18776381737",
     phoneNote: "toll-free",
     assignedLo: "Ahoo Khalessi",
     source: "AVM Report Request (Ahoo Mailer QR)",
@@ -54,6 +58,10 @@ export const AVM_OFFICERS: Record<"ahoo" | "ben" | "bobby", AvmOfficer> = {
     slug: "avm-bobby",
     name: "Bobby Khalessi",
     firstName: "Bobby",
+    // Bobby's dedicated toll-free is (877) 586-7977, still IN PROGRESS as of
+    // Steven's 2026-08-28 Slack post. Note that number was previously believed
+    // to be Ben's pending toll-free; it was reassigned to Bobby. Keep his
+    // published direct line here until his A2P clears, then swap these fields.
     phoneLabel: "(949) 413-9332",
     phoneHref: "tel:+19494139332",
     phoneNote: "direct",
