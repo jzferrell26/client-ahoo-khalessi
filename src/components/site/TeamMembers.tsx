@@ -91,6 +91,9 @@ const TEAM_SUPPORT: TeamMember[] = [
     nmls: "NMLS #2302891",
     phone: "(949) 441-6545",
     emcProfile: EMC_PROFILES.susan,
+    // Per the 2026-08-27 call: Susan and James route through Ahoo's application
+    // link so every team card has a congruent "Apply" action.
+    apply: APPLY_NOW_AHOO,
   },
   {
     name: "Dong-Jin Kim",
@@ -100,6 +103,9 @@ const TEAM_SUPPORT: TeamMember[] = [
     nmls: "NMLS #2615439",
     phone: "(510) 925-5490",
     emcProfile: EMC_PROFILES.dongJin,
+    // Per the 2026-08-27 call: Susan and James route through Ahoo's application
+    // link so every team card has a congruent "Apply" action.
+    apply: APPLY_NOW_AHOO,
   },
 ];
 

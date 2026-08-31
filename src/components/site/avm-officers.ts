@@ -4,6 +4,8 @@
  * Kept in its own module so `AvmLanding.tsx` exports only a component, which is
  * what the react-refresh lint rule requires.
  */
+
+import type { AssignedLoanOfficer } from "@/lib/lead-schema";
 export type AvmOfficer = {
   /** URL slug, also used in the canonical link. */
   slug: string;
@@ -39,15 +41,12 @@ export const AVM_OFFICERS: Record<"ahoo" | "ben" | "bobby", AvmOfficer> = {
     slug: "avm-ben",
     name: "Ben Mokri",
     firstName: "Ben",
-    // NOTE: Ben's dedicated toll-free (877) 586-7977 was still in A2P
-    // verification as of 2026-08-25, and the number before it was rejected
-    // outright. Publishing an unverified toll-free on a live mailer landing
-    // page risks printing a number that changes, so this shows his already
-    // published direct line for now. Swap these two fields (and nothing else)
-    // the moment his toll-free clears verification.
-    phoneLabel: "(949) 889-2993",
-    phoneHref: "tel:+19498892993",
-    phoneNote: "direct",
+    // Ben's dedicated toll-free, VERIFIED by Steven on the 2026-08-27 call.
+    // Note it is NOT the (877) 586-7977 number that was in verification on
+    // 2026-08-25: that one did not clear, and this 8001 number replaced it.
+    phoneLabel: "(877) 331-8001",
+    phoneHref: "tel:+18773318001",
+    phoneNote: "toll-free",
     assignedLo: "Ben Mokri",
     source: "AVM Report Request (Ben Mailer QR)",
   },
@@ -62,4 +61,3 @@ export const AVM_OFFICERS: Record<"ahoo" | "ben" | "bobby", AvmOfficer> = {
     source: "AVM Report Request (Bobby Mailer QR)",
   },
 };
-import type { AssignedLoanOfficer } from "@/lib/lead-schema";
