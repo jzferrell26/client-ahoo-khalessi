@@ -39,7 +39,7 @@ export function SiteFooter() {
           >
             EMortgage Capital, Inc.
           </a>{" "}
-          &nbsp;·&nbsp; Nationwide lending, based in Orange County, CA
+          &nbsp;·&nbsp; Serving borrowers coast to coast across more than 40 licensed states · Based in Santa Ana, CA
         </p>
         <p style={{ marginTop: 8 }}>
           <a href="tel:+19498777234" style={{ color: "var(--tiffany-soft)" }}>(949) 877-7234</a>{" "}
@@ -47,7 +47,7 @@ export function SiteFooter() {
           <a href="mailto:akhalessi@ctcequity.com" style={{ color: "var(--tiffany-soft)" }}>
             akhalessi@ctcequity.com
           </a>{" "}
-          &nbsp;·&nbsp; 3750 S Susan St, Orange County, CA 92704
+          &nbsp;·&nbsp; 3750 S Susan St, Santa Ana, CA 92704
         </p>
         <p style={{ marginTop: 14, display: "flex", flexWrap: "wrap", gap: "6px 10px" }}>
           {FOOTER_LINKS.map((l, i) => (
