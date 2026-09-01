@@ -1,21 +1,8 @@
+import { Link } from "@tanstack/react-router";
 import { JsonLd } from "@/components/site/JsonLd";
 import { APPLY_NOW_AHOO } from "@/components/site/SiteNav";
 
-/**
- * Single source of truth for the CTC Equity team roster.
- *
- * Consumed by BOTH the homepage `#team` section (src/routes/index.tsx) and the
- * standalone `/team` route (src/routes/team.tsx), so the confirmed member order
- * — Ahoo, Ben, Bobby, Susan, Dong-Jin — is defined in exactly one place.
- *
- * Member copy (names, roles, NMLS strings, phone numbers, bios, headshot paths)
- * is relocated verbatim from src/routes/index.tsx. Do not edit it here as a side
- * effect of a layout change: the homepage carries the LLM content that is
- * earning citations, and bio copy is owned by prd-001d.
- */
-
 const EMC_SITE = "https://www.emortgagecapital.com";
-
 const EMC_PROFILES = {
   ahoo: `${EMC_SITE}/team/Ahoo-Khalessi-3928`,
   ben: `${EMC_SITE}/team/Ben-Mokri-4026?UserId=005Pm00000958z3IAA`,
@@ -33,26 +20,13 @@ export type TeamMember = {
   apply?: string;
   booking?: string;
   emcProfile?: string;
+  profile?: "/ahoo-khalessi" | "/ben-mokri";
   photo?: string;
   bio?: string;
-  /**
-   * Recognition shown on the officer's card.
-   *
-   * `source` records where each claim comes from and is NOT rendered. "emc"
-   * means a matching award plaque is published on that officer's EMortgage
-   * Capital profile and was verified there on 2026-08-31. "client" means CTC
-   * asserts it and Jonathan confirmed it on 2026-08-31; it is not evidenced on
-   * the EMC profile, which is expected for a non-EMC award such as Scotsman
-   * Guide. Keep this field accurate: on a licensed mortgage site, knowing which
-   * claims are independently evidenced is the difference between answering a
-   * challenge in seconds and having to go re-research it.
-   */
   awards?: { label: string; detail?: string; source: "emc" | "client" }[];
-  /** EMC certification badges, verified on the officer's EMC profile 2026-08-31. */
   certifications?: string[];
 };
 
-/** Team leads. Rendered side by side, above the rest, at a larger card size. */
 const TEAM_LEADS: TeamMember[] = [
   {
     name: "Ahoo Khalessi",
@@ -64,7 +38,7 @@ const TEAM_LEADS: TeamMember[] = [
     email: "akhalessi@ctcequity.com",
     apply: APPLY_NOW_AHOO,
     emcProfile: EMC_PROFILES.ahoo,
-    // TODO: confirm and update Microsoft Bookings URL.
+    profile: "/ahoo-khalessi",
     booking: "https://bookings.cloud.microsoft/book/AhooKhalessi@emortgagecapital.com/",
     bio: "Started the home equity department at Rocket Mortgage as top producer, then made home equity her wholesale specialty. Places HELOCs and fixed seconds up to $4M. Scotsman Guide Top Originator, EMC Top 5% Loan Officer (2025), top 5% nationally.",
     awards: [
@@ -84,29 +58,15 @@ const TEAM_LEADS: TeamMember[] = [
     phone: "(949) 889-2993",
     email: "bmokri@ctcequity.com",
     apply: "https://benmokri.floify.com/apply-now",
-    // Supplied by Ben in Slack 2026-08-31 and verified the same day: the page
-    // resolves to "Bookings with me - Ben Mokri" and lets a borrower continue as
-    // a guest without a Microsoft sign-in. Note this is a Book With Me link on
-    // the ctcequity.com tenant, not an EMC Bookings page like Ahoo's.
-    booking:
-      "https://outlook.office.com/bookwithme/user/0b254cf5058d47aca6e262954b39337c@ctcequity.com/meetingtype/HQtsLliNK0OeAseDE6etww2?anonymous&ismsaljsauthenabled&ep=mcard",
+    booking: "https://outlook.office.com/bookwithme/user/0b254cf5058d47aca6e262954b39337c@ctcequity.com/meetingtype/HQtsLliNK0OeAseDE6etww2?anonymous&ismsaljsauthenabled&ep=mcard",
     emcProfile: EMC_PROFILES.ben,
-    // Refreshed 2026-08-31 from Ben's own EMC profile bio, condensed into the
-    // third-person house style. The partner detail is retained from the previous
-    // copy; everything else comes from his EMC bio.
-    bio: "Partner at CTC Equity and an Executive Loan Officer, with a background spanning finance, real estate, and architecture. Ben works with clients in all states across mortgages, refinancing, commercial lending, DSCR, and self-employed financing, and focuses on finding workable structures for the scenarios other lenders pass on.",
-    // Ben's Top 5% plaque is published on his EMC profile but had never been
-    // shown anywhere on this site.
+    profile: "/ben-mokri",
+    bio: "Partner at CTC Equity and an Executive Loan Officer, with a background spanning finance, real estate, and architecture. Ben serves borrowers across his licensed states with mortgage, refinancing, commercial, DSCR, and self-employed financing solutions, and focuses on finding workable structures for the scenarios other lenders pass on.",
     awards: [{ label: "EMC Top 5% Loan Officer", source: "emc" }],
     certifications: ["Non-QM", "Challenged Credit", "HELOAN"],
   },
 ];
 
-/**
- * The remaining loan officers, rendered below the leads.
- * Order is Bobby, Susan, Dong-Jin. Susan now precedes Dong-Jin, which is the
- * correction the client confirmed.
- */
 const TEAM_SUPPORT: TeamMember[] = [
   {
     name: "Bobby Khalessi",
@@ -127,13 +87,8 @@ const TEAM_SUPPORT: TeamMember[] = [
     nmls: "NMLS #2302891",
     phone: "(949) 441-6545",
     emcProfile: EMC_PROFILES.susan,
-    // Per the 2026-08-27 call: Susan and James route through Ahoo's application
-    // link so every team card has a congruent "Apply" action.
     apply: APPLY_NOW_AHOO,
-    // Condensed into the third-person house style used by the other cards, from
-    // the facts in Susan's own EMC profile bio. No claim here is invented, but
-    // the wording is ours, so it is worth her sign-off.
-    bio: "A nationally licensed loan officer serving purchases, refinances, investment properties, and equity loans. Susan pairs traditional financing with bank statement, asset depletion, and profit-and-loss options for borrowers across a wide range of income and credit profiles.",
+    bio: "A licensed loan officer serving purchases, refinances, investment properties, and equity loans. Susan pairs traditional financing with bank statement, asset depletion, and profit-and-loss options for borrowers across a wide range of income and credit profiles.",
   },
   {
     name: "Dong-Jin Kim",
@@ -143,19 +98,11 @@ const TEAM_SUPPORT: TeamMember[] = [
     nmls: "NMLS #2615439",
     phone: "(510) 925-5490",
     emcProfile: EMC_PROFILES.dongJin,
-    // Per the 2026-08-27 call: Susan and James route through Ahoo's application
-    // link so every team card has a congruent "Apply" action.
     apply: APPLY_NOW_AHOO,
-    // WRITTEN BY CUANTICO 2026-08-31, not sourced. James's EMC profile has an
-    // empty ABOUT ME section, so unlike Susan's there was nothing to condense.
-    // This asserts only his role, his team, and the product areas CTC already
-    // advertises. It invents no tenure, volume, specialty, or accolade. Replace
-    // it the moment CTC supplies real copy.
-    bio: "A licensed loan officer on the CTC Equity team, working with borrowers nationwide on purchase, refinance, and home equity financing.",
+    bio: "A licensed loan officer on the CTC Equity team, working with borrowers on purchase, refinance, and home equity financing.",
   },
 ];
 
-/** Canonical top-to-bottom render order: Ahoo, Ben, Bobby, Susan, Dong-Jin. */
 const TEAM_ROSTER: TeamMember[] = [...TEAM_LEADS, ...TEAM_SUPPORT];
 const TEAM_URL = "https://ctcequity.com/team";
 
@@ -204,73 +151,30 @@ export function TeamSchema({ title, description }: { title: string; description:
 }
 
 function personId(name: string) {
-  return `${TEAM_URL}#${name
-    .toLowerCase()
-    .replace(/[^a-z0-9]+/g, "-")
-    .replace(/(^-|-$)/g, "")}`;
+  return `${TEAM_URL}#${name.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "")}`;
 }
 
-/**
- * The team roster: two leads in a horizontal row at a larger card size, the
- * remaining three below, then the EMortgage Capital profile strip.
- *
- * At <=900px the global rule in src/styles.css collapses every inline
- * `grid-template-columns` to `1fr`, so both grids stack to a single column and
- * the DOM order above is exactly what a 390px viewport renders, with no
- * horizontal overflow.
- */
 export function TeamMembers() {
   return (
     <>
       <div style={{ display: "grid", gridTemplateColumns: "repeat(2, minmax(0, 1fr))", gap: 24 }}>
-        {TEAM_LEADS.map((m) => (
-          <TeamCard key={m.name} member={m} variant="lead" />
-        ))}
+        {TEAM_LEADS.map((m) => <TeamCard key={m.name} member={m} variant="lead" />)}
       </div>
-      <div
-        style={{
-          display: "grid",
-          gridTemplateColumns: "repeat(3, minmax(0, 1fr))",
-          gap: 20,
-          marginTop: 20,
-        }}
-      >
-        {TEAM_SUPPORT.map((m) => (
-          <TeamCard key={m.name} member={m} variant="member" />
-        ))}
+      <div style={{ display: "grid", gridTemplateColumns: "repeat(3, minmax(0, 1fr))", gap: 20, marginTop: 20 }}>
+        {TEAM_SUPPORT.map((m) => <TeamCard key={m.name} member={m} variant="member" />)}
       </div>
       <TeamEmcStrip />
     </>
   );
 }
 
-/** The "Our team on EMortgage Capital" link strip, ordered off TEAM_ROSTER. */
 function TeamEmcStrip() {
   const linked = TEAM_ROSTER.filter((m) => m.emcProfile);
   return (
-    <div
-      style={{
-        marginTop: 26,
-        fontFamily: "var(--mono)",
-        fontSize: ".76rem",
-        letterSpacing: ".1em",
-        textTransform: "uppercase",
-        color: "var(--muted-ink)",
-        display: "flex",
-        flexWrap: "wrap",
-        gap: "6px 16px",
-        alignItems: "center",
-      }}
-    >
+    <div style={{ marginTop: 26, fontFamily: "var(--mono)", fontSize: ".76rem", letterSpacing: ".1em", textTransform: "uppercase", color: "var(--muted-ink)", display: "flex", flexWrap: "wrap", gap: "6px 16px", alignItems: "center" }}>
       <span>Our team on EMortgage Capital:</span>
       {linked.map((m) => (
-        <a
-          key={m.name}
-          href={m.emcProfile}
-          target="_blank"
-          rel="noopener noreferrer"
-          style={{ color: "var(--cyan)", textDecoration: "none" }}
-        >
+        <a key={m.name} href={m.emcProfile} target="_blank" rel="noopener noreferrer" style={{ color: "var(--cyan)", textDecoration: "none" }}>
           {m.name} ↗
         </a>
       ))}
@@ -278,212 +182,54 @@ function TeamEmcStrip() {
   );
 }
 
-function TeamCard({
-  member,
-  variant = "member",
-}: {
-  member: TeamMember;
-  variant?: "lead" | "member";
-}) {
-  const {
-    name,
-    role,
-    initials,
-    nmls,
-    phone,
-    email,
-    apply,
-    booking,
-    emcProfile,
-    photo,
-    bio,
-    awards,
-    certifications,
-  } = member;
+function TeamCard({ member, variant = "member" }: { member: TeamMember; variant?: "lead" | "member" }) {
+  const { name, role, initials, nmls, phone, email, apply, booking, emcProfile, profile, photo, bio, awards, certifications } = member;
   const isLead = variant === "lead";
   const avatar = isLead ? 88 : 64;
 
   return (
-    <article
-      style={{
-        background: "#fff",
-        border: isLead ? "1px solid var(--tiffany)" : "1px solid var(--line)",
-        borderRadius: 18,
-        padding: isLead ? 32 : 26,
-        display: "flex",
-        flexDirection: "column",
-        gap: 14,
-        boxShadow: isLead ? "0 10px 30px rgba(14,42,61,.08)" : "none",
-      }}
-    >
+    <article style={{ background: "#fff", border: isLead ? "1px solid var(--tiffany)" : "1px solid var(--line)", borderRadius: 18, padding: isLead ? 32 : 26, display: "flex", flexDirection: "column", gap: 14, boxShadow: isLead ? "0 10px 30px rgba(14,42,61,.08)" : "none" }}>
       <div style={{ display: "flex", gap: 16, alignItems: "center" }}>
         {photo ? (
           <picture style={{ display: "block", width: avatar, height: avatar, flex: "none" }}>
             <source srcSet={photo.replace(/\.png$/, ".avif")} type="image/avif" />
             <source srcSet={photo.replace(/\.png$/, ".webp")} type="image/webp" />
-            <img
-              src={photo}
-              alt={`${name} headshot`}
-              width={avatar}
-              height={avatar}
-              loading="lazy"
-              decoding="async"
-              style={{
-                width: avatar,
-                height: avatar,
-                objectFit: "cover",
-                borderRadius: "50%",
-              }}
-            />
+            <img src={photo} alt={`${name} headshot`} width={avatar} height={avatar} loading="lazy" decoding="async" style={{ width: avatar, height: avatar, objectFit: "cover", borderRadius: "50%" }} />
           </picture>
         ) : (
-          <div
-            style={{
-              width: avatar,
-              height: avatar,
-              borderRadius: 14,
-              background: "linear-gradient(135deg,var(--tiffany),var(--teal))",
-              color: "#fff",
-              fontFamily: "var(--display)",
-              fontWeight: 800,
-              fontSize: isLead ? "1.8rem" : "1.4rem",
-              display: "grid",
-              placeItems: "center",
-              flex: "none",
-            }}
-          >
-            {initials}
-          </div>
+          <div style={{ width: avatar, height: avatar, borderRadius: 14, background: "linear-gradient(135deg,var(--tiffany),var(--teal))", color: "#fff", fontFamily: "var(--display)", fontWeight: 800, fontSize: isLead ? "1.8rem" : "1.4rem", display: "grid", placeItems: "center", flex: "none" }}>{initials}</div>
         )}
         <div style={{ minWidth: 0 }}>
-          <h3 style={{ fontFamily: "var(--display)", fontSize: isLead ? "1.6rem" : "1.4rem" }}>
-            {name}
-          </h3>
-          <div
-            style={{ color: "var(--cyan)", fontWeight: 600, fontSize: isLead ? ".95rem" : ".9rem" }}
-          >
-            {role}
-          </div>
+          <h3 style={{ fontFamily: "var(--display)", fontSize: isLead ? "1.6rem" : "1.4rem" }}>{name}</h3>
+          <div style={{ color: "var(--cyan)", fontWeight: 600, fontSize: isLead ? ".95rem" : ".9rem" }}>{role}</div>
         </div>
       </div>
-      {bio && (
-        <p style={{ color: "#33485a", lineHeight: 1.6, fontSize: isLead ? "1rem" : ".95rem" }}>
-          {bio}
-        </p>
-      )}
+      {bio && <p style={{ color: "#33485a", lineHeight: 1.6, fontSize: isLead ? "1rem" : ".95rem" }}>{bio}</p>}
       {awards && awards.length > 0 && (
-        <ul
-          aria-label={`${name} recognition`}
-          style={{ listStyle: "none", margin: 0, padding: 0, display: "grid", gap: 6 }}
-        >
+        <ul aria-label={`${name} recognition`} style={{ listStyle: "none", margin: 0, padding: 0, display: "grid", gap: 6 }}>
           {awards.map((a) => (
-            <li
-              key={a.label}
-              style={{
-                display: "flex",
-                gap: 8,
-                alignItems: "baseline",
-                fontSize: isLead ? ".92rem" : ".88rem",
-                color: "#33485a",
-                lineHeight: 1.45,
-              }}
-            >
-              <span aria-hidden="true" style={{ color: "var(--tiffany)", fontWeight: 700 }}>
-                &#9733;
-              </span>
-              <span>
-                {a.label}
-                {a.detail && (
-                  <span style={{ color: "var(--muted-ink)" }}> &middot; {a.detail}</span>
-                )}
-              </span>
+            <li key={a.label} style={{ display: "flex", gap: 8, alignItems: "baseline", fontSize: isLead ? ".92rem" : ".88rem", color: "#33485a", lineHeight: 1.45 }}>
+              <span aria-hidden="true" style={{ color: "var(--tiffany)", fontWeight: 700 }}>&#9733;</span>
+              <span>{a.label}{a.detail && <span style={{ color: "var(--muted-ink)" }}> &middot; {a.detail}</span>}</span>
             </li>
           ))}
         </ul>
       )}
       {certifications && certifications.length > 0 && (
-        <div
-          aria-label={`${name} certifications`}
-          style={{ display: "flex", flexWrap: "wrap", gap: 6 }}
-        >
-          {certifications.map((c) => (
-            <span
-              key={c}
-              style={{
-                fontFamily: "var(--mono)",
-                fontSize: ".68rem",
-                letterSpacing: ".05em",
-                padding: ".28rem .6rem",
-                borderRadius: 999,
-                border: "1px solid var(--line)",
-                color: "var(--muted-ink)",
-                fontWeight: 600,
-              }}
-            >
-              {c}
-            </span>
-          ))}
+        <div aria-label={`${name} certifications`} style={{ display: "flex", flexWrap: "wrap", gap: 6 }}>
+          {certifications.map((c) => <span key={c} style={{ fontFamily: "var(--mono)", fontSize: ".68rem", letterSpacing: ".05em", padding: ".28rem .6rem", borderRadius: 999, border: "1px solid var(--line)", color: "var(--muted-ink)", fontWeight: 600 }}>{c}</span>)}
         </div>
       )}
-      <div
-        style={{
-          fontFamily: "var(--mono)",
-          fontSize: ".82rem",
-          color: "var(--muted-ink)",
-          overflowWrap: "anywhere",
-        }}
-      >
+      <div style={{ fontFamily: "var(--mono)", fontSize: ".82rem", color: "var(--muted-ink)", overflowWrap: "anywhere" }}>
         {nmls ? `${nmls} · ${phone}` : phone}
-        {email && (
-          <>
-            <br />
-            <a href={`mailto:${email}`} style={{ color: "var(--cyan)" }}>
-              {email}
-            </a>
-          </>
-        )}
+        {email && <><br /><a href={`mailto:${email}`} style={{ color: "var(--cyan)" }}>{email}</a></>}
       </div>
       <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
-        {apply && (
-          <a
-            className="btn btn-primary"
-            href={apply}
-            target="_blank"
-            rel="noopener noreferrer"
-            style={{ padding: ".6rem 1.1rem" }}
-          >
-            Apply with {name.split(" ")[0]}
-          </a>
-        )}
-        {booking && (
-          <a
-            className="btn btn-dark"
-            href={booking}
-            target="_blank"
-            rel="noopener noreferrer"
-            style={{ padding: ".6rem 1.1rem" }}
-          >
-            Book an appointment ↗
-          </a>
-        )}
+        {profile && <Link className="btn btn-dark" to={profile} style={{ padding: ".6rem 1.1rem" }}>View {name.split(" ")[0]}'s profile</Link>}
+        {apply && <a className="btn btn-primary" href={apply} target="_blank" rel="noopener noreferrer" style={{ padding: ".6rem 1.1rem" }}>Apply with {name.split(" ")[0]}</a>}
+        {booking && <a className="btn btn-dark" href={booking} target="_blank" rel="noopener noreferrer" style={{ padding: ".6rem 1.1rem" }}>Book an appointment ↗</a>}
       </div>
-      {emcProfile && (
-        <a
-          href={emcProfile}
-          target="_blank"
-          rel="noopener noreferrer"
-          style={{
-            fontFamily: "var(--mono)",
-            fontSize: ".78rem",
-            letterSpacing: ".1em",
-            textTransform: "uppercase",
-            color: "var(--cyan)",
-            textDecoration: "none",
-          }}
-        >
-          EMC profile &amp; awards ↗
-        </a>
-      )}
+      {emcProfile && <a href={emcProfile} target="_blank" rel="noopener noreferrer" style={{ fontFamily: "var(--mono)", fontSize: ".78rem", letterSpacing: ".1em", textTransform: "uppercase", color: "var(--cyan)", textDecoration: "none" }}>EMC profile &amp; awards ↗</a>}
     </article>
   );
 }
