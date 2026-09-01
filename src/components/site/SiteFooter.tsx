@@ -47,7 +47,7 @@ export function SiteFooter() {
           >
             EMortgage Capital, Inc.
           </a>{" "}
-          &nbsp;·&nbsp; Serving borrowers coast to coast across more than 40 licensed states; based in Santa Ana, CA
+          &nbsp;·&nbsp; Serving residential borrowers through EMortgage Capital's applicable licensed footprint; based in Santa Ana, CA
         </p>
         <p style={{ marginTop: 8 }}>
           Toll-Free: <a href="tel:+18772270477" style={{ color: "var(--tiffany-soft)" }}>(877) 227-0477</a>{" "}
