@@ -2,7 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { LoanPage } from "@/components/site/LoanPage";
 import { Section } from "@/components/site/Prose";
 
-const TITLE = "Nationwide Commercial Real Estate Loans | CTC Equity";
+const TITLE = "Commercial Real Estate Loans | CTC Equity";
 const DESC =
   "Nationwide commercial real estate and business-purpose financing for purchases, refinances, cash-out, multifamily, mixed-use and specialized properties through CTC Equity's lender network.";
 
@@ -24,10 +24,10 @@ function Page() {
   return (
     <LoanPage
       crumb="Commercial Real Estate Loans"
-      h1="Commercial financing that goes beyond traditional guidelines"
+      h1="Commercial real estate loans"
       lede={
         <>
-          <b>More ways to structure the deal.</b> CTC Equity works with borrowers and real-estate
+          <b>Commercial financing that goes beyond traditional guidelines. More ways to structure the deal.</b> CTC Equity works with borrowers and real-estate
           investors nationwide on eligible commercial, investment-property and business-purpose
           financing. Purchase. Refinance. Cash out. Grow.
         </>
