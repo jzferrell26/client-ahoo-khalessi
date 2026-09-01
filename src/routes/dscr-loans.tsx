@@ -2,9 +2,9 @@ import { createFileRoute } from "@tanstack/react-router";
 import { LoanPage } from "@/components/site/LoanPage";
 import { Section, Callout } from "@/components/site/Prose";
 
-const TITLE = "DSCR Loans | Buy Investment Property With No Income Documentation | CTC Equity";
+const TITLE = "Nationwide DSCR Loans | Cash-Out, No-Ratio & Investor Financing | CTC Equity";
 const DESC =
-  "DSCR loans let you purchase or refinance investment property with no income docs — no tax returns, W-2s, or pay stubs. Qualify on the property's rental income. 160+ lenders.";
+  "Nationwide DSCR financing for real estate investors: purchase, refinance, cash-out, no-ratio DSCR, short-term rentals, DSCR seconds and construction options through CTC Equity's lender network.";
 
 export const Route = createFileRoute("/dscr-loans")({
   head: () => ({
@@ -24,64 +24,97 @@ function Page() {
   return (
     <LoanPage
       crumb="DSCR Loans"
-      h1="DSCR loans: buy investment property with no income documentation"
+      h1="DSCR financing built for real estate investors who move fast"
       lede={
         <>
-          A <b>DSCR loan</b> lets you <b>purchase or refinance an investment property with no
-          income documentation at all</b> — no tax returns, no W-2s, no pay stubs. It qualifies on
-          the property's rental income instead of yours, so you can keep buying even if you already
-          own several.
+          Markets change. Your financing should be able to adjust with you. CTC Equity works with
+          real-estate investors nationwide on eligible <b>DSCR purchases, refinances, cash-out,
+          no-ratio DSCR, short-term rentals, DSCR seconds and construction financing</b> through a
+          broad wholesale lender network.
         </>
       }
       chips={[
-        { num: "$0", label: "Income docs to purchase" },
-        { num: "Rent", label: "Qualifies the loan" },
-        { num: "Multiple", label: "Properties OK" },
+        { num: "Nationwide", label: "Investor financing" },
+        { num: "No-Ratio", label: "Options available" },
+        { num: "1st + 2nd", label: "DSCR structures" },
       ]}
       serviceName="DSCR Loan"
-      serviceDescription="Investment property purchase or refinance loan qualified on rental income with no income documentation — no tax returns, W-2s, or pay stubs."
+      serviceDescription="Nationwide investment-property financing including DSCR purchase, refinance, cash-out, no-ratio, short-term-rental, second-lien and construction options, subject to lender and program availability."
       body={
         <>
-          <Section title="Can I buy an investment property without tax returns?">
-            Yes — with a DSCR loan. Qualification is based on whether the property's rent covers the
-            loan payment, not on your personal income. That means no tax returns, no W-2s, no pay
-            stubs, and no employment verification.
+          <Section title="Real estate investors move fast. Their financing should too.">
+            Investors change strategies as markets move. Whether you are buying the next property,
+            holding instead of selling, refinancing, accessing equity, building a rental or protecting
+            a favorable first-mortgage rate, we look for a DSCR structure that fits the investment plan.
           </Section>
-          <Section title="How DSCR qualification works">
-            DSCR stands for Debt Service Coverage Ratio: the property's rental income divided by its
-            total loan payment. A ratio of 1.0 means rent exactly covers the payment; higher is
-            stronger. Many programs allow ratios at or even below 1.0 with the right structure.
+          <Section title="Listed the property for sale and changed your mind?">
+            Maybe the market changed, you decided to keep the property, or you want to access equity
+            for the next opportunity instead of selling. Some DSCR cash-out programs may consider
+            properties that were recently listed and then taken off the market without the lengthy
+            seasoning periods required by many programs. Eligibility and waiting periods vary by lender.
+          </Section>
+          <Section title="Need DSCR cash-out but don't have a renter?">
+            No current tenant does not automatically mean no DSCR options. Depending on the property
+            and program, eligible lenders may use market-rent analysis or another permitted rental-income
+            method instead of requiring an existing tenant or current lease.
+          </Section>
+          <Section title="Your DSCR ratio doesn't work? You may still have options.">
+            A low debt-service-coverage ratio does not always end the transaction. CTC Equity has
+            access to alternative DSCR structures, including eligible <b>No-Ratio DSCR</b> programs
+            where qualification is not based on meeting a traditional minimum DSCR ratio.
             <Callout>
-              <b>The point:</b> the property qualifies itself. Your job, tax returns, and
-              debt-to-income don't gate the loan the way they do on a conventional mortgage.
+              <b>One property. More than one way to finance it.</b> Purchase. Cash out. Build. Hold.
+              Reposition. Keep your first.
             </Callout>
           </Section>
-          <Section title="Who DSCR loans are for">
-            Real estate investors who want to scale without income-documentation hurdles,
-            self-employed buyers whose tax returns understate their income, and anyone purchasing
-            through an LLC. Works for long-term rentals and, with many lenders, short-term rentals.
+          <Section title="Short-term rental DSCR">
+            Airbnb, vacation-rental and other eligible short-term-rental properties may qualify through
+            specialized DSCR programs. The permitted income method depends on the lender, property and
+            market, so we match the scenario to a program designed for the way the property is operated.
           </Section>
-          <Section title="Why CTC Equity for DSCR">
-            DSCR is a core specialty. With 160+ lenders, nationwide and local, we match each
-            property to the lender with the best terms — and structure deals for investors who
-            already own multiple properties.
+          <Section title="DSCR second mortgage: keep the first rate you already have">
+            Need equity but do not want to automatically refinance a favorable first mortgage? Eligible
+            investors may have access to a <b>DSCR second mortgage or investment-property equity
+            solution</b> that allows the existing first lien to remain in place. Availability, lien
+            position and qualification vary by lender and property.
+          </Section>
+          <Section title="DSCR construction: turn land into the next investment property">
+            Already own the land? Depending on the program, eligible land equity may contribute toward
+            the investor's required investment while construction financing helps fund the build. We can
+            help structure the construction phase and identify a path into longer-term DSCR financing
+            after completion, subject to lender requirements.
+          </Section>
+          <Section title="How standard DSCR qualification works">
+            Traditional DSCR programs generally compare the property's qualifying rental income with
+            its required housing payment. They are designed for investment properties and can reduce
+            reliance on traditional personal-income documentation. Exact documentation and ratio
+            requirements vary by lender and program.
+          </Section>
+          <Section title="More lenders. More DSCR structures. More ways to keep your investment moving.">
+            DSCR is a core CTC Equity specialty. We work with investors nationwide on eligible
+            investment-property and business-purpose transactions and search across our lender network
+            for the structure that fits the property and strategy. Residential consumer lending remains
+            subject to applicable state licensing.
           </Section>
         </>
       }
       faq={[
-        { q: "What is a DSCR loan?", a: "An investment-property loan that qualifies on the property's rental income (its debt service coverage ratio) rather than your personal income." },
-        { q: "Can I buy an investment property without tax returns?", a: "Yes. A DSCR loan requires <b>no income documentation</b> — no tax returns, W-2s, or pay stubs — for purchase or refinance." },
-        { q: "What DSCR ratio do I need?", a: "Often around 1.0 (rent covers the payment), though many programs allow lower with the right down payment or structure." },
-        { q: "How many properties can I finance?", a: "There's typically no cap tied to your personal income, so DSCR is how many investors keep buying past the limits of conventional financing." },
-        { q: "Can a first-time investor use a DSCR loan?", a: "Often yes, depending on the lender and down payment. We'll match you to a program that fits." },
-        { q: "Can I close in an LLC?", a: "Yes — DSCR loans are commonly closed in the name of an LLC, which many investors prefer." },
-        { q: "Do short-term rentals qualify?", a: "With many lenders, yes — short-term rental income can be used. The right program depends on the property and market." },
+        { q: "Can I get a DSCR cash-out refinance without a current tenant?", a: "Potentially. Some eligible programs may use market rent or another permitted rental-income method rather than requiring an existing tenant or lease. Requirements vary by lender." },
+        { q: "Can I refinance with DSCR after listing my property for sale?", a: "Some DSCR programs may consider a property that was recently listed and then taken off the market. Listing and seasoning requirements vary by lender, so we review the timing and property before selecting a program." },
+        { q: "What if my DSCR ratio is too low?", a: "You may still have options. Alternative structures, including eligible no-ratio DSCR programs, may be available when a traditional DSCR ratio does not work." },
+        { q: "Can I get a DSCR second mortgage and keep my first loan?", a: "Eligible investors may have access to second-lien DSCR or investment-property equity solutions that leave the existing first mortgage in place. Program availability varies." },
+        { q: "Do short-term rentals and Airbnb properties qualify for DSCR?", a: "They may. Specialized programs can consider eligible short-term and vacation rentals, with the permitted income method depending on the lender, property and market." },
+        { q: "Can I use land equity for DSCR construction financing?", a: "Depending on the construction program, eligible land equity may contribute toward the required investment. The construction loan and transition to permanent DSCR financing are subject to lender and project requirements." },
+        { q: "Do you offer DSCR loans nationwide?", a: "CTC Equity works with real-estate investors nationwide on eligible DSCR, investment-property and business-purpose financing through participating lenders. Residential consumer lending is subject to applicable state licensing." },
+        { q: "Can I close a DSCR loan in an LLC?", a: "Many DSCR programs permit eligible investment-property transactions to close in an LLC. Entity and guarantor requirements vary by lender." },
       ]}
       related={[
-        { to: "/heloc", label: "HELOC" },
-        { to: "/fixed-second-mortgage", label: "Fixed Second Mortgage" },
-        { to: "/mortgage-analyzer", label: "Mortgage Analyzer" },
-        { to: "/faq", label: "All FAQs" },
+        { to: "/commercial-loans", label: "Commercial Loans" },
+        { to: "/fix-and-hold-loans", label: "Fix-and-Hold Loans" },
+        { to: "/multifamily-loans", label: "Multifamily Loans" },
+        { to: "/business-purpose-bridge-loans", label: "Business-Purpose Bridge Loans" },
+        { to: "/heloc", label: "Home Equity Options" },
+        { to: "/get-my-options", label: "Get My Options" },
       ]}
     />
   );
