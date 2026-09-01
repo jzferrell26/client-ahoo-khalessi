@@ -14,11 +14,12 @@ const STATIC: Entry[] = [
   { path: "/heloc", changefreq: "monthly", priority: "0.9" },
   { path: "/million-dollar-heloc", lastmod: NEW_LASTMOD, changefreq: "monthly", priority: "0.9" },
   { path: "/fixed-second-mortgage", changefreq: "monthly", priority: "0.9" },
-  { path: "/dscr-loans", changefreq: "monthly", priority: "0.9" },
+  { path: "/dscr-loans", lastmod: NEW_LASTMOD, changefreq: "monthly", priority: "0.9" },
+  { path: "/nationwide-investment-property-loans", lastmod: NEW_LASTMOD, changefreq: "monthly", priority: "0.9" },
   { path: "/bank-statement-loans", changefreq: "monthly", priority: "0.8" },
   { path: "/pnl-loans", changefreq: "monthly", priority: "0.7" },
   { path: "/reverse-mortgages", changefreq: "monthly", priority: "0.7" },
-  { path: "/commercial-loans", changefreq: "monthly", priority: "0.8" },
+  { path: "/commercial-loans", lastmod: NEW_LASTMOD, changefreq: "monthly", priority: "0.9" },
   { path: "/business-purpose-bridge-loans", lastmod: NEW_LASTMOD, changefreq: "monthly", priority: "0.8" },
   { path: "/equity-based-loans-low-credit", lastmod: NEW_LASTMOD, changefreq: "monthly", priority: "0.8" },
   { path: "/fix-and-hold-loans", lastmod: NEW_LASTMOD, changefreq: "monthly", priority: "0.8" },
@@ -26,6 +27,8 @@ const STATIC: Entry[] = [
   { path: "/multifamily-loans", lastmod: NEW_LASTMOD, changefreq: "monthly", priority: "0.8" },
   { path: "/mixed-use-property-loans", lastmod: NEW_LASTMOD, changefreq: "monthly", priority: "0.7" },
   { path: "/large-balance-commercial-loans", lastmod: NEW_LASTMOD, changefreq: "monthly", priority: "0.7" },
+  { path: "/jumbo-loans", lastmod: NEW_LASTMOD, changefreq: "monthly", priority: "0.8" },
+  { path: "/non-qm-jumbo-loans", lastmod: NEW_LASTMOD, changefreq: "monthly", priority: "0.8" },
   { path: "/ahoo-khalessi", lastmod: NEW_LASTMOD, changefreq: "monthly", priority: "0.8" },
   { path: "/ben-mokri", lastmod: NEW_LASTMOD, changefreq: "monthly", priority: "0.8" },
   { path: "/reviews", lastmod: NEW_LASTMOD, changefreq: "monthly", priority: "0.7" },
@@ -45,36 +48,10 @@ export const Route = createFileRoute("/sitemap.xml")({
   server: {
     handlers: {
       GET: async () => {
-        const entries: Entry[] = [
-          ...STATIC,
-          ...POSTS.map((p) => ({ path: `/blog/${p.slug}`, changefreq: "monthly", priority: "0.7" })),
-        ];
-        const urls = entries
-          .map((e) =>
-            [
-              "  <url>",
-              `    <loc>${BASE_URL}${e.path}</loc>`,
-              `    <lastmod>${e.lastmod ?? DEFAULT_LASTMOD}</lastmod>`,
-              e.changefreq ? `    <changefreq>${e.changefreq}</changefreq>` : null,
-              e.priority ? `    <priority>${e.priority}</priority>` : null,
-              "  </url>",
-            ]
-              .filter(Boolean)
-              .join("\n"),
-          )
-          .join("\n");
-        const xml = [
-          '<?xml version="1.0" encoding="UTF-8"?>',
-          '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">',
-          urls,
-          "</urlset>",
-        ].join("\n");
-        return new Response(xml, {
-          headers: {
-            "Content-Type": "application/xml",
-            "Cache-Control": "public, max-age=3600",
-          },
-        });
+        const entries: Entry[] = [...STATIC, ...POSTS.map((p) => ({ path: `/blog/${p.slug}`, changefreq: "monthly", priority: "0.7" }))];
+        const urls = entries.map((e) => ["  <url>", `    <loc>${BASE_URL}${e.path}</loc>`, `    <lastmod>${e.lastmod ?? DEFAULT_LASTMOD}</lastmod>`, e.changefreq ? `    <changefreq>${e.changefreq}</changefreq>` : null, e.priority ? `    <priority>${e.priority}</priority>` : null, "  </url>"].filter(Boolean).join("\n")).join("\n");
+        const xml = ['<?xml version="1.0" encoding="UTF-8"?>', '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">', urls, "</urlset>"].join("\n");
+        return new Response(xml, { headers: { "Content-Type": "application/xml", "Cache-Control": "public, max-age=3600" } });
       },
     },
   },
