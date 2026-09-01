@@ -82,6 +82,7 @@ const TEAM_SUPPORT: TeamMember[] = [
     phone: "(949) 413-9332",
     bio: "An analytical wholesale loan officer who compares a wide lender network for each scenario. Bobby focuses on careful loan structure, long-term portfolio planning, and keeping borrowers' options open from application through closing.",
     apply: APPLY_NOW_AHOO,
+    booking: "#",
     certifications: ["Conventional"],
   },
 ];
@@ -243,7 +244,7 @@ function TeamCard({ member, variant = "member" }: { member: TeamMember; variant?
       <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
         {profile && <Link className="btn btn-dark" to={profile} style={{ padding: ".6rem 1.1rem" }}>View {name.split(" ")[0]}'s profile</Link>}
         {apply && <a className="btn btn-primary" href={apply} target="_blank" rel="noopener noreferrer" style={{ padding: ".6rem 1.1rem" }}>Apply with {name.split(" ")[0]}</a>}
-        {booking && <a className="btn btn-dark" href={booking} target="_blank" rel="noopener noreferrer" style={{ padding: ".6rem 1.1rem" }}>Book an appointment ↗</a>}
+        {booking && <a className="btn btn-dark" href={booking} target={booking === "#" ? undefined : "_blank"} rel={booking === "#" ? undefined : "noopener noreferrer"} aria-disabled={booking === "#" ? true : undefined} onClick={booking === "#" ? (event) => event.preventDefault() : undefined} style={{ padding: ".6rem 1.1rem", cursor: booking === "#" ? "default" : undefined }}>Book an appointment ↗</a>}
       </div>
       {emcProfile && <a href={emcProfile} target="_blank" rel="noopener noreferrer" style={{ fontFamily: "var(--mono)", fontSize: ".78rem", letterSpacing: ".1em", textTransform: "uppercase", color: "var(--cyan)", textDecoration: "none" }}>EMC profile &amp; awards ↗</a>}
     </article>
