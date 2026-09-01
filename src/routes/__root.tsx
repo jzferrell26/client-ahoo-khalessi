@@ -11,6 +11,7 @@ import { useEffect, type ReactNode } from "react";
 
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
+import { MobileConversionBar } from "../components/site/MobileConversionBar";
 
 function NotFoundComponent() {
   return (
@@ -151,6 +152,7 @@ function RootShell({ children }: { children: ReactNode }) {
       </head>
       <body>
         {children}
+        <MobileConversionBar />
         <Scripts />
       </body>
     </html>
@@ -164,14 +166,14 @@ const ROOT_ORG_SCHEMA = {
   name: "CTC Equity",
   alternateName: "Coast to Coast Equity",
   description:
-    "Nationwide mortgage brokerage based in Orange County, CA with access to 160+ lenders, specializing in HELOCs, fixed second mortgages, DSCR investment loans, and bank statement / P&L loans for self-employed borrowers.",
+    "Mortgage brokerage based in Santa Ana, Orange County, CA, serving borrowers coast to coast across more than 40 licensed states with access to 160+ lenders and specialties including HELOCs, fixed second mortgages, DSCR investment loans, and bank statement / P&L loans for self-employed borrowers.",
   url: "https://ctcequity.com",
   telephone: "+1-949-877-7234",
   email: "akhalessi@ctcequity.com",
   address: {
     "@type": "PostalAddress",
     streetAddress: "3750 S Susan St",
-    addressLocality: "Orange County",
+    addressLocality: "Santa Ana",
     addressRegion: "CA",
     postalCode: "92704",
     addressCountry: "US",
@@ -179,7 +181,7 @@ const ROOT_ORG_SCHEMA = {
   geo: { "@type": "GeoCoordinates", latitude: "33.7100", longitude: "-117.9100" },
   parentOrganization: { "@type": "Organization", name: "EMortgage Capital, Inc." },
   areaServed: [
-    { "@type": "Country", name: "United States" },
+    { "@type": "AdministrativeArea", name: "More than 40 licensed U.S. states" },
     { "@type": "AdministrativeArea", name: "Orange County, California" },
   ],
   knowsAbout: [
