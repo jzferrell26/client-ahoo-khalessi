@@ -2,7 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { LoanPage } from "@/components/site/LoanPage";
 import { Section, Callout } from "@/components/site/Prose";
 
-const TITLE = "Nationwide DSCR Loans | Cash-Out, No-Ratio & Investor Financing | CTC Equity";
+const TITLE = "DSCR Loans | Buy Investment Property With No Income Documentation | CTC Equity";
 const DESC =
   "Nationwide DSCR financing for real estate investors: purchase, refinance, cash-out, no-ratio DSCR, short-term rentals, DSCR seconds and construction options through CTC Equity's lender network.";
 
@@ -24,10 +24,10 @@ function Page() {
   return (
     <LoanPage
       crumb="DSCR Loans"
-      h1="DSCR financing built for real estate investors who move fast"
+      h1="DSCR loans: buy investment property with no income documentation"
       lede={
         <>
-          Markets change. Your financing should be able to adjust with you. CTC Equity works with
+          <b>DSCR financing built for real estate investors who move fast.</b> Markets change. Your financing should be able to adjust with you. CTC Equity works with
           real-estate investors nationwide on eligible <b>DSCR purchases, refinances, cash-out,
           no-ratio DSCR, short-term rentals, DSCR seconds and construction financing</b> through a
           broad wholesale lender network.
