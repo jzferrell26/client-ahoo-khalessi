@@ -2,13 +2,21 @@ import { Link } from "@tanstack/react-router";
 
 const FOOTER_LINKS = [
   { to: "/heloc", label: "HELOC" },
+  { to: "/million-dollar-heloc", label: "Million-Dollar HELOC" },
   { to: "/fixed-second-mortgage", label: "Fixed Second" },
   { to: "/dscr-loans", label: "DSCR" },
+  { to: "/nationwide-investment-property-loans", label: "Investor Loans" },
   { to: "/bank-statement-loans", label: "Bank Statement" },
   { to: "/pnl-loans", label: "P&L" },
+  { to: "/jumbo-loans", label: "Jumbo" },
+  { to: "/non-qm-jumbo-loans", label: "Non-QM Jumbo" },
   { to: "/reverse-mortgages", label: "Reverse" },
+  { to: "/business-purpose-bridge-loans", label: "Bridge" },
   { to: "/commercial-loans", label: "Commercial" },
   { to: "/mortgage-analyzer", label: "Analyzer" },
+  { to: "/team", label: "Team" },
+  { to: "/reviews", label: "Reviews" },
+  { to: "/awards-accomplishments", label: "Awards" },
   { to: "/blog", label: "Blog" },
   { to: "/faq", label: "FAQ" },
   { to: "/privacy", label: "Privacy & SMS" },
@@ -39,15 +47,16 @@ export function SiteFooter() {
           >
             EMortgage Capital, Inc.
           </a>{" "}
-          &nbsp;·&nbsp; Nationwide lending, based in Orange County, CA
+          &nbsp;·&nbsp; Serving residential borrowers through EMortgage Capital's applicable licensed footprint; based in Santa Ana, CA
         </p>
         <p style={{ marginTop: 8 }}>
-          <a href="tel:+19498777234" style={{ color: "var(--tiffany-soft)" }}>(949) 877-7234</a>{" "}
+          Toll-Free: <a href="tel:+18772270477" style={{ color: "var(--tiffany-soft)" }}>(877) 227-0477</a>{" "}
+          &nbsp;·&nbsp; Ahoo: <a href="tel:+19498777234" style={{ color: "var(--tiffany-soft)" }}>(949) 877-7234</a>{" "}
           &nbsp;·&nbsp;{" "}
           <a href="mailto:akhalessi@ctcequity.com" style={{ color: "var(--tiffany-soft)" }}>
             akhalessi@ctcequity.com
           </a>{" "}
-          &nbsp;·&nbsp; 3750 S Susan St, Orange County, CA 92704
+          &nbsp;·&nbsp; 3750 S Susan St, Santa Ana, CA 92704
         </p>
         <p style={{ marginTop: 14, display: "flex", flexWrap: "wrap", gap: "6px 10px" }}>
           {FOOTER_LINKS.map((l, i) => (
@@ -84,7 +93,7 @@ export function SiteFooter() {
           >
             EMC's Licensing and Disclosures
           </a>
-          . This is not a commitment to lend. All loans subject to credit approval, lender
+          . Eligible DSCR, commercial, investment-property, bridge and business-purpose financing may be available nationwide through participating lenders; residential consumer lending remains subject to applicable licensing. This is not a commitment to lend. All loans subject to credit approval, lender
           guidelines, and property qualification. Rates and program availability vary and are
           subject to change. Verify licensing at{" "}
           <a
