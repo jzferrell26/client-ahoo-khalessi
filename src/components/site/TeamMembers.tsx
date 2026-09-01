@@ -3,11 +3,10 @@ import { JsonLd } from "@/components/site/JsonLd";
 import { APPLY_NOW_AHOO } from "@/components/site/SiteNav";
 
 const EMC_SITE = "https://www.emortgagecapital.com";
+const CTC_OFFICE_PHONE = "(877) 227-0477";
 const EMC_PROFILES = {
   ahoo: `${EMC_SITE}/team/Ahoo-Khalessi-3928`,
   ben: `${EMC_SITE}/team/Ben-Mokri-4026?UserId=005Pm00000958z3IAA`,
-  dongJin: `${EMC_SITE}/team/Dong-Jin-Kim-4233?UserId=005Pm000008swaHIAQ`,
-  susan: `${EMC_SITE}/team/Susan-ODonovan-5067?UserId=005Pm000009YufJIAS`,
 };
 
 export type TeamMember = {
@@ -25,6 +24,12 @@ export type TeamMember = {
   bio?: string;
   awards?: { label: string; detail?: string; source: "emc" | "client" }[];
   certifications?: string[];
+};
+
+type VisualOnlyMember = {
+  name: string;
+  role: string;
+  photo: string;
 };
 
 const TEAM_LEADS: TeamMember[] = [
@@ -61,7 +66,7 @@ const TEAM_LEADS: TeamMember[] = [
     booking: "https://outlook.office.com/bookwithme/user/0b254cf5058d47aca6e262954b39337c@ctcequity.com/meetingtype/HQtsLliNK0OeAseDE6etww2?anonymous&ismsaljsauthenabled&ep=mcard",
     emcProfile: EMC_PROFILES.ben,
     profile: "/ben-mokri",
-    bio: "Partner at CTC Equity and an Executive Loan Officer, with a background spanning finance, real estate, and architecture. Ben serves borrowers across his licensed states with mortgage, refinancing, commercial, DSCR, and self-employed financing solutions, and focuses on finding workable structures for the scenarios other lenders pass on.",
+    bio: "Partner at CTC Equity and an Executive Loan Officer, with a background spanning finance, real estate, and architecture. Ben serves residential borrowers across his licensed states and works with real-estate investors nationwide on eligible DSCR, investment-property, commercial, and business-purpose financing through CTC Equity's lender network.",
     awards: [{ label: "EMC Top 5% Loan Officer", source: "emc" }],
     certifications: ["Non-QM", "Challenged Credit", "HELOAN"],
   },
@@ -79,28 +84,11 @@ const TEAM_SUPPORT: TeamMember[] = [
     apply: APPLY_NOW_AHOO,
     certifications: ["Conventional"],
   },
-  {
-    name: "Susan O'Donovan",
-    role: "Loan Officer",
-    initials: "SO",
-    photo: "/team/susan.png",
-    nmls: "NMLS #2302891",
-    phone: "(949) 441-6545",
-    emcProfile: EMC_PROFILES.susan,
-    apply: APPLY_NOW_AHOO,
-    bio: "A licensed loan officer serving purchases, refinances, investment properties, and equity loans. Susan pairs traditional financing with bank statement, asset depletion, and profit-and-loss options for borrowers across a wide range of income and credit profiles.",
-  },
-  {
-    name: "Dong-Jin Kim",
-    role: "Loan Officer",
-    initials: "DK",
-    photo: "/team/dong-jin.png",
-    nmls: "NMLS #2615439",
-    phone: "(510) 925-5490",
-    emcProfile: EMC_PROFILES.dongJin,
-    apply: APPLY_NOW_AHOO,
-    bio: "A licensed loan officer on the CTC Equity team, working with borrowers on purchase, refinance, and home equity financing.",
-  },
+];
+
+const VISUAL_ONLY_TEAM: VisualOnlyMember[] = [
+  { name: "Susan O'Donovan", role: "Loan Officer", photo: "/team/susan.png" },
+  { name: "Dong-Jin Kim", role: "Loan Officer", photo: "/team/dong-jin.png" },
 ];
 
 const TEAM_ROSTER: TeamMember[] = [...TEAM_LEADS, ...TEAM_SUPPORT];
@@ -160,8 +148,11 @@ export function TeamMembers() {
       <div style={{ display: "grid", gridTemplateColumns: "repeat(2, minmax(0, 1fr))", gap: 24 }}>
         {TEAM_LEADS.map((m) => <TeamCard key={m.name} member={m} variant="lead" />)}
       </div>
-      <div style={{ display: "grid", gridTemplateColumns: "repeat(3, minmax(0, 1fr))", gap: 20, marginTop: 20 }}>
+      <div style={{ display: "grid", gridTemplateColumns: "repeat(1, minmax(0, 1fr))", gap: 20, marginTop: 20 }}>
         {TEAM_SUPPORT.map((m) => <TeamCard key={m.name} member={m} variant="member" />)}
+      </div>
+      <div style={{ display: "grid", gridTemplateColumns: "repeat(2, minmax(0, 1fr))", gap: 16, marginTop: 20 }}>
+        {VISUAL_ONLY_TEAM.map((m) => <VisualOnlyCard key={m.name} member={m} />)}
       </div>
       <TeamEmcStrip />
     </>
@@ -179,6 +170,31 @@ function TeamEmcStrip() {
         </a>
       ))}
     </div>
+  );
+}
+
+function VisualOnlyCard({ member }: { member: VisualOnlyMember }) {
+  return (
+    <article style={{ background: "#fff", border: "1px solid var(--line)", borderRadius: 16, padding: 20, display: "flex", flexDirection: "column", gap: 12 }}>
+      <div style={{ display: "flex", gap: 14, alignItems: "center" }}>
+        <picture style={{ display: "block", width: 56, height: 56, flex: "none" }}>
+          <source srcSet={member.photo.replace(/\.png$/, ".avif")} type="image/avif" />
+          <source srcSet={member.photo.replace(/\.png$/, ".webp")} type="image/webp" />
+          <img src={member.photo} alt={`${member.name} headshot`} width={56} height={56} loading="lazy" decoding="async" style={{ width: 56, height: 56, objectFit: "cover", borderRadius: "50%" }} />
+        </picture>
+        <div>
+          <h3 style={{ fontFamily: "var(--display)", fontSize: "1.18rem" }}>{member.name}</h3>
+          <div style={{ color: "var(--cyan)", fontWeight: 600, fontSize: ".88rem" }}>{member.role}</div>
+        </div>
+      </div>
+      <div style={{ fontFamily: "var(--mono)", fontSize: ".8rem", color: "var(--muted-ink)" }}>
+        CTC Equity office · <a href="tel:+18772270477" style={{ color: "var(--cyan)" }}>{CTC_OFFICE_PHONE}</a>
+      </div>
+      <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
+        <a className="btn btn-primary" href={APPLY_NOW_AHOO} target="_blank" rel="noopener noreferrer" style={{ padding: ".55rem 1rem" }}>Apply now</a>
+        <Link className="btn btn-dark" to="/get-my-options" style={{ padding: ".55rem 1rem" }}>Get My Options</Link>
+      </div>
+    </article>
   );
 }
 
